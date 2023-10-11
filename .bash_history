@@ -10,3 +10,7 @@ cd ..
 make all
 ./run.sh 
 exit
+ls
+cd 
+ls
+exit
