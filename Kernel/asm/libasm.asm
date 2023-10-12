@@ -58,5 +58,7 @@ getKeyPressed:
 	mov rax, 0
 	in al, 0x60
 
+	movzx eax, al
+
 	leave
 	ret

@@ -3,6 +3,7 @@
 #include <lib.h>
 #include <moduleLoader.h>
 #include <naiveConsole.h>
+#include <keyboard.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -36,9 +37,6 @@ void * getStackBase()
 void * initializeKernelBinary()
 {
 	char buffer[10];
-
-	ncPrint("[x64BareBones]");
-	ncNewline();
 
 	ncPrint("CPU Vendor:");
 	ncPrint(cpuVendor(buffer));
@@ -76,7 +74,6 @@ void * initializeKernelBinary()
 
 	ncPrint("[Done]");
 	ncNewline();
-	ncNewline();
 
 	for (int i = 0; i < 250; i++) {
 		ncPrintColor("a", i, 250-i);
@@ -89,19 +86,7 @@ void * initializeKernelBinary()
 	getTime();
 	// ncPrintDec(getSeconds());
     ncNewline();
-	int i = 0;
-	while (isKeyboardActive()) {
-		// ncPrintChar(getKeyPressed());
-		char c = (char) getKeyPressed();
-		ncPrint(c);
-		ncPrint("Detecto tecla");
-	
-		ncPrint(i++);
-		ncClear();
-	}
 
-    ncNewline();
-    ncPrint("Arquitectura de Computadoras.");
     ncNewline();
 
 	return getStackBase();
@@ -109,22 +94,29 @@ void * initializeKernelBinary()
 
 int main()
 {	
-	ncPrint("[Kernel Main]");
-	ncNewline();
-	ncPrint("  Sample code module at 0x");
-	ncPrintHex((uint64_t)sampleCodeModuleAddress);
-	ncNewline();
-	ncPrint("  Calling the sample code module returned: ");
-	ncPrintHex(((EntryPoint)sampleCodeModuleAddress)());
-	ncNewline();
-	ncNewline();
+	setBgColor(0x00);
+	setFgColor(0xFF);
+	ncClear();
+	// ncPrint("[Kernel Main]");
+	// ncNewline();
+	// ncPrint("  Sample code module at 0x");
+	// ncPrintHex((uint64_t)sampleCodeModuleAddress);
+	// ncNewline();
+	// ncPrint("  Calling the sample code module returned: ");
+	// ncPrintHex(((EntryPoint)sampleCodeModuleAddress)());
+	// ncNewline();
+	// ncNewline();
 
-	ncPrint("  Sample data module at 0x");
-	ncPrintHex((uint64_t)sampleDataModuleAddress);
+	// ncPrint("  Sample data module at 0x");
+	// ncPrintHex((uint64_t)sampleDataModuleAddress);
+	// ncNewline();
+	// ncPrint("  Sample data module contents: ");
+	// ncPrint((char*)sampleDataModuleAddress);
+	// ncNewline();
 	ncNewline();
-	ncPrint("  Sample data module contents: ");
-	ncPrint((char*)sampleDataModuleAddress);
-	ncNewline();
+	// putKey();
+
+
 
 	ncPrint("[Finished]");
 	return 0;

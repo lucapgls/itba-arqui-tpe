@@ -83,8 +83,10 @@ void ncClear()
 {
 	int i;
 
-	for (i = 0; i < height * width; i++)
+	for (i = 0; i < height * width; i++) {
 		video[i * 2] = ' ';
+		video[i * 2 + 1] = defaultBgColor;
+	}
 	currentVideo = video;
 }
 
