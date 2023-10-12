@@ -77,6 +77,14 @@ void * initializeKernelBinary()
 	ncPrint("[Done]");
 	ncNewline();
 	ncNewline();
+
+	for (int i = 0; i < 250; i++) {
+		ncPrintColor("a", i, 250-i);
+	}
+	ncPrintHex(0xffffff);
+    ncPrint("Arquitectura de Computadoras.");
+    ncNewline();
+
 	return getStackBase();
 }
 
