@@ -13,5 +13,7 @@ void ncPrintHex(uint64_t value);
 void ncPrintBin(uint64_t value);
 void ncPrintBase(uint64_t value, uint32_t base);
 void ncClear();
+void setBgColor(uint8_t newBgColor);
+void setFgColor(uint8_t newFgColor);
 
 #endif

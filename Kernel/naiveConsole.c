@@ -25,6 +25,15 @@ void ncPrint(const char * string)
 	ncPrintColor(string, defaultFgColor, defaultBgColor);
 }
 
+
+void setBgColor(uint8_t newBgColor){
+	defaultBgColor = newBgColor;
+}
+
+void setFgColor(uint8_t newFgColor){
+	defaultFgColor = newFgColor;
+}
+
 void ncPrintCharColor(char character, uint8_t fgColor, uint8_t bgColor)
 {
 	*currentVideo = character;

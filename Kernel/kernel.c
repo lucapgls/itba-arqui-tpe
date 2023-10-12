@@ -82,6 +82,10 @@ void * initializeKernelBinary()
 		ncPrintColor("a", i, 250-i);
 	}
     ncNewline();
+
+	setBgColor(0xFF);
+	setFgColor(0x00);
+
 	getTime();
 	// ncPrintDec(getSeconds());
     ncNewline();
