@@ -6,7 +6,7 @@ static char buffer[64] = { '0' };
 static uint8_t * const video = (uint8_t*)0xB8000;
 static uint8_t * currentVideo = (uint8_t*)0xB8000;
 static const uint32_t width = 80;
-static const uint32_t height = 25 ;
+static const uint32_t height = 25;
 static uint8_t defaultFgColor = 0xFF;
 static uint8_t defaultBgColor = 0x00;
 
@@ -15,19 +15,14 @@ void ncPrintColor(const char * string, const uint8_t fgColor, const uint8_t bgCo
 {
 	int i;
 
-	for (i = 0; string[i] != 0; i++) {
+	for (i = 0; string[i] != 0; i++)
 		ncPrintCharColor(string[i], fgColor, bgColor);
-
-	}
 }
 
 
 void ncPrint(const char * string)
 {
-	int i;
-
-	for (i = 0; string[i] != 0; i++)
-		ncPrintCharColor(string[i], defaultFgColor, defaultBgColor);
+	ncPrintColor(string, defaultFgColor, defaultBgColor);
 }
 
 void ncPrintCharColor(char character, uint8_t fgColor, uint8_t bgColor)

@@ -81,7 +81,22 @@ void * initializeKernelBinary()
 	for (int i = 0; i < 250; i++) {
 		ncPrintColor("a", i, 250-i);
 	}
-	ncPrintHex(0xffffff);
+    ncNewline();
+	getTime();
+	// ncPrintDec(getSeconds());
+    ncNewline();
+	int i = 0;
+	while (isKeyboardActive()) {
+		// ncPrintChar(getKeyPressed());
+		char c = (char) getKeyPressed();
+		ncPrint(c);
+		ncPrint("Detecto tecla");
+	
+		ncPrint(i++);
+		ncClear();
+	}
+
+    ncNewline();
     ncPrint("Arquitectura de Computadoras.");
     ncNewline();
 
