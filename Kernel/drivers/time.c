@@ -7,10 +7,9 @@ static unsigned long ticks = 0;
 void timer_handler() {
     ticks++;
 
-    if(ticks %(5*18)==0){
-		ncPrint("5 seconds have passed");
-		ncNewline();
-	}
+    if (ticks % (5 * 18) == 0) {
+        ncPrint("5 seconds have passed\n");
+    }
 }
 
 uint64_t seconds_elapsed() {

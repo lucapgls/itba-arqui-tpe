@@ -10,7 +10,6 @@ static const uint32_t height = 25;
 static uint8_t defaultFgColor = 0xFF;
 static uint8_t defaultBgColor = 0x00;
 
-/* Ejercicio1: print w color */
 void ncPrintColor(const char * string, const uint8_t fgColor, const uint8_t bgColor)
 {
 	int i;

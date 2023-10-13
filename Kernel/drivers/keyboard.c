@@ -115,7 +115,7 @@ void putKey(uint8_t key)
     // temp
     if (key > 2 && key < 250)
     {
-        ncPrintChar(key);
+        // ncPrintChar(key);
         return;
     }
 
