@@ -1,19 +1,26 @@
 include Makefile.inc
 
 KERNEL=kernel.bin
-SOURCES=$(wildcard *.c)
-SOURCES_ASM=$(wildcard asm/*.asm)
-OBJECTS=$(SOURCES:.c=.o)
-OBJECTS_ASM=$(SOURCES_ASM:.asm=.o)
-LOADERSRC=loader.asm
+# KERNEL_ELF=$(KERNEL:.bin=.elf)
 
-LOADEROBJECT=$(LOADERSRC:.asm=.o)
+SOURCES=$(wildcard *.c)
+SOURCES_DRIVERS=$(wildcard drivers/*.c)
+SOURCES_IDT=$(wildcard idt/*.c)
+SOURCES_ASM=$(wildcard asm/*.asm)
+
+OBJECTS=$(SOURCES:.c=.o)
+OBJECTS_DRIVERS=$(SOURCES_DRIVERS:.c=.o)
+OBJECTS_IDT=$(SOURCES_IDT:.c=.o)
+OBJECTS_ASM=$(SOURCES_ASM:.asm=.o)
+
+LOADERSRC=loader.asm
+LOADEROBJ=$(LOADERSRC:.asm=.o)
 STATICLIBS=
 
 all: $(KERNEL)
 
-$(KERNEL): $(LOADEROBJECT) $(OBJECTS) $(STATICLIBS) $(OBJECTS_ASM)
-	$(LD) $(LDFLAGS) -T kernel.ld -o $(KERNEL) $(LOADEROBJECT) $(OBJECTS) $(OBJECTS_ASM) $(STATICLIBS)
+$(KERNEL): $(LOADEROBJ) $(STATICLIBS) $(OBJECTS) $(OBJECTS_DRIVERS) $(OBJECTS_IDT) $(OBJECTS_ASM)
+	$(LD) $(LDFLAGS) -T kernel.ld -o $(KERNEL) $(LOADEROBJ) $(STATICLIBS) $(OBJECTS) $(OBJECTS_DRIVERS) $(OBJECTS_IDT) $(OBJECTS_ASM)
 
 %.o: %.c
 	$(GCC) $(GCCFLAGS) -I./include -c $< -o $@
@@ -21,10 +28,10 @@ $(KERNEL): $(LOADEROBJECT) $(OBJECTS) $(STATICLIBS) $(OBJECTS_ASM)
 %.o : %.asm
 	$(ASM) $(ASMFLAGS) $< -o $@
 
-$(LOADEROBJECT):
-	$(ASM) $(ASMFLAGS) $(LOADERSRC) -o $(LOADEROBJECT)
+$(LOADEROBJ):
+	$(ASM) $(ASMFLAGS) $(LOADERSRC) -o $(LOADEROBJ)
 
 clean:
-	rm -rf asm/*.o *.o *.bin
+	rm -rf *.bin *.elf *.o drivers/*.o idt/*.o libasm/*.o libc/*.o
 
 .PHONY: all clean

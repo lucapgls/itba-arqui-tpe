@@ -4,6 +4,8 @@
 #include <moduleLoader.h>
 #include <naiveConsole.h>
 #include <keyboard.h>
+#include <time.h>
+#include <idtLoader.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -80,9 +82,6 @@ void * initializeKernelBinary()
 	}
     ncNewline();
 
-	setBgColor(0xFF);
-	setFgColor(0x00);
-
 	getTime();
 	// ncPrintDec(getSeconds());
     ncNewline();
@@ -94,8 +93,9 @@ void * initializeKernelBinary()
 
 int main()
 {	
-	setBgColor(0x00);
-	setFgColor(0xFF);
+
+	idt_loader();
+	ncPrintDec(seconds_elapsed());
 	// ncClear();
 
 	ncNewline();
