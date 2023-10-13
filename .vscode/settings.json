@@ -4,6 +4,7 @@
         "keyboard.h": "c",
         "stdint.h": "c",
         "stdio.h": "c",
-        "syscalls.h": "c"
+        "syscalls.h": "c",
+        "font.h": "c"
     }
 }

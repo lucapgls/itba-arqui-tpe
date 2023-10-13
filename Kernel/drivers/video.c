@@ -66,30 +66,31 @@ static char posy_out_screen(uint64_t y)
 
 
 // 8 x 16 pixels
-void put_char_at(unsigned char c, uint64_t x, uint64_t y, uint64_t fgcolor, uint64_t bgcolor)
+void put_char_at(unsigned char c, uint64_t *x, uint64_t *y, uint64_t fgcolor, uint64_t bgcolor)
 {
   // rx and ry are the "real values"
-  y += FONT_HEIGHT; // 12 is baseline, 4 is padding
-  if (posx_out_screen(x)) {
-      y += FONT_HEIGHT;
+  // *y += FONT_HEIGHT; // 12 is baseline, 4 is padding
+  if (posx_out_screen(*x)) {
+      *x = 0;
+      *y += FONT_HEIGHT;
   }
 
-  if (posy_out_screen(y)) {
+  if (posy_out_screen(*y)) {
       // scroll the screen up
-      y--;
+      *y--;
   }
 
   uint64_t cx, cy;
   unsigned char *bm_char = get_char_bitmap(c);
-  uint64_t mask[8] = {1, 2, 4, 8, 16, 32, 64, 128};
 
   for (cy = 0; cy < FONT_HEIGHT; cy++)
   {
     for (cx = 0; cx < FONT_WIDTH; cx++)
     {
-      put_pixel((bm_char[cy] & 1 << (FONT_WIDTH - cx - 1)) ? fgcolor : bgcolor, x + cx, y + cy + 12); // 12 is baseline
+      put_pixel((bm_char[cy] & 1 << (FONT_WIDTH - cx - 1)) ? fgcolor : bgcolor, *x + cx, *y + cy + 12); // 12 is baseline
     }
   }
+  *x += FONT_WIDTH;
 }
 
 
@@ -98,9 +99,12 @@ void draw_cursor(uint64_t x, uint64_t y, uint64_t fgcolor, uint64_t bgcolor)
   put_char_at('_', x, y, fgcolor, bgcolor);
 }
 
-void draw_backspace(uint64_t x, uint64_t y, uint64_t fgcolor, uint64_t bgcolor)
+void delete_char(uint64_t *x, uint64_t *y, uint64_t fgcolor, uint64_t bgcolor)
 {
-  put_char_at(' ', x * FONT_WIDTH - FONT_WIDTH, y * FONT_HEIGHT, fgcolor, bgcolor);
+  
+  *x -= FONT_WIDTH;
+  put_char_at(' ', x, y, fgcolor, bgcolor);
+  *x -= FONT_WIDTH;
 }
 
 void put_pixel(uint32_t hexColor, uint64_t x, uint64_t y)

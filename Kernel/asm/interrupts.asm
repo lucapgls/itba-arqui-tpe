@@ -6,6 +6,7 @@ global pic_slave_mask
 
 global asm_irq00_handler
 global asm_irq01_handler
+
 global asm_syscall_handler
 
 extern irq_dispatcher

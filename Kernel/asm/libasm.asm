@@ -2,6 +2,7 @@ GLOBAL cpuVendor
 GLOBAL rtcTime
 GLOBAL getKeyPressed
 GLOBAL isKeyboardActive
+GLOBAL scanf
 
 section .text
 	
@@ -62,4 +63,10 @@ getKeyPressed:
 
 	leave
 	ret
+	
+
+; scanf:
+; 	push rbp
+; 	mov rbp, rsp
+	
 	

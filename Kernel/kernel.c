@@ -100,19 +100,13 @@ int main()
 	idt_loader();
 	ncClear();
 
-	ncNewline();
-	ncPrint("[Kernel Main]");
-	ncNewline();
+	// shell in userspace
+	printf_color("Welcome to the AmongOS kernel!\n", 0x00FF00, 0x00);
+	putchar('\n');
+	printf("To see the list of available commands, type 'help'\n");
+	putchar('\n');
+	printf("user@AmongOS:~$ ");
 
-	printf("Hola mundo! Ahora voy a nueva linea\nque epico!");
-	printf_color("Hola, esto es con color... verde!\n", 0x00FF00, 0x000000);
-	printf("Este es un nuevo test para ver si funcan cosas, como para ver si fuciona que el texto sea muy largo, entonces en ese caso deberia ir abajo de la linea actual");
-	// printf("Este es un nuevo test para ver si cuando me paso del tamanio de la pantalla se va hacia"
-	// " abajo el texto asi que este texto debe ser sumamente largo ya me aburri bla bla bla bla bla bla bla bla bla"
-	// "bla bla bla bla bla bla bla bla bla");
-
-
-	// sys_write(2, "Hello world!\n", 13);
 	// ncNewline();
 	// ncPrint("  Sample code module at 0x");
 	// ncPrintHex((uint64_t)sampleCodeModuleAddress);

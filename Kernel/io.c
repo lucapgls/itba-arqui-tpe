@@ -3,7 +3,7 @@
 
 // starting position
 static uint64_t x = 0;
-static uint64_t y = 0;
+static uint64_t y = 16;
 
 uint64_t printf(const char * str, ...) {
     return printf_color(str, 0xFFFFFF, 0x000000);
@@ -15,19 +15,49 @@ uint64_t printf_color(const char * str, uint64_t fgcolor, uint64_t bgcolor) {
   while (str[i])
   {
 
-    switch (str[i]) {
-        case '\n':
-            x = -i * 8 - 8; // set the x position so x + i starts in 0
-            y += 12 + 4; // 12 is baseline, 4 is padding
-            i++; // skip the not representable char
-            break;
-    }
+    putchar_color(str[i++], fgcolor, bgcolor);
 
-    tempx = x + i * 8;
-    put_char_at(str[i], tempx, y, fgcolor, bgcolor);
-    i++;
+    // // tempx = x + i * 8;
+    // put_char_at(str[i], &x, &y, fgcolor, bgcolor);
+    // i++;
   }   
-    x = x + i * 8; // 8 is FONT_WIDTH
+    // x = x + i * 8; // 8 is FONT_WIDTH
     return i;
 }
 
+void putchar_color(char c, uint64_t fgcolor, uint64_t bgcolor) 
+{
+    switch(c) {
+        case '\n':
+            x = 0;
+            y += 16;
+            break;
+        case '\b':
+            delete_char(&x, &y, fgcolor, bgcolor);
+            break;
+        default:
+            put_char_at(c, &x, &y, fgcolor, bgcolor);
+            break;
+    }
+}
+
+void putchar(char c) 
+{
+    putchar_color(c, 0xFFFFFF, 0x000000);
+}
+
+
+// scanf("num1: %d num2: %d", &num1, &num2) = 2
+uint64_t scanf(const char *fmt, ...) {
+
+    printf("InvalArgumentException");
+    while(*fmt){
+      if(*fmt == '%') {
+        
+      }
+    }
+}
+
+uint8_t getchar() {
+	
+}

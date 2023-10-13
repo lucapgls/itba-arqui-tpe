@@ -7,6 +7,7 @@ uint64_t syscall_dispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t r
         case 1:
             sys_write(rdx, (char *)rsi , r10);
             break;
+        
 
     }
 }
@@ -20,4 +21,5 @@ void sys_write(uint8_t fd, const char *buffer, uint64_t count){
         ncPrintColor(buffer, 0xFF, 0x40);
 
 }
+
 

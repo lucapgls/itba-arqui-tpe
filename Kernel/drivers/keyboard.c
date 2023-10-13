@@ -1,4 +1,6 @@
 #include <keyboard.h>
+#include <io.h>
+#include <font.h>
 
 static uint8_t shift = 0;
 
@@ -102,27 +104,24 @@ void putKey(uint8_t key)
     switch (key)
     {
     case '\b':
-        ncBackspace();
+        putchar('\b');
         return;
     case '\n':
-        ncNewline();
+        putchar('\n');
         return;
     case '\t':
-        ncPrint("    ");
+        printf("    ");
         return;
     }
-
-    // temp
-    if (key > 2 && key < 250)
-    {
-        // ncPrintChar(key);
-        return;
-    }
+    if (key > 0 && key < 255)
+    putchar(key);
+    return;
 
 }
 
 void keyboard_handler() {
 
-    // temp
-    putKey(getKey());
+    uint8_t key = getKey();
+    if (key > 0 && key < 255)
+        putchar(key);
 }
