@@ -19,6 +19,14 @@ void ncPrintColor(const char * string, const uint8_t fgColor, const uint8_t bgCo
 		ncPrintCharColor(string[i], fgColor, bgColor);
 }
 
+void ncBackspace()
+{
+	// Si no es el primer caracter
+	if (currentVideo >= video + 0x2){
+		currentVideo -= 2;
+		*currentVideo = ' ';
+	}
+}
 
 void ncPrint(const char * string)
 {
@@ -44,9 +52,7 @@ void ncPrintCharColor(char character, uint8_t fgColor, uint8_t bgColor)
 
 void ncPrintChar(char character) 
 {
-	*currentVideo = character;
-
-	currentVideo += 2;
+	ncPrintCharColor(character, defaultFgColor, defaultBgColor);
 }
 
 void ncNewline()

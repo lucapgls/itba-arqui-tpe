@@ -96,8 +96,35 @@ int main()
 {	
 	setBgColor(0x00);
 	setFgColor(0xFF);
-	ncClear();
-	// ncPrint("[Kernel Main]");
+	// ncClear();
+
+	ncNewline();
+	ncNewline();
+	ncPrint("[Kernel Main]");
+	ncNewline();
+	ncNewline();
+
+	char buffer[1] = {0};
+	int i = 0;
+
+	// temp (cualquier cosa para probar el input.)
+	while(1) {
+		if (getKey() != 0) {
+			buffer[i++] = getKey();
+		}
+		if (i == 1) {
+			i = 0;
+			if (buffer[0] == '\b') {
+				ncBackspace();
+				break;
+			} else {
+			ncPrint(buffer);
+			// putKey(buffer[0]);
+			}
+		}
+
+	}
+
 	// ncNewline();
 	// ncPrint("  Sample code module at 0x");
 	// ncPrintHex((uint64_t)sampleCodeModuleAddress);

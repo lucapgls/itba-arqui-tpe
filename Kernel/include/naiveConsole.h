@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+void ncBackspace();
 void ncPrint(const char * string);
 void ncPrintColor(const char * string, const uint8_t fgColor, const uint8_t bgColor);
 void ncPrintChar(char character);

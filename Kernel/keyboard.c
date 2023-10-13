@@ -1,6 +1,5 @@
 #include <keyboard.h>
 
-
 static const uint8_t keyboardCodes[][2] = {
     {0, 0},
     {0, 0},
@@ -62,28 +61,50 @@ static const uint8_t keyboardCodes[][2] = {
     {' ', ' '},
 };
 
-void putKey()
-{
 
-    // while (1)
-    {
-        char key = getKeyPressed();
 
-        ncPrint(key);
-        switch (keyboardCodes[key][0])
-        {
-        case '\b':
-            // ncPrintBackspace();
-            break;
-        case '\n':
-            ncNewline();
-            break;
-        default:
-            ncPrintChar(keyboardCodes[key][0]);
-            break;
+// Get the ascii value of the key pressed and detect if the shift was also pressed.
+uint8_t getKey() {
+    uint8_t key;
+    uint8_t shift = 0;
+    while (isKeyboardActive()) {
+        key = getKeyPressed();
+        if (key == 0x2A || key == 0x36) {
+            shift = 1;
         }
 
-        // falta shift para acceder al [1]
-        // ncPrint(keyboardCodes[key][0]);
+        key = keyboardCodes[key][shift];
+
+        return key;
     }
+    return key;
+}
+
+void putKey(uint8_t key)
+{
+
+    switch (key)
+    {
+    case '\b':
+        ncBackspace();
+        break;
+    case '\n':
+        ncNewline();
+        break;
+    case '\t':
+        ncPrint("    ");
+        break;
+    }
+
+    // falta shift para acceder al [1]
+    if (key != 0 || key != '\b' || key != '\n' || key != '\t')
+    {
+        ncPrint(key);
+        return;
+    }
+    // setFgColor(0xFF);
+    // setBgColor(0x00);
+    // ncPrintDec(key);
+    // ncNewline();
+    // ncPrintChar(keyboardCodes[key][0]);
 }
