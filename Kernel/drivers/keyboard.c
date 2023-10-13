@@ -18,7 +18,7 @@ static uint8_t shift = 0;
 #define F3 0x3D
 
 // Keyboard codes
-static const uint8_t keyboardCodes[][2] = {
+static const uint8_t kbd_codes[][2] = {
     {0, 0},
     {0, 0},
     {'1', '!'},
@@ -82,7 +82,7 @@ static const uint8_t keyboardCodes[][2] = {
 
 
 // Get the ascii value of the key pressed and detect if the shift was also pressed.
-uint8_t getKey() {
+uint8_t get_key() {
     uint8_t key;
     while (isKeyboardActive()) {
         key = getKeyPressed();
@@ -92,32 +92,12 @@ uint8_t getKey() {
             shift = 0;
         }
         
-        key = keyboardCodes[key][shift];
+        key = kbd_codes[key][shift];
         return key;
     }
     return 0;
 }
 
-void putKey(uint8_t key)
-{
-
-    switch (key)
-    {
-    case '\b':
-        putchar('\b');
-        return;
-    case '\n':
-        putchar('\n');
-        return;
-    case '\t':
-        printf("    ");
-        return;
-    }
-    if (key > 0 && key < 255)
-    putchar(key);
-    return;
-
-}
 
 void keyboard_handler() {
 

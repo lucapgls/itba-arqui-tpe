@@ -58,6 +58,6 @@ uint64_t scanf(const char *fmt, ...) {
     }
 }
 
-uint8_t getchar() {
-	
+uint8_t getchar(uint8_t* c) {
+	return sys_read(c);
 }

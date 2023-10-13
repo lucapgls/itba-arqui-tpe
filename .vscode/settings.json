@@ -2,9 +2,6 @@
     "files.associations": {
         "naiveconsole.h": "c",
         "keyboard.h": "c",
-        "stdint.h": "c",
-        "stdio.h": "c",
-        "syscalls.h": "c",
-        "font.h": "c"
+        "io.h": "c"
     }
 }
