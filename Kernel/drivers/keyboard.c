@@ -1,5 +1,21 @@
 #include <keyboard.h>
 
+static uint8_t shift = 0;
+
+// Special keys
+#define LSHIFT 0x2A
+#define RSHIFT 0x36
+#define RELEASE_LSHIFT LSHIFT + 128
+#define RELEASE_RSHIFT RSHIFT + 128
+#define CAPSLOCK 0x3A
+#define ESC 0x01
+#define CTRL 0x1D
+#define ALT 0x38
+#define F1 0x3B
+#define F2 0x3C
+#define F3 0x3D
+
+// Keyboard codes
 static const uint8_t keyboardCodes[][2] = {
     {0, 0},
     {0, 0},
@@ -66,18 +82,18 @@ static const uint8_t keyboardCodes[][2] = {
 // Get the ascii value of the key pressed and detect if the shift was also pressed.
 uint8_t getKey() {
     uint8_t key;
-    uint8_t shift = 0;
     while (isKeyboardActive()) {
         key = getKeyPressed();
-        if (key == 0x2A || key == 0x36) {
+        if (key == LSHIFT || key == RSHIFT) {
             shift = 1;
+        } else if (key == RELEASE_LSHIFT || key == RELEASE_RSHIFT) {
+            shift = 0;
         }
-
+        
         key = keyboardCodes[key][shift];
-
         return key;
     }
-    return key;
+    return 0;
 }
 
 void putKey(uint8_t key)
@@ -87,24 +103,26 @@ void putKey(uint8_t key)
     {
     case '\b':
         ncBackspace();
-        break;
+        return;
     case '\n':
         ncNewline();
-        break;
+        return;
     case '\t':
         ncPrint("    ");
-        break;
-    }
-
-    // falta shift para acceder al [1]
-    if (key != 0 || key != '\b' || key != '\n' || key != '\t')
-    {
-        ncPrint(key);
         return;
     }
-    // setFgColor(0xFF);
-    // setBgColor(0x00);
-    // ncPrintDec(key);
-    // ncNewline();
-    // ncPrintChar(keyboardCodes[key][0]);
+
+    // temp
+    if (key > 2 && key < 250)
+    {
+        ncPrintChar(key);
+        return;
+    }
+
+}
+
+void keyboard_handler() {
+
+    // temp
+    putKey(getKey());
 }

@@ -5,8 +5,11 @@ global pic_master_mask
 global pic_slave_mask
 
 global asm_irq00_handler
+global asm_irq01_handler
+global asm_syscall_handler
 
 extern irq_dispatcher
+extern syscall_dispatcher
 
 SECTION .text
 
@@ -88,8 +91,16 @@ pic_slave_mask:
     pop rbp
     retn
 
+asm_syscall_handler:
+    push_state
+    call syscall_dispatcher
+    pop_state
+    iretq
+
+;Timer interrupt(timer tick)
 asm_irq00_handler:
     irq_handler 0
 
+;Keyboard interrupt
 asm_irq01_handler:
     irq_handler 1

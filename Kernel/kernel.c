@@ -6,6 +6,7 @@
 #include <keyboard.h>
 #include <time.h>
 #include <idtLoader.h>
+#include <syscalls.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -95,7 +96,6 @@ int main()
 {	
 
 	idt_loader();
-	ncPrintDec(seconds_elapsed());
 	// ncClear();
 
 	ncNewline();
@@ -104,27 +104,7 @@ int main()
 	ncNewline();
 	ncNewline();
 
-	char buffer[1] = {0};
-	int i = 0;
-
-	// temp (cualquier cosa para probar el input.)
-	while(1) {
-		if (getKey() != 0) {
-			buffer[i++] = getKey();
-		}
-		if (i == 1) {
-			i = 0;
-			if (buffer[0] == '\b') {
-				ncBackspace();
-				break;
-			} else {
-			ncPrint(buffer);
-			// putKey(buffer[0]);
-			}
-		}
-
-	}
-
+	sys_write(2, "Hello world!\n", 13);
 	// ncNewline();
 	// ncPrint("  Sample code module at 0x");
 	// ncPrintHex((uint64_t)sampleCodeModuleAddress);
@@ -143,6 +123,7 @@ int main()
 	ncNewline();
 	// putKey();
 
+	while(1);
 
 
 	ncPrint("[Finished]");

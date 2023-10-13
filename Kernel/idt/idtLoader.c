@@ -24,6 +24,9 @@ static void setup_idt_entry(int index, uint64_t offset);
 void idt_loader() {
     asm_cli();
     setup_idt_entry(0x20,(uint64_t) &asm_irq00_handler);
+    setup_idt_entry(0x21,(uint64_t) &asm_irq01_handler);
+
+    setup_idt_entry(0x80,(uint64_t) &asm_syscall_handler);
     
     pic_master_mask(0xFC);
     pic_slave_mask(0xFF);

@@ -15,8 +15,12 @@ void ncPrintColor(const char * string, const uint8_t fgColor, const uint8_t bgCo
 {
 	int i;
 
-	for (i = 0; string[i] != 0; i++)
+	for (i = 0; string[i] != 0; i++) {
+		if (string[i] == '\n')
+			ncNewline();
+		else
 		ncPrintCharColor(string[i], fgColor, bgColor);
+	}
 }
 
 void ncBackspace()
