@@ -1,1 +1,17 @@
+# Binary Files
+*.bin
+*.sys
+*.elf
+
+# Images
+*.img
+*.qcow2
+*.vmdk
+
+# Object files
+*.o
+
+# History files
 .bash_history
+.gdb_history
+
