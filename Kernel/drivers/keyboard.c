@@ -2,7 +2,13 @@
 #include <io.h>
 #include <font.h>
 
+#define BUFFER_SIZE 20
+
 static uint8_t shift = 0;
+
+static int8_t buffer[BUFFER_SIZE] = {0};
+static int8_t buffer_w_ptr = 0, buffer_r_ptr = 0;
+
 
 // Special keys
 #define LSHIFT 0x2A
@@ -101,7 +107,36 @@ uint8_t get_key() {
 
 void keyboard_handler() {
 
-    uint8_t key = getKey();
-    if (key > 0 && key < 255)
+    uint8_t key = get_key();
+    if (key > 0 && key < 255) {
+        add_to_buffer(key);
         putchar(key);
+    }
+}
+
+void add_to_buffer(uint8_t key) {
+    if (key == '\b') {
+        if (buffer_w_ptr > 0) {
+            buffer_w_ptr--;
+        }
+    } else if (key == '\n') {
+        buffer[buffer_w_ptr] = key;
+        buffer_w_ptr = 0;
+    } else if (buffer_w_ptr < BUFFER_SIZE) {
+        buffer[buffer_w_ptr] = key;
+        buffer_w_ptr++;
+    }
+}
+
+// Get the last input from the buffer and remove it from the buffer. 
+uint8_t get_last_input() {
+    uint8_t key = buffer[buffer_r_ptr];
+    if (key != 0) {
+        buffer[buffer_r_ptr] = 0;
+        buffer_r_ptr++;
+        if (buffer_r_ptr == BUFFER_SIZE) {
+            buffer_r_ptr = 0;
+        }
+    }
+    return key;
 }

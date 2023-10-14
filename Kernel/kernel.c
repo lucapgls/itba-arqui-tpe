@@ -101,6 +101,11 @@ int main()
 	ncClear();
 
 	// shell in userspace
+	// deberiamos tener un "run_process"
+
+	// start userland
+	// init_userland();
+	// shell();
 	printf_color("Welcome to the AmongOS kernel!\n", 0x00FF00, 0x00);
 	putchar('\n');
 	printf("To see the list of available commands, type 'help'\n");

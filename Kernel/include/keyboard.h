@@ -5,3 +5,5 @@ extern uint8_t getKeyPressed();
 extern uint8_t isKeyboardActive();
 uint8_t get_key();
 void keyboard_handler();
+void add_to_buffer(uint8_t key);
+uint8_t get_last_input();
