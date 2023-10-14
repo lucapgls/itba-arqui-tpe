@@ -5,6 +5,9 @@
         "io.h": "c",
         "stdint.h": "c",
         "stdlib.h": "c",
-        "syscalls.h": "c"
+        "syscalls.h": "c",
+        "ostream": "c",
+        "*.asm": "c",
+        "usyscalls.h": "c"
     }
 }

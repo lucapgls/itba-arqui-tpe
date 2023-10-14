@@ -3,6 +3,8 @@ GLOBAL rtcTime
 GLOBAL asm_get_key
 GLOBAL scanf
 
+GLOBAL test_write
+
 section .text
 	
 cpuVendor:
@@ -59,4 +61,9 @@ asm_get_key:
 ; scanf:
 ; 	push rbp
 ; 	mov rbp, rsp
-	
+
+test_write:
+
+    mov rax, 1
+    int 0x80
+    ret

@@ -4,6 +4,10 @@
 #include "time.h"
 #include "io.h"
 
+
+// temp
+#include <naiveConsole.h>
+
 enum syscalls {
     SYS_READ = 0, 
     SYS_WRITE,
@@ -27,11 +31,12 @@ static syscall_t syscalls[] = {
     (syscall_t)&sys_seconds,
 };
 
-uint64_t syscall_dispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t r10, uint64_t r9, uint64_t rax) {
+uint64_t syscall_dispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint64_t r9) {
 
-    syscall_t syscall = syscalls[rax];
+
+    syscall_t syscall = syscalls[r9];
     if (syscall != 0) {
-        return syscall(rdi, rsi, rdx, r10, r9);
+        return syscall(rdi, rsi, rdx, rcx, r8);
     }
     return 0;
 }

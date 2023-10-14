@@ -1,3 +1,4 @@
+
 global asm_cli, asm_sti
 
 global pic_master_mask, pic_slave_mask
@@ -78,17 +79,8 @@ SECTION .text
 	push r14
 	push r15
 
-    mov r15, rax
+    mov r9, rax
     call syscall_dispatcher
-
-    push rax
-
-    ; signal pic EOI (End of Interrupt)
-    mov al, 0x20
-    out 0x20, al
-
-    pop rax
-
 
     ; pop_state
 	pop r15

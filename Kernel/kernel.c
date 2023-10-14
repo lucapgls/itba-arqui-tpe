@@ -64,6 +64,9 @@ int main()
 	// run_process("userland"); // o algo asi
 	printf_color("Welcome to the AmongOS kernel!\n", 0x00FF00, 0x00);
 
+	((EntryPoint)sampleCodeModuleAddress)();
+
+	test_write(1, "Hello world!\n", 13);
 	// -> shell (shell header)
 	// putchar('\n');
 	// printf("To see the list of available commands, type 'help'\n");

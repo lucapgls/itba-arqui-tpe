@@ -1,6 +1,6 @@
 /* sampleCodeModule.c */
 #include <stdint.h>
-#include "syscalls.h"
+#include "usyscalls.h"
 
 char * v = (char*)0xB8000 + 79 * 2;
 
