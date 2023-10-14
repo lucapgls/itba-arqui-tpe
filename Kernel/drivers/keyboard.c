@@ -9,7 +9,6 @@ static uint8_t shift = 0;
 static int8_t buffer[BUFFER_SIZE] = {0};
 static int8_t buffer_w_ptr = 0, buffer_r_ptr = 0;
 
-
 // Special keys
 #define LSHIFT 0x2A
 #define RSHIFT 0x36
@@ -85,56 +84,66 @@ static const uint8_t kbd_codes[][2] = {
     {' ', ' '},
 };
 
-
-
 // Get the ascii value of the key pressed and detect if the shift was also pressed.
-uint8_t get_key() {
+uint8_t get_key()
+{
     uint8_t key;
-    while (isKeyboardActive()) {
-        key = getKeyPressed();
-        if (key == LSHIFT || key == RSHIFT) {
-            shift = 1;
-        } else if (key == RELEASE_LSHIFT || key == RELEASE_RSHIFT) {
-            shift = 0;
-        }
-        
-        key = kbd_codes[key][shift];
-        return key;
+    key = asm_get_key();
+    if (key == LSHIFT || key == RSHIFT)
+    {
+        shift = 1;
     }
-    return 0;
+    else if (key == RELEASE_LSHIFT || key == RELEASE_RSHIFT)
+    {
+        shift = 0;
+    }
+
+    key = kbd_codes[key][shift];
+    return key;
 }
 
-
-void keyboard_handler() {
+void keyboard_handler()
+{
 
     uint8_t key = get_key();
-    if (key > 0 && key < 255) {
+    if (key > 0 && key < 255)
+    {
         add_to_buffer(key);
         putchar(key);
     }
 }
 
-void add_to_buffer(uint8_t key) {
-    if (key == '\b') {
-        if (buffer_w_ptr > 0) {
+void add_to_buffer(uint8_t key)
+{
+    if (key == '\b')
+    {
+        if (buffer_w_ptr > 0)
+        {
             buffer_w_ptr--;
         }
-    } else if (key == '\n') {
+    }
+    else if (key == '\n')
+    {
         buffer[buffer_w_ptr] = key;
         buffer_w_ptr = 0;
-    } else if (buffer_w_ptr < BUFFER_SIZE) {
+    }
+    else if (buffer_w_ptr < BUFFER_SIZE)
+    {
         buffer[buffer_w_ptr] = key;
         buffer_w_ptr++;
     }
 }
 
-// Get the last input from the buffer and remove it from the buffer. 
-uint8_t get_last_input() {
+// Get the last input from the buffer and remove it from the buffer.
+uint8_t get_last_input()
+{
     uint8_t key = buffer[buffer_r_ptr];
-    if (key != 0) {
+    if (key != 0)
+    {
         buffer[buffer_r_ptr] = 0;
         buffer_r_ptr++;
-        if (buffer_r_ptr == BUFFER_SIZE) {
+        if (buffer_r_ptr == BUFFER_SIZE)
+        {
             buffer_r_ptr = 0;
         }
     }

@@ -1,8 +1,7 @@
 #include <stdint.h>
 #include <naiveConsole.h>
 
-extern uint8_t getKeyPressed();
-extern uint8_t isKeyboardActive();
+extern uint8_t asm_get_key();
 uint8_t get_key();
 void keyboard_handler();
 void add_to_buffer(uint8_t key);

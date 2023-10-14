@@ -1,16 +1,11 @@
-global asm_cli
-global asm_sti
+global asm_cli, asm_sti
 
-global pic_master_mask
-global pic_slave_mask
+global pic_master_mask, pic_slave_mask
+global asm_syscall80_handler
 
-global asm_irq00_handler
-global asm_irq01_handler
+global asm_irq00_handler, asm_irq01_handler
 
-global asm_syscall_handler
-
-extern irq_dispatcher
-extern syscall_dispatcher
+extern irq_dispatcher, syscall_dispatcher
 
 SECTION .text
 
@@ -64,6 +59,17 @@ SECTION .text
     iretq
 %endmacro
 
+; sys_id is stored in rax
+%macro syscall_handler 1
+    push_state
+    call syscall_dispatcher
+    ; signal pic EOI (End of Interrupt)
+    mov al, 0x20
+    out 0x20, al
+    pop_state
+    iretq
+%endmacro
+
 asm_cli:
     cli
     ret
@@ -92,11 +98,6 @@ pic_slave_mask:
     pop rbp
     retn
 
-asm_syscall_handler:
-    push_state
-    call syscall_dispatcher
-    pop_state
-    iretq
 
 ;Timer interrupt(timer tick)
 asm_irq00_handler:
@@ -105,3 +106,7 @@ asm_irq00_handler:
 ;Keyboard interrupt
 asm_irq01_handler:
     irq_handler 1
+
+; Syscall (id) interrupt
+asm_syscall80_handler:
+    syscall_handler 80

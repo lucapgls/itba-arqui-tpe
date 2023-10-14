@@ -1,7 +1,6 @@
 GLOBAL cpuVendor
 GLOBAL rtcTime
-GLOBAL getKeyPressed
-GLOBAL isKeyboardActive
+GLOBAL asm_get_key
 GLOBAL scanf
 
 section .text
@@ -41,29 +40,21 @@ rtcTime:
 	leave
 	ret
 
-isKeyboardActive:
-	push rbp
-	mov rbp, rsp
+; get the key pressed (or wait until its pressed)
+asm_get_key:
 
-	mov rax, 0
+	xor rax, rax
+
+	.loop:
 	in al, 0x64
 	and al, 0x01
+	cmp al, 0
+	je .loop
 
-	leave
-	ret
-
-getKeyPressed:
-	push rbp
-	mov rbp, rsp
-
-	mov rax, 0
 	in al, 0x60
 
-	movzx rax, al
-
-	leave
 	ret
-	
+
 
 ; scanf:
 ; 	push rbp
