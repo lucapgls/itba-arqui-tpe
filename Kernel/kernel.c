@@ -20,10 +20,6 @@ extern uint8_t endOfKernel;
 
 static const uint64_t PageSize = 0x1000;
 
-// static void * const sampleCodeModuleAddress = (void*)0x400000;
-// static void * const sampleDataModuleAddress = (void*)0x500000;
-
-// typedef int (*EntryPoint)();
 
 
 void clearBSS(void * bssAddress, uint64_t bssSize)
@@ -42,7 +38,6 @@ void * getStackBase()
 
 void * initializeKernelBinary()
 {
-	char buffer[10];
 
 	void * moduleAddresses[] = {
 		sampleCodeModuleAddress,
@@ -66,13 +61,14 @@ int main()
 	// deberiamos tener un "run_process"
 
 	// start userland
-	// init_userland();
-	// shell();
+	// run_process("userland"); // o algo asi
 	printf_color("Welcome to the AmongOS kernel!\n", 0x00FF00, 0x00);
-	putchar('\n');
-	printf("To see the list of available commands, type 'help'\n");
-	putchar('\n');
-	printf("user@AmongOS:~$ ");
+
+	// -> shell (shell header)
+	// putchar('\n');
+	// printf("To see the list of available commands, type 'help'\n");
+	// putchar('\n');
+	// printf("user@AmongOS:~$ ");
 
 	while(1);
 

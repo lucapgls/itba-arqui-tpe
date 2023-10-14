@@ -25,6 +25,7 @@ $(MODULE): $(ALL_OBJECTS)
 
 clean:
 	@rm -rf *.o
-	@rm -rf asm/*.o
+	@rm -rf exec/*.o
+	@rm -rf libasm/*.o
 
 .PHONY: all clean print

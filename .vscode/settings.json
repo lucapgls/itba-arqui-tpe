@@ -3,6 +3,8 @@
         "naiveconsole.h": "c",
         "keyboard.h": "c",
         "io.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "stdlib.h": "c",
+        "syscalls.h": "c"
     }
 }

@@ -1,4 +1,6 @@
 /* sampleCodeModule.c */
+#include <stdint.h>
+#include "syscalls.h"
 
 char * v = (char*)0xB8000 + 79 * 2;
 
@@ -9,6 +11,17 @@ static int var2 = 0;
 int main() {
 	// start the shell
 
+	write(1, "Shell", 5);
+	write(1, "Shell", 5);
+	write(1, "Shell", 5);
+	write(1, "Shell", 5);
+	write(1, "Shell", 5);
+	write(1, "Shell", 5);
+	write(1, "Shell", 5);
+	write(1, "Shell", 5);
+	write(1, "Shell", 5);
+	write(1, "Shell", 5);
+	write(1, "Shell", 5);
 	//All the following code may be removed 
 	*v = 'X';
 	*(v+1) = 0x74;

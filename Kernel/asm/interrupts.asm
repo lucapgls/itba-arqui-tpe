@@ -9,6 +9,7 @@ extern irq_dispatcher, syscall_dispatcher
 
 SECTION .text
 
+
 %macro push_state 0
 	push rax
 	push rbx
@@ -59,14 +60,51 @@ SECTION .text
     iretq
 %endmacro
 
-; sys_id is stored in rax
+; sys_id is stored in rax (hardcoded)
 %macro syscall_handler 1
-    push_state
+    ; push_state
+	push rbx
+	push rcx
+	push rdx
+	push rbp
+	push rdi
+	push rsi
+	push r8
+	push r9
+	push r10
+	push r11
+	push r12
+	push r13
+	push r14
+	push r15
+
+    mov r15, rax
     call syscall_dispatcher
+
+    push rax
+
     ; signal pic EOI (End of Interrupt)
     mov al, 0x20
     out 0x20, al
-    pop_state
+
+    pop rax
+
+
+    ; pop_state
+	pop r15
+	pop r14
+	pop r13
+	pop r12
+	pop r11
+	pop r10
+	pop r9
+	pop r8
+	pop rsi
+	pop rdi
+	pop rbp
+	pop rdx
+	pop rcx
+	pop rbx
     iretq
 %endmacro
 

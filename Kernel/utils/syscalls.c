@@ -1,6 +1,7 @@
 #include <naiveConsole.h>
 #include "syscalls.h"
 #include "keyboard.h"
+#include "time.h"
 #include "io.h"
 
 enum syscalls {
@@ -19,7 +20,7 @@ typedef uint64_t (*syscall_t)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t);
 // Array of function pointers
 static syscall_t syscalls[] = {
     (syscall_t)&sys_read,   // sys_id 0
-    (syscall_t)&sys_write, // sys_id 2
+    (syscall_t)&sys_write, // sys_id 1
     (syscall_t)&pid,
     (syscall_t)&sys_exec,
     (syscall_t)&sys_ticks,
@@ -51,6 +52,7 @@ uint64_t sys_write(uint8_t fd, const char *buffer, uint64_t count)
     else if (fd == 2)
         return printf_color(buffer, 0xFF, 0x40);
 
+    return 0;
 }
 
 char sys_read(){
