@@ -7,7 +7,7 @@
         "stdlib.h": "c",
         "syscalls.h": "c",
         "ostream": "c",
-        "*.asm": "c",
+        "*.asm": "asm-collection",
         "usyscalls.h": "c"
     }
 }

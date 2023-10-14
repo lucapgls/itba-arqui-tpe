@@ -8,16 +8,6 @@
 // temp
 #include <naiveConsole.h>
 
-enum syscalls {
-    SYS_READ = 0, 
-    SYS_WRITE,
-    SYS_PID,
-    SYS_EXEC,
-    SYS_CREATE_PROCESS,
-    SYS_KILL_PROCESS,
-};
-
-
 // Cast to a function pointer
 typedef uint64_t (*syscall_t)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t);
 

@@ -1,7 +1,7 @@
-
 global asm_cli, asm_sti
 
 global pic_master_mask, pic_slave_mask
+
 global asm_syscall80_handler
 
 global asm_irq00_handler, asm_irq01_handler
