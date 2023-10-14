@@ -3,13 +3,15 @@ include ../Makefile.inc
 MODULE=0000-sampleCodeModule.bin
 SOURCES=$(wildcard *.c)
 SOURCES_EXEC=$(wildcard exec/*.c)
+SOURCES_LIBC=$(wildcard libc/*.c)
 SOURCES_ASM=$(wildcard libasm/*.asm)
 
 OBJECTS=$(SOURCES:.c=.o)
 OBJECTS_EXEC=$(SOURCES_EXEC:.c=.o)
+OBJECTS_LIBC=$(SOURCES_LIBC:.c=.o)
 OBJECTS_ASM=$(SOURCES_ASM:.asm=.o)
 
-ALL_OBJECTS= $(OBJECTS) $(OBJECTS_ASM) $(OBJECTS_EXEC)
+ALL_OBJECTS= $(OBJECTS) $(OBJECTS_ASM) $(OBJECTS_EXEC) $(OBJECTS_LIBC)
 
 all: $(MODULE)
 

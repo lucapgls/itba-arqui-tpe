@@ -3,11 +3,10 @@
         "naiveconsole.h": "c",
         "keyboard.h": "c",
         "io.h": "c",
-        "stdint.h": "c",
-        "stdlib.h": "c",
         "syscalls.h": "c",
-        "ostream": "c",
-        "*.asm": "asm-collection",
-        "usyscalls.h": "c"
+        "syscall.h": "c",
+        "shell.h": "c",
+        "stdio.h": "c",
+        "stdlib.h": "c"
     }
 }

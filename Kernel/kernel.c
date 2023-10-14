@@ -66,12 +66,7 @@ int main()
 
 	((EntryPoint)sampleCodeModuleAddress)();
 
-	test_write(1, "Hello world!\n", 13);
-	// -> shell (shell header)
-	// putchar('\n');
-	// printf("To see the list of available commands, type 'help'\n");
-	// putchar('\n');
-	// printf("user@AmongOS:~$ ");
+	// test_write(1, "Hello world!\n", 13);
 
 	while(1);
 

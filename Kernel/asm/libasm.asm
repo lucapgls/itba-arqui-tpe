@@ -58,10 +58,6 @@ asm_get_key:
 	ret
 
 
-; scanf:
-; 	push rbp
-; 	mov rbp, rsp
-
 test_write:
 
     mov rax, 1

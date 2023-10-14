@@ -31,8 +31,7 @@ uint64_t syscall_dispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t r
     return 0;
 }
 
-uint64_t sys_write(uint8_t fd, const char *buffer, uint64_t count)
-{
+uint64_t sys_write(uint8_t fd, const char *buffer, uint64_t count, uint64_t fgcolor, uint64_t bgcolor) {
     if (buffer == 0) {
         return 0;
     }
@@ -40,7 +39,7 @@ uint64_t sys_write(uint8_t fd, const char *buffer, uint64_t count)
     // @TODO: Check if fd is valid and replace magic numbers
     // stdout
     if (fd == 1) {
-        return printf(buffer);
+        return printf_color(buffer, fgcolor, bgcolor);
     }
 
     // stderr
@@ -48,6 +47,7 @@ uint64_t sys_write(uint8_t fd, const char *buffer, uint64_t count)
         return printf_color(buffer, 0xFF, 0x40);
 
     return 0;
+
 }
 
 char sys_read(){
