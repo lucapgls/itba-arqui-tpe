@@ -60,6 +60,7 @@ void * memcpy(void * destination, const void * source, uint64_t length)
 }
 
 /* Hardcodded, cambiar a un enum? */
+
 uint8_t getSeconds() {
 	return format(rtcTime(0x00));
 }
@@ -76,4 +77,8 @@ void getTime() {
 	ncPrintDec(getMinutes());
 	ncPrint(":");
 	ncPrintDec(getSeconds());
+}
+
+uint64_t get_random_number(){
+	return ticks_elapsed() * getSeconds() * ('u'+ 'w' + 'u');  
 }

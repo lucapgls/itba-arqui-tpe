@@ -13,12 +13,14 @@ typedef uint64_t (*syscall_t)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t);
 
 // Array of function pointers
 static syscall_t syscalls[] = {
-    (syscall_t)&sys_read,   // sys_id 0
-    (syscall_t)&sys_write, // sys_id 1
-    (syscall_t)&pid,
-    (syscall_t)&sys_exec,
-    (syscall_t)&sys_ticks,
-    (syscall_t)&sys_seconds,
+    (syscall_t)&sys_read,           // sys_id 0
+    (syscall_t)&sys_write,          // sys_id 1
+    (syscall_t)&pid,                // sys_id 2
+    (syscall_t)&sys_exec,           // sys_id 3
+    (syscall_t)&sys_ticks,          // sys_id 4
+    (syscall_t)&sys_seconds,        // sys_id 5
+    (syscall_t)&sys_random_number,  // sys_id 6
+    (syscall_t)&sys_read_char       // sys_id 7
 };
 
 uint64_t syscall_dispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint64_t r9) {
@@ -50,12 +52,18 @@ uint64_t sys_write(uint8_t fd, const char *buffer, uint64_t count, uint64_t fgco
 
 }
 
-char sys_read(){
-    char c = get_last_input();
-    putchar(c);
-    return c;
+char *sys_read(uint8_t fd, char *buffer, uint64_t count)
+{
+    // char c = get_last_input();
+    // putchar(c);
+    return get_buffer(buffer, count);
 }
 
+char sys_read_char(){
+    char c = get_last_input();
+    // putchar(c);
+    return c; 
+}
 
 uint64_t pid() {
     return 0;
@@ -70,4 +78,8 @@ uint64_t sys_ticks(){
 
 uint64_t sys_seconds(){
     return seconds_elapsed();
+}
+
+uint64_t sys_random_number(){
+    return get_random_number();
 }

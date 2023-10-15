@@ -2,17 +2,38 @@
 #include <syscalls.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <random.h>
 
+#define EOF (-1)
 void shell() {
+
+	// SHELL HEADER
 	putchar('\n');
-    write(1, "hola", 4, 0xFF00FF, 0x000000);
-    putchar_color("Welcome to AmongOS Shell\n", 0xFF00FF, 0x000000);
+    printf_color("Welcome to AmongOS Shell\n", COLOR_MAGENTA, COLOR_BLACK);   
+	putchar('\n');
 	printf("To see the list of available commands, type 'help'\n");
 	putchar('\n');
-    // if pressed enter write the new line
+	printf("user@AmongOS:~$ ");
+	//
 
-    // if (read() == '\n') {
-	    printf("user@AmongOS:~$ ");
-    // }
-    printf("Shell");
+    // printf("random: %d y %d", random(), 9);
+    // printf("%s", "Amigooooos");
+
+
+	// SHELL LOOP
+	while (1) {
+    	if (getchar() == '\n') {
+	    	printf("user@AmongOS:~$ ");
+		}
+
+		char* buff[20];
+		// gets(buff, 20);
+		// read(1, buff, 20);
+		// printf("%s", buff);
+		// scanf("%d", &buff);
+		// printf("Esto: %s", buff);
+		// if (buff == '9') {
+		// 	printf("asdjsa");
+		// }
+	}
 }

@@ -7,7 +7,7 @@
 static uint8_t shift = 0;
 
 static int8_t buffer[BUFFER_SIZE] = {0};
-static int8_t buffer_w_ptr = 0, buffer_r_ptr = 0;
+static int8_t buffer_ptr = 0, buffer_r_ptr = 0;
 
 // Special keys
 #define LSHIFT 0x2A
@@ -98,7 +98,9 @@ uint8_t get_key()
         shift = 0;
     }
 
+
     key = kbd_codes[key][shift];
+
     return key;
 }
 
@@ -111,40 +113,54 @@ void keyboard_handler()
         add_to_buffer(key);
         putchar(key);
     }
+
 }
 
 void add_to_buffer(uint8_t key)
 {
-    if (key == '\b')
+    buffer[buffer_ptr++] = key;
+    // if (key == '\b')
+    // {
+    //     if (buffer_ptr > 0)
+    //     {
+    //         buffer_ptr--;
+    //     }
+    // }
+
+   
+
+    if (buffer_ptr >= BUFFER_SIZE)
     {
-        if (buffer_w_ptr > 0)
-        {
-            buffer_w_ptr--;
+        buffer_ptr = 0;
+    }
+
+    // buffer[buffer_ptr] = key;
+}
+
+uint64_t get_buffer(char *buff, uint64_t count)
+{
+    uint64_t i = 0;
+    while (i < count) {
+        buff[i++] = buffer[buffer_r_ptr++];
+        if (buff[i-1] == '\n') {
+            buffer_r_ptr++;
+            break;
         }
     }
-    else if (key == '\n')
-    {
-        buffer[buffer_w_ptr] = key;
-        buffer_w_ptr = 0;
-    }
-    else if (buffer_w_ptr < BUFFER_SIZE)
-    {
-        buffer[buffer_w_ptr] = key;
-        buffer_w_ptr++;
-    }
+    return i;
 }
 
 // Get the last input from the buffer and remove it from the buffer.
 uint8_t get_last_input()
 {
-    uint8_t key = buffer[buffer_r_ptr];
+    uint8_t key = buffer[buffer_ptr-1];
     if (key != 0)
     {
-        buffer[buffer_r_ptr] = 0;
-        buffer_r_ptr++;
-        if (buffer_r_ptr == BUFFER_SIZE)
+        buffer[buffer_ptr] = 0;
+        buffer_ptr++;
+        if (buffer_ptr == BUFFER_SIZE)
         {
-            buffer_r_ptr = 0;
+            buffer_ptr = 0;
         }
     }
     return key;

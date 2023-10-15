@@ -7,6 +7,14 @@
         "syscall.h": "c",
         "shell.h": "c",
         "stdio.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "cstdarg": "c",
+        "cstdio": "c",
+        "cwchar": "c",
+        "__locale": "c",
+        "__config": "c",
+        "istream": "c",
+        "locale": "c",
+        "*.asm": "c"
     }
 }
