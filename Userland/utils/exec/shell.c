@@ -22,14 +22,14 @@ void shell() {
 
 	// SHELL LOOP
 	while (1) {
-    	if (getchar() == '\n') {
+    	if (getchar() == 'j') {
+			char* buff[20];
 	    	printf("user@AmongOS:~$ ");
+		// 	gets(buff, 20);
+		// printf("%s", buff);
 		}
 
-		char* buff[20];
-		// gets(buff, 20);
 		// read(1, buff, 20);
-		// printf("%s", buff);
 		// scanf("%d", &buff);
 		// printf("Esto: %s", buff);
 		// if (buff == '9') {

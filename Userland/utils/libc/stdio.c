@@ -8,6 +8,7 @@
 
 int64_t gets(char *buff, uint64_t length) 
 {
+    
     return read(1, buff, length);
 }
 

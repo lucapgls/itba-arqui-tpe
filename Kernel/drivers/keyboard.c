@@ -118,50 +118,37 @@ void keyboard_handler()
 
 void add_to_buffer(uint8_t key)
 {
-    buffer[buffer_ptr++] = key;
-    // if (key == '\b')
-    // {
-    //     if (buffer_ptr > 0)
-    //     {
-    //         buffer_ptr--;
-    //     }
-    // }
-
-   
-
-    if (buffer_ptr >= BUFFER_SIZE)
-    {
-        buffer_ptr = 0;
+    if (key == '\n') {
+        buffer_r_ptr = 0;  // Reset the read pointer
+        // buffer_ptr = 1;    // Reset the write pointer
+    } else if (buffer_ptr < BUFFER_SIZE) {
+        buffer[buffer_ptr++] = key;
     }
-
-    // buffer[buffer_ptr] = key;
 }
 
 uint64_t get_buffer(char *buff, uint64_t count)
 {
     uint64_t i = 0;
-    while (i < count) {
-        buff[i++] = buffer[buffer_r_ptr++];
-        if (buff[i-1] == '\n') {
-            buffer_r_ptr++;
+    while (i < count && buffer_r_ptr < buffer_ptr) {
+        char c = buffer[buffer_r_ptr++];
+        buff[i++] = c;
+
+        if (c == '\n') {
+            // Terminate the string at newline and reset the buffer
+            buff[i] = '\0';
+            buffer_r_ptr = 0;
+            // buffer_ptr = 0;
             break;
         }
     }
+
     return i;
 }
 
 // Get the last input from the buffer and remove it from the buffer.
 uint8_t get_last_input()
 {
-    uint8_t key = buffer[buffer_ptr-1];
-    if (key != 0)
-    {
-        buffer[buffer_ptr] = 0;
-        buffer_ptr++;
-        if (buffer_ptr == BUFFER_SIZE)
-        {
-            buffer_ptr = 0;
-        }
-    }
+        // buffer_ptr--;
+    uint8_t key = buffer[buffer_r_ptr++];
     return key;
 }
