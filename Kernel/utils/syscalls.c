@@ -56,7 +56,15 @@ char *sys_read(uint8_t fd, char *buffer, uint64_t count)
 {
     // char c = get_last_input();
     // putchar(c);
-    return get_buffer(buffer, count);
+    // for (int i = 0; i < count; i++) {
+    //     do {
+    //         buffer[i] = get_first_input();
+    //         if (buffer[i] != 0)
+    //             // putchar(buffer[i]);
+    //     } while (buffer[i] == 0);
+    // }
+    return 0;
+    // return get_buffer(buffer, count);
 }
 
 char sys_read_char(){
