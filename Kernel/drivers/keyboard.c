@@ -35,8 +35,10 @@ uint8_t get_key()
             shift = 0;
         }
 
+        key = kbd_codes[key][shift];
+        buffer[last_ptr++] = key;
+
         // for circular buffer
-        last_ptr++;
         first_ptr %= BUFFER_SIZE;
         last_ptr %= BUFFER_SIZE;
 
@@ -49,8 +51,6 @@ uint8_t get_key()
         }
 
         // add to buffer
-        key = kbd_codes[key][shift];
-        buffer[last_ptr] = key;
 
 
         // ignore pressed keys
