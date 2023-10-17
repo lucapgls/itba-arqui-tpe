@@ -23,6 +23,6 @@ random:
     ret
 
 draw:
-    mov rax, 7
+    mov rax, 8
     int 0x80
     ret

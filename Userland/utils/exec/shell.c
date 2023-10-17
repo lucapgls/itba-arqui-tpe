@@ -24,8 +24,17 @@ void shell() {
     // printf("s", "Amigooooos");
 	char* buff[MAX_BUFFER_SIZE];
 
-	draw_line(COLOR_BLUE, 30, 30, 15, 40);
-	draw(COLOR_BLUE, 50, 50);
+	draw_line(COLOR_BLUE, 30, 30, 150, 500);
+
+	// funciona mal (no se por que pero no dibuja bien el bitmap (no detecta la siguente row))
+    char bm_test[3][12] = {
+        {'_', '_', '_', '_', 'X', '_', '_', '_', '_', 'X', '_', '_'},
+        {'_', '_', '_', 'X', 'X', 'X', 'X', 'X', 'X', '_', '_', '_'},
+        {'_', '_', '_', '_', '_', '_', '_', '_', 'X', 'X', 'X', 'X'}
+    };
+
+	draw_bitmap(COLOR_RED, bm_test, 3, 12, 200, 200);
+
 	// SHELL LOOP
 	while (1) {
 		print_ps1("user", "~");
