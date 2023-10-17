@@ -11,11 +11,12 @@ void shell() {
 
 	// SHELL HEADER
 	putchar('\n');
-    printf_color("Welcome to AmongOS Shell\n", COLOR_MAGENTA, COLOR_BLACK);   
+    printf_color("Welcome to AmongOS Shell (SUShell) \n", COLOR_MAGENTA, COLOR_BLACK);   
 	putchar('\n');
 	printf("To see the list of available commands, type 'help'\n");
 	putchar('\n');
-	printf("user@AmongOS:~$ ");
+
+	// printf("user@AmongOS:~$ ");
 	//
 
     // printf("random: %d y %d", random(), 9);
@@ -24,9 +25,9 @@ void shell() {
 
 	// SHELL LOOP
 	while (1) {
+		print_ps1("user", "~");
 		gets(buff, MAX_BUFFER_SIZE);
 		buffer_command(buff);
-	  	printf("\nuser@AmongOS:~$ ");
 
 	}
 
@@ -67,7 +68,13 @@ void buffer_command(const char *buff)
 	// else if (strcmp(buff, "exit") == 0) {
 	// 	exit(0);
 	// }
-	else if (strcmp(buff, "") == 0) {
-		printf("\nCommand not found\n");
+	else if (strcmp(buff, "") != 0) {
+		printf("\nSUShell: '%s' command not found\n", buff);
 	}	
+}
+
+void print_ps1(char *user, char *pwd) {
+
+	printf_color("%s@AmongOS", COLOR_GREEN, COLOR_BLACK, user);
+	printf_color("%s$ ", COLOR_MAGENTA, COLOR_BLACK, pwd);
 }
