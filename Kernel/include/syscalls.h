@@ -11,4 +11,5 @@ uint64_t sys_ticks();
 char sys_read_char();
 uint64_t sys_seconds();
 uint64_t sys_random_number();
+void draw(uint32_t color, uint64_t posx, uint64_t posy);
 #endif

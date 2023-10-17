@@ -3,7 +3,7 @@
 #include "keyboard.h"
 #include "time.h"
 #include "io.h"
-
+#include "video.h"
 
 // temp
 #include <naiveConsole.h>
@@ -20,7 +20,8 @@ static syscall_t syscalls[] = {
     (syscall_t)&sys_ticks,          // sys_id 4
     (syscall_t)&sys_seconds,        // sys_id 5
     (syscall_t)&sys_random_number,  // sys_id 6
-    (syscall_t)&sys_read_char       // sys_id 7
+    (syscall_t)&sys_read_char,       // sys_id 7
+    (syscall_t)&draw                // sys_id 8
 };
 
 uint64_t syscall_dispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint64_t r9) {
@@ -84,10 +85,22 @@ uint64_t sys_ticks(){
     return ticks_elapsed();
 }
 
-uint64_t sys_seconds(){
+uint64_t sys_seconds()
+{
     return seconds_elapsed();
 }
 
-uint64_t sys_random_number(){
+uint64_t sys_random_number()
+{
     return get_random_number();
+}
+
+void draw(uint32_t color, uint64_t posx, uint64_t posy) 
+{
+    // pixel is 8x8
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            put_pixel(color, posx + j, posy + i);
+        }
+    }
 }

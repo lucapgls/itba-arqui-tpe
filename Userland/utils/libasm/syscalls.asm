@@ -1,4 +1,4 @@
-GLOBAL read, write, random, read_char
+GLOBAL read, write, random, read_char, draw
 
 
 
@@ -22,4 +22,7 @@ random:
     int 0x80
     ret
 
-
+draw:
+    mov rax, 7
+    int 0x80
+    ret
