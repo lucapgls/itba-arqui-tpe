@@ -67,7 +67,7 @@ void buffer_command(const char *buff)
 	// else if (strcmp(buff, "exit") == 0) {
 	// 	exit(0);
 	// }
-	else if (buff[0] == 0) {
+	else if (strcmp(buff, "") == 0) {
 		printf("\nCommand not found\n");
 	}	
 }
