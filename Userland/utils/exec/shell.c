@@ -3,8 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <random.h>
+#include <string.h>
 
 #define EOF (-1)
+#define MAX_BUFFER_SIZE 1024
 void shell() {
 
 	// SHELL HEADER
@@ -18,19 +20,14 @@ void shell() {
 
     // printf("random: %d y %d", random(), 9);
     // printf("%s", "Amigooooos");
-	char* buff[10];
+	char* buff[MAX_BUFFER_SIZE];
 
 	// SHELL LOOP
 	while (1) {
-		// printf("%s", getchar());
-    	// if (getchar() == '\n') {
-			// putchar(getchar());
-	    	// printf("user@AmongOS:~$ ");
-		
-			gets(buff, 10);
+		gets(buff, MAX_BUFFER_SIZE);
+		buffer_command(buff);
+	  	printf("\nuser@AmongOS:~$ ");
 
-			printf("Resultado: ");
-			printf("%s", buff);
 	}
 
 		// read(1, buff, 20);
@@ -39,4 +36,38 @@ void shell() {
 		// if (buff == '9') {
 		// 	printf("asdjsa");
 		// }
+}
+
+void buffer_command(const char *buff)
+{
+	if (strcmp(buff, "help") == 0) {
+		printf("\nAvailable commands:\n");
+		printf("help: Shows this help\n");
+		printf("clear: Clears the screen\n");
+		printf("time: Shows the current time\n");
+		printf("date: Shows the current date\n");
+		printf("random: Shows a random number\n");
+		printf("exit: Exits the shell\n");
+	}
+
+	
+
+	// else if (strcmp(buff, "clear") == 0) {
+	// 	clear_screen();
+	// }
+	// else if (strcmp(buff, "time") == 0) {
+	// 	printf("Time: %d:%d:%d\n", get_hour(), get_minutes(), get_seconds());
+	// }
+	// else if (strcmp(buff, "date") == 0) {
+	// 	printf("Date: %d/%d/%d\n", get_day(), get_month(), get_year());
+	// }
+	// else if (strcmp(buff, "random") == 0) {
+	// 	printf("Random: %d\n", random());
+	// }
+	// else if (strcmp(buff, "exit") == 0) {
+	// 	exit(0);
+	// }
+	else if (buff[0] == 0) {
+		printf("\nCommand not found\n");
+	}	
 }

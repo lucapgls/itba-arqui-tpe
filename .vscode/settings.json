@@ -20,6 +20,7 @@
         "string_view": "c",
         "functional": "c",
         "stdint.h": "c",
-        "font.h": "c"
+        "font.h": "c",
+        "string.h": "c"
     }
 }

@@ -7,5 +7,6 @@
 #include <colors.h>
 
 void shell();
+void buffer_command(const char *buff);
 
 #endif

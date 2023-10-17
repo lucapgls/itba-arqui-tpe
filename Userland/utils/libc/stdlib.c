@@ -13,18 +13,33 @@ void putchar_color(char c, uint64_t fgcolor, uint64_t bgcolor)
    write(1, &c, 1, fgcolor, bgcolor);
 }
 
-uint64_t strlen(char* buff)
-{
-    uint64_t ans = 0;
-    while(buff[ans] != 0)
-        ans++;
-    return ans;
-}
+
 
 
 uint8_t getchar() 
 {
     return read_char();
+}
+
+int64_t gets(char *buff, uint64_t length) 
+{
+    uint64_t i = 0;
+    char c;
+    do {
+        c = getchar();
+        if (c >= 0x20 && c <= 0x7F) {
+            buff[i] = c;
+            putchar(buff[i++]);
+        }
+
+        if (c == '\n') {
+            buff[i] = '\0';
+        }
+    }
+    while (i < length && c != '\n');
+
+    return i;
+    // return read(1, buff, length);
 }
 
 static void reverse_str(char str[], int length) {

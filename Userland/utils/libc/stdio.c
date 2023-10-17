@@ -5,28 +5,6 @@
 
 #include <colors.h>
 
-
-int64_t gets(char *buff, uint64_t length) 
-{
-    uint64_t i = 0;
-    do {
-        char c = getchar();
-        if (c >= 'A' && c <= 'z') {
-            buff[i] = c;
-            putchar(buff[i++]);
-        }
-
-        if (c == '\n') {
-            printf("Muchachos");
-            break;
-        }
-    }
-    while (i < length || buff[i] == '\n');
-
-    return i;
-    // return read(1, buff, length);
-}
-
 // uint64_t scanf(const char *fmt, ...) 
 // {
 // //   va_list args;
