@@ -54,6 +54,7 @@ uint64_t sys_write(uint8_t fd, const char *buffer, uint64_t count, uint64_t fgco
 
 char *sys_read(uint8_t fd, char *buffer, uint64_t count)
 {
+    get_buffer(buffer, count);
     // char c = get_last_input();
     // putchar(c);
     // for (int i = 0; i < count; i++) {
@@ -69,7 +70,6 @@ char *sys_read(uint8_t fd, char *buffer, uint64_t count)
 
 char sys_read_char(){
     char c = get_last_input();
-    // putchar(c);
     return c; 
 }
 

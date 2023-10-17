@@ -15,6 +15,11 @@
         "__config": "c",
         "istream": "c",
         "locale": "c",
-        "*.asm": "c"
+        "*.asm": "c",
+        "*.tcc": "c",
+        "string_view": "c",
+        "functional": "c",
+        "stdint.h": "c",
+        "font.h": "c"
     }
 }

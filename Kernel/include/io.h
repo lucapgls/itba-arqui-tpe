@@ -7,7 +7,7 @@ uint64_t printf(const char *fmt, ...);
 uint64_t printf_color(const char * str, uint64_t fgcolor, uint64_t bgcolor);
 void putchar(char c);
 void putchar_color(char c, uint64_t fgcolor, uint64_t bgcolor);
-uint8_t getchar(uint8_t* c);
+
 
 // Returns number of variables read in input
 uint64_t scanf(const char *fmt, ...);

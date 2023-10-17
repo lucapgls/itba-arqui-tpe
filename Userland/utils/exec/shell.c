@@ -18,17 +18,20 @@ void shell() {
 
     // printf("random: %d y %d", random(), 9);
     // printf("%s", "Amigooooos");
-
+	char* buff[10];
 
 	// SHELL LOOP
 	while (1) {
 		// printf("%s", getchar());
-    	if (getchar() == '\n') {
-	    	printf("user@AmongOS:~$ ");
-			char* buff[2];
-			gets(buff, 2);
+    	// if (getchar() == '\n') {
+			// putchar(getchar());
+	    	// printf("user@AmongOS:~$ ");
+		
+			gets(buff, 10);
+
+			printf("Resultado: ");
 			printf("%s", buff);
-		}
+	}
 
 		// read(1, buff, 20);
 		// scanf("%d", &buff);
@@ -36,5 +39,4 @@ void shell() {
 		// if (buff == '9') {
 		// 	printf("asdjsa");
 		// }
-	}
 }
