@@ -9,7 +9,7 @@ typedef struct {
     uint8_t b;
 } rgb_t;
 
-typedef uint32_t color_t;
+typedef rgb_t color_t;
 
 #define COLOR_BLACK color(0, 0, 0)
 #define COLOR_WHITE color(255, 255, 255)
