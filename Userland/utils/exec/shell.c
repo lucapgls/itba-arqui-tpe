@@ -12,6 +12,11 @@
 
 void shell() {
 
+	amongus(0,0);
+	for(int i = 0; i<300; i++){
+		draw_line(0x000000,0,i,1100,i);
+	}
+
 	// SHELL HEADER
 	putchar('\n');
     printf_color("Welcome to AmongOS Shell (SUShell) \n", COLOR_MAGENTA, COLOR_BLACK);   
@@ -23,7 +28,7 @@ void shell() {
 	char buff[MAX_BUFFER_SIZE];
 
 
-	amongus(0, 550);
+	
 
 	// SHELL LOOP
 	while (1) {
