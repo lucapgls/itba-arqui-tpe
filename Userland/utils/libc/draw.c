@@ -37,16 +37,17 @@ void draw_line(color_t color, uint64_t startx, uint64_t starty, uint64_t endx, u
 }
 
 
-void draw_bitmap(color_t color, char bitmap[][1024], uint16_t rows, uint16_t cols, uint64_t startx, uint64_t starty) {
-    uint32_t x, y;
-    y = starty;
+void draw_bitmap(color_t color, char *bitmap[], uint16_t rows, uint16_t cols, uint64_t startx, uint64_t starty) {
+    uint64_t x = startx;
+    uint64_t y = starty;
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            x = startx + j * PIXEL;
-
-            if (bitmap[i][j] != '_') 
-                draw(color, x, y);  // j corresponds to x-coordinate, i to y-coordinate
+            if (bitmap[i][j] == 'X') {
+                draw(color, x, y);
+            }
+            x += PIXEL;
         }
+        x = startx;
         y += PIXEL;
     }
 }

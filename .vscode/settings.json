@@ -22,5 +22,6 @@
         "stdint.h": "c",
         "font.h": "c",
         "string.h": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

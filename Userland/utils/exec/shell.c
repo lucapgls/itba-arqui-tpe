@@ -5,9 +5,11 @@
 #include <random.h>
 #include <string.h>
 #include <draw.h>
+#include <amongus.h>
 
 #define EOF (-1)
 #define MAX_BUFFER_SIZE 1024
+
 void shell() {
 
 	// SHELL HEADER
@@ -17,23 +19,11 @@ void shell() {
 	printf("To see the list of available commands, type 'help'\n");
 	putchar('\n');
 
-	// printf("user@AmongOS:~$ ");
-	//
 
-    // printf("random: d y d", random(), 9);
-    // printf("s", "Amigooooos");
-	char* buff[MAX_BUFFER_SIZE];
+	char buff[MAX_BUFFER_SIZE];
 
-	draw_line(COLOR_BLUE, 30, 30, 150, 500);
 
-	// funciona mal (no se por que pero no dibuja bien el bitmap (no detecta la siguente row))
-    char bm_test[3][12] = {
-        {'_', '_', '_', '_', 'X', '_', '_', '_', '_', 'X', '_', '_'},
-        {'_', '_', '_', 'X', 'X', 'X', 'X', 'X', 'X', '_', '_', '_'},
-        {'_', '_', '_', '_', '_', '_', '_', '_', 'X', 'X', 'X', 'X'}
-    };
-
-	draw_bitmap(COLOR_RED, bm_test, 3, 12, 200, 200);
+	amongus(0, 550);
 
 	// SHELL LOOP
 	while (1) {
