@@ -8,5 +8,6 @@ void putchar(char c);
 int64_t gets(char *buff, uint64_t length);
 uint8_t getchar();
 void itoa(uint64_t number, char* buff);
+uint64_t atoi(char* str);
 
 #endif

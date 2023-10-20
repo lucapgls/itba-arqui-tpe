@@ -28,8 +28,6 @@ void shell() {
 	char buff[MAX_BUFFER_SIZE];
 
 
-	
-
 	// SHELL LOOP
 	while (1) {
 		print_ps1("user", "~");
@@ -64,9 +62,9 @@ void buffer_command(const char *buff)
 	// else if (strcmp(buff, "clear") == 0) {
 	// 	clear_screen();
 	// }
-	// else if (strcmp(buff, "time") == 0) {
-	// 	printf("Time: d:d:d\n", get_hour(), get_minutes(), get_seconds());
-	// }
+	else if (strcmp(buff, "time") == 0) {
+		printf("\n%s\n", time());
+	}
 	// else if (strcmp(buff, "date") == 0) {
 	// 	printf("Date: d/d/d\n", get_day(), get_month(), get_year());
 	// }

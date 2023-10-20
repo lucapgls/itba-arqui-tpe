@@ -15,6 +15,8 @@ uint8_t getSeconds();
 uint8_t getMinutes();
 uint8_t getHours();
 
+void itoa(char* str, int num, int width);
+
 // Returns string with time format.
 void getTime();
 // temp

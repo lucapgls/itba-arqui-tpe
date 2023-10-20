@@ -13,9 +13,6 @@ void putchar_color(char c, uint64_t fgcolor, uint64_t bgcolor)
    write(1, &c, 1, fgcolor, bgcolor);
 }
 
-
-
-
 uint8_t getchar() 
 {
     return read_char();
