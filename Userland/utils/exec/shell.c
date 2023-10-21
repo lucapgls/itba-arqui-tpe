@@ -12,6 +12,7 @@
 
 void shell() {
 
+	sleep(1000);
 	amongus(0,0);
 	sleep(3000);
 	for(int i = 0; i<300; i += 2){
