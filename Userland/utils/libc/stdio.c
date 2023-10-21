@@ -5,40 +5,38 @@
 
 #include <colors.h>
 
-// uint64_t scanf(const char *fmt, ...) 
-// {
-// //   va_list args;
-//   int i = 0, j = 0, ret = 0;
-//   va_start(vl, fmt);
-//   while (fmt && fmt[i]) {
-//     if (fmt[i] == '%') {
-//       i++;
-//       switch (fmt[i]) {
-//       case 'c': {
-//         *(char *)va_arg(args, char *) = buff[j];
-//         j++;
-//         ret++;
-//         break;
-//       }
-//       case 'd': {
-//         *(int64_t *)va_arg(args, int64_t *) = atoi(&buff[j], &out_loc, 10);
-//         j += out_loc - &buff[j];
-//         ret++;
-//         break;
-//       }
-//     } else {
-//       buff[j] = fmt[i];
-//       j++;
-//     }
-//     i++;
-//     }
-//   }
+void scanf(const char *fmt, ...) 
+{
+    va_list args;
+    va_start(args, fmt);
 
-//   va_end(args);
+    for (uint64_t i = 0; fmt[i]; i++) {
 
-//   return ret;
+        if (fmt[i] == '%') {
+            switch (fmt[++i]) {
+                case 'd':
+                    ; 
+                    // max length of int to be read is 24 (arbitrary)
+                    gets(va_arg(args, int*), 24);
 
-// }
+                    // need tovalidate if val is nan
+                    // -- here --
+                    // 
+                    // parse to int
+                    break;
+                // case 's':
+                //     char *str = va_arg(args, char*);
+                //     gets(str, 100);
+                //     break;
+                default:
+                    break;
+            }
+        }
+    }
+    va_end(args);
+
+
+}
 
 static void print_str(const char* s, uint32_t fgcolor, uint32_t bgcolor)
 {

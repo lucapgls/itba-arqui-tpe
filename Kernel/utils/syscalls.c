@@ -4,6 +4,7 @@
 #include "time.h"
 #include "io.h"
 #include "video.h"
+#include <lib.h>
 
 // temp
 #include <naiveConsole.h>
@@ -22,7 +23,12 @@ static syscall_t syscalls[] = {
     (syscall_t)&sys_random_number,  // sys_id 6
     (syscall_t)&sys_read_char,       // sys_id 7
     (syscall_t)&draw,                // sys_id 8
+<<<<<<< HEAD
     (syscall_t)&sys_sleep               // sys_id 9
+=======
+    (syscall_t)&sys_time,            // sys_id 9
+    (syscall_t)&sys_sleep               // sys_id 10
+>>>>>>> 305b30343a68c79045518789dd09fd99a852a2b8
 };
 
 uint64_t syscall_dispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint64_t r9) {
@@ -106,6 +112,40 @@ void draw(uint32_t color, uint64_t posx, uint64_t posy)
     }
 }
 
+<<<<<<< HEAD
 void sys_sleep(uint64_t time){
     sleep(time);
+=======
+char *sys_time()
+{
+    // in format: hh:mm:ss
+    static char* time[9];
+    int hours = getHours();
+    int minutes = getMinutes();
+    int seconds = getSeconds();
+
+    char hh[3], mm[3], ss[3];
+    itoa(hh, hours, 2);
+    itoa(mm, minutes, 2);
+    itoa(ss, seconds, 2);
+
+    // Format the time string as "hh:mm:ss"
+    time[0] = hh[0];
+    time[1] = hh[1];
+    time[2] = ':';
+    time[3] = mm[0];
+    time[4] = mm[1];
+    time[5] = ':';
+    time[6] = ss[0];
+    time[7] = ss[1];
+    time[8] = '\0';
+
+    // not working. @FIX
+    return time; 
+}
+
+void sys_sleep(uint64_t millis)
+{
+    sleep(millis);
+>>>>>>> 305b30343a68c79045518789dd09fd99a852a2b8
 }

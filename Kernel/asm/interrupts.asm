@@ -110,10 +110,16 @@ asm_sti:
     sti
     ret
 
+<<<<<<< HEAD
 
 asm_hlt:
 	sti
 	hlt
+=======
+asm_hlt:
+	sti 
+	hlt 
+>>>>>>> 305b30343a68c79045518789dd09fd99a852a2b8
 	ret
 
 pic_master_mask:

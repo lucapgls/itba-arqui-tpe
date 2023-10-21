@@ -21,7 +21,8 @@
     "functional": "c",
     "stdint.h": "c",
     "font.h": "c",
-    "string.h": "c"
+    "string.h": "c",
+    "time.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled",
   "C_Cpp_Runner.msvcBatchPath": "",

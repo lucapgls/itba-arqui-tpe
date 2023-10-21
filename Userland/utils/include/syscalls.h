@@ -10,6 +10,11 @@ extern uint8_t read_char();
 extern uint64_t random();
 
 extern void draw(uint32_t color, uint64_t posx, uint64_t posy);
+<<<<<<< HEAD
 
 extern void sleep(uint64_t time);
+=======
+extern char *time();
+extern void sys_sleep(uint64_t millis);
+>>>>>>> 305b30343a68c79045518789dd09fd99a852a2b8
 #endif

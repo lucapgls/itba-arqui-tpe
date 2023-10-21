@@ -9,7 +9,7 @@
 
 uint64_t printf_color(const char* format, uint32_t fgcolor, uint32_t bgcolor, ...);
 
-// uint64_t scanf(const char* format, ...);
+void scanf(const char* format, ...);
 
 #define printf(fmt, ...) printf_color(fmt, COLOR_WHITE, COLOR_BLACK, ##__VA_ARGS__)
 
