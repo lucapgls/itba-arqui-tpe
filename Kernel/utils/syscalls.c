@@ -21,7 +21,8 @@ static syscall_t syscalls[] = {
     (syscall_t)&sys_seconds,        // sys_id 5
     (syscall_t)&sys_random_number,  // sys_id 6
     (syscall_t)&sys_read_char,       // sys_id 7
-    (syscall_t)&draw                // sys_id 8
+    (syscall_t)&draw,                // sys_id 8
+    (syscall_t)&sys_sleep               // sys_id 9
 };
 
 uint64_t syscall_dispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint64_t r9) {
@@ -103,4 +104,8 @@ void draw(uint32_t color, uint64_t posx, uint64_t posy)
             put_pixel(color, posx + j, posy + i);
         }
     }
+}
+
+void sys_sleep(uint64_t time){
+    sleep(time);
 }

@@ -11,10 +11,12 @@
 #define MAX_BUFFER_SIZE 1024
 
 void shell() {
+	amongus(0, 0);
+	sleep(3*18);
 
-	amongus(0,0);
-	for(int i = 0; i<300; i++){
-		draw_line(0x000000,0,i,1100,i);
+	for(int i = 0; i<37*8; i++){
+	draw_line(0x000000,0,i,127*8,i);
+	draw_line(0x000000,0,i+1,127*8,i+1);
 	}
 
 	// SHELL HEADER

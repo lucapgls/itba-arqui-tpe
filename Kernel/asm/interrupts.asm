@@ -1,10 +1,12 @@
-global asm_cli, asm_sti
+global asm_cli, asm_sti, asm_hlt
 
 global pic_master_mask, pic_slave_mask
 
 global asm_syscall80_handler
 
 global asm_irq00_handler, asm_irq01_handler
+
+
 
 extern irq_dispatcher, syscall_dispatcher
 
@@ -107,6 +109,12 @@ asm_cli:
 asm_sti:
     sti
     ret
+
+
+asm_hlt:
+	sti
+	hlt
+	ret
 
 pic_master_mask:
     push rbp

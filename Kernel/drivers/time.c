@@ -21,3 +21,9 @@ uint64_t seconds_elapsed() {
 uint64_t ticks_elapsed() {
     return ticks;
 }
+
+void sleep(uint64_t time){
+    uint64_t last = ticks;
+    while(ticks - last < time)
+        asm_hlt();
+}
