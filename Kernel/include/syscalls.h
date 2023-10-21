@@ -13,4 +13,5 @@ uint64_t sys_seconds();
 uint64_t sys_random_number();
 void draw(uint32_t color, uint64_t posx, uint64_t posy);
 char *sys_time();
+void sys_sleep(uint64_t millis);
 #endif

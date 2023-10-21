@@ -1,4 +1,4 @@
-global asm_cli, asm_sti
+global asm_cli, asm_sti, asm_hlt
 
 global pic_master_mask, pic_slave_mask
 
@@ -107,6 +107,11 @@ asm_cli:
 asm_sti:
     sti
     ret
+
+asm_hlt:
+	sti 
+	hlt 
+	ret
 
 pic_master_mask:
     push rbp

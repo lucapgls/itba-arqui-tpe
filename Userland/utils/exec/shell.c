@@ -13,7 +13,8 @@
 void shell() {
 
 	amongus(0,0);
-	for(int i = 0; i<300; i++){
+	sleep(3000);
+	for(int i = 0; i<300; i += 2){
 		draw_line(0x000000,0,i,1100,i);
 	}
 

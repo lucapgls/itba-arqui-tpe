@@ -3,12 +3,6 @@
 
 #define TIMEZONE -3 // argentina
 
-static uint32_t format(uint8_t num)
-{
-	int dec = (num & 240) >> 4;
-	int units = num & 15;
-	return dec * 10 + units;
-}
 
 void * memset(void * destination, int32_t c, uint64_t length)
 {
@@ -59,7 +53,12 @@ void * memcpy(void * destination, const void * source, uint64_t length)
 	return destination;
 }
 
-/* Hardcodded, cambiar a un enum? */
+static uint32_t format(uint8_t num)
+{
+	int dec = (num & 240) >> 4;
+	int units = num & 15;
+	return dec * 10 + units;
+}
 
 uint8_t getSeconds() {
 	return format(rtcTime(0x00));
