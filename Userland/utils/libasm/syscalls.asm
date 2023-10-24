@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-GLOBAL read, write, random, read_char, draw, sleep
-=======
-GLOBAL read, write, random, read_char, draw, time, sleep
->>>>>>> 305b30343a68c79045518789dd09fd99a852a2b8
+GLOBAL read, write, random, read_char, draw, sleep,time
 
 
 
@@ -31,17 +27,13 @@ draw:
     int 0x80
     ret
 
-time:
-    mov rax, 9
-    int 0x80
-    ret
-
-sleep:
-    mov rax, 10
-    int 0x80
-    ret
 
 sleep:
     mov rax,9
+    int 0x80
+    ret
+
+time:
+    mov rax,10
     int 0x80
     ret

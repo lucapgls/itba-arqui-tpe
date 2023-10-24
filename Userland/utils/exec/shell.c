@@ -14,16 +14,10 @@ void shell() {
 	amongus(0, 0);
 	sleep(3*18);
 
-<<<<<<< HEAD
-	for(int i = 0; i<37*8; i++){
-	draw_line(0x000000,0,i,127*8,i);
-	draw_line(0x000000,0,i+1,127*8,i+1);
-=======
 	amongus(0,0);
 	sleep(3000);
 	for(int i = 0; i<300; i += 2){
 		draw_line(0x000000,0,i,1100,i);
->>>>>>> 305b30343a68c79045518789dd09fd99a852a2b8
 	}
 
 	// SHELL HEADER
