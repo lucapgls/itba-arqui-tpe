@@ -11,9 +11,9 @@ extern char *cpuVendor(char *result);
 
 extern uint8_t rtcTime(uint8_t option);
 
-uint8_t getSeconds();
-uint8_t getMinutes();
-uint8_t getHours();
+uint32_t getSeconds();
+uint32_t getMinutes();
+uint32_t getHours();
 
 void itoa(char* str, int num, int width);
 
