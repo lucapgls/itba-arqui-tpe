@@ -3,6 +3,9 @@
 
 #include <stdint.h>
 
+extern void asm_sound(uint32_t freq);
+extern void asm_nosound();
+
 uint64_t sys_write(uint8_t fd, const char *buffer, uint64_t count, uint64_t fgcolor, uint64_t bgcolor);
 char *sys_read(uint8_t fd, char *buffer, uint64_t count);
 uint64_t pid();
@@ -12,6 +15,7 @@ char sys_read_char();
 uint64_t sys_seconds();
 uint64_t sys_random_number();
 void draw(uint32_t color, uint64_t posx, uint64_t posy);
-char *sys_time();
 void sys_sleep(uint64_t millis);
+char* sys_time();
+void sys_sound(uint64_t freq, uint64_t duration);
 #endif

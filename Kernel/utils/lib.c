@@ -60,13 +60,13 @@ static uint32_t format(uint8_t num)
 	return dec * 10 + units;
 }
 
-uint8_t getSeconds() {
+uint32_t getSeconds() {
 	return format(rtcTime(0x00));
 }
-uint8_t getMinutes() {
+uint32_t getMinutes() {
 	return format(rtcTime(0x02));
 }
-uint8_t getHours() {
+uint32_t getHours() {
 	return format(rtcTime(0x04)) + TIMEZONE;
 }
 

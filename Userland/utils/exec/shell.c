@@ -12,20 +12,26 @@
 
 void shell() {
 
+<<<<<<< HEAD
 	sleep(1000);
+=======
+	/*
+>>>>>>> cf5d39fd5690deb936c6ca7165fa030de41f49d9
 	amongus(0,0);
 	sleep(3000);
 	for(int i = 0; i<300; i += 2){
 		draw_line(0x000000,0,i,1100,i);
 	}
-
+	*/
 	// SHELL HEADER
 	putchar('\n');
     printf_color("Welcome to AmongOS Shell (SUShell) \n", COLOR_MAGENTA, COLOR_BLACK);   
 	putchar('\n');
 	printf("To see the list of available commands, type 'help'\n");
 	putchar('\n');
-
+	putchar('\n');
+	//sound(800,500);
+	
 
 	char buff[MAX_BUFFER_SIZE];
 

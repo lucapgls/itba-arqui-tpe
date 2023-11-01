@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Legales/Documents/ITBA/2023C2/arqui/tpe/itba-arqui-tpe",
-      "program": "c:/Users/Legales/Documents/ITBA/2023C2/arqui/tpe/itba-arqui-tpe/build/Debug/outDebug",
+      "cwd": "c:/Users/Legales/Documents/ITBA/2023C2/arqui/tpe/itba-arqui-tpe/Userland/utils/exec",
+      "program": "c:/Users/Legales/Documents/ITBA/2023C2/arqui/tpe/itba-arqui-tpe/Userland/utils/exec/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

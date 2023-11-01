@@ -11,5 +11,6 @@ extern uint64_t random();
 
 extern void draw(uint32_t color, uint64_t posx, uint64_t posy);
 extern char *time();
-extern void sys_sleep(uint64_t millis);
+extern uint64_t sys_sleep(uint64_t millis);
+extern void sound(uint64_t freq, uint64_t duration);
 #endif

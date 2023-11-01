@@ -20,11 +20,12 @@ static syscall_t syscalls[] = {
     (syscall_t)&sys_exec,           // sys_id 3
     (syscall_t)&sys_ticks,          // sys_id 4
     (syscall_t)&sys_seconds,        // sys_id 5
-    (syscall_t)&sys_random_number,  // sys_id 6
+    (syscall_t)&sys_random_number,   // sys_id 6
     (syscall_t)&sys_read_char,       // sys_id 7
     (syscall_t)&draw,                // sys_id 8
-    (syscall_t)&sys_time,            // sys_id 9
-    (syscall_t)&sys_sleep               // sys_id 10
+    (syscall_t)&sys_sleep,            // sys_id 9
+    (syscall_t)&sys_time,             //sys_id 10
+    (syscall_t)&sys_sound              //sys_id 11
 };
 
 uint64_t syscall_dispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint64_t r9) {
@@ -108,14 +109,14 @@ void draw(uint32_t color, uint64_t posx, uint64_t posy)
     }
 }
 
-char *sys_time()
+char* sys_time()
 {
     // in format: hh:mm:ss
-    static char* time[9];
-    int hours = getHours();
-    int minutes = getMinutes();
-    int seconds = getSeconds();
-
+    static char time[9];
+    uint32_t hours = getHours();
+    uint32_t  minutes = getMinutes();
+    uint32_t  seconds = getSeconds();
+    
     char hh[3], mm[3], ss[3];
     itoa(hh, hours, 2);
     itoa(mm, minutes, 2);
@@ -139,4 +140,13 @@ char *sys_time()
 void sys_sleep(uint64_t millis)
 {
     sleep(millis);
+}
+
+void sys_sound(uint64_t freq, uint64_t duration){
+        if(freq != 0)
+            asm_sound(1193180 / freq);
+        if(duration != 0)
+            sleep(duration);
+        if(!((freq == 0)^(duration == 0)))
+        asm_nosound();
 }

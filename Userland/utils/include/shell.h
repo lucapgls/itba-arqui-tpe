@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <colors.h>
 
+
 void shell();
 
 void print_ps1(char *user, char *pwd);

@@ -5,6 +5,8 @@ GLOBAL scanf
 
 GLOBAL test_write
 
+GLOBAL asm_sound, asm_nosound
+
 section .text
 	
 cpuVendor:
@@ -64,3 +66,35 @@ test_write:
     mov rax, 1
     int 0x80
     ret
+
+asm_sound:
+	push rbp
+	mov rbp,rsp
+
+	mov al,182 	;configuro altavoz
+	out 43h,al
+
+	mov ax,di	;frecuencia en bx
+	out 42h,al	;envio byte - significativo
+	mov al,ah
+	out 42h,al	;envio byte + significativo
+
+	in al,61h
+	or al,3h
+	out 61h,al
+
+	leave
+	ret
+
+asm_nosound:
+	push rbp
+	mov rbp,rsp
+
+	in al,61h
+	and al,0fch
+	out 61h,al
+
+	leave
+	ret
+
+

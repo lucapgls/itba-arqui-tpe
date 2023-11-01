@@ -6,6 +6,8 @@ global asm_syscall80_handler
 
 global asm_irq00_handler, asm_irq01_handler
 
+
+
 extern irq_dispatcher, syscall_dispatcher
 
 SECTION .text
@@ -108,9 +110,10 @@ asm_sti:
     sti
     ret
 
+
 asm_hlt:
-	sti 
-	hlt 
+	sti
+	hlt
 	ret
 
 pic_master_mask:
