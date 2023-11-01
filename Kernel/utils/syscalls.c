@@ -112,12 +112,12 @@ void draw(uint32_t color, uint64_t posx, uint64_t posy)
 char* sys_time()
 {
     // in format: hh:mm:ss
-    char time[9];
+    static char time[9];
     uint32_t hours = getHours();
     uint32_t  minutes = getMinutes();
     uint32_t  seconds = getSeconds();
     
-    char* hh, *mm, *ss;
+    char hh[3], mm[3], ss[3];
     itoa(hh, hours, 2);
     itoa(mm, minutes, 2);
     itoa(ss, seconds, 2);

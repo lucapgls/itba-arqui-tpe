@@ -25,8 +25,6 @@ void shell() {
 	putchar('\n');
 	printf("To see the list of available commands, type 'help'\n");
 	putchar('\n');
-	char* hora = time();
-	printf("%s",hora);
 	putchar('\n');
 	//sound(800,500);
 	
