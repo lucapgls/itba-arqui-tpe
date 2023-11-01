@@ -38,15 +38,9 @@ void shell() {
 		print_ps1("user", "~");
 		gets(buff, MAX_BUFFER_SIZE);
 		buffer_command(buff);
-
+		hlt();
 	}
 
-		// read(1, buff, 20);
-		// scanf("d", &buff);
-		// printf("Esto: s", buff);
-		// if (buff == '9') {
-		// 	printf("asdjsa");
-		// }
 }
 
 void buffer_command(const char *buff)
@@ -69,6 +63,10 @@ void buffer_command(const char *buff)
 	// }
 	else if (strcmp(buff, "time") == 0) {
 		printf("\n%s\n", time());
+	}
+	else if (strcmp(buff, "clear") == 0) {
+		// @FIX: needs to start printing from 0, 0
+		clear(COLOR_BLACK);
 	}
 	// else if (strcmp(buff, "date") == 0) {
 	// 	printf("Date: d/d/d\n", get_day(), get_month(), get_year());

@@ -30,3 +30,7 @@ uint64_t sleep(uint64_t millis) {
     }
     return 0;
 }
+
+void hlt() {
+    asm_hlt();
+}

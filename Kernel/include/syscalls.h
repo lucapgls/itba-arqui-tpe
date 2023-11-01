@@ -17,4 +17,6 @@ void draw(uint32_t color, uint64_t posx, uint64_t posy);
 void sys_sleep(uint64_t millis);
 char* sys_time();
 void sys_sound(uint8_t freq, uint64_t duration);
+void sys_hlt();
+void sys_clear(uint32_t color);
 #endif

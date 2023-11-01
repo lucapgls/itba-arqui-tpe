@@ -13,4 +13,6 @@ extern void draw(uint32_t color, uint64_t posx, uint64_t posy);
 extern char *time();
 extern uint64_t sys_sleep(uint64_t millis);
 extern void sound(uint64_t freq, uint64_t duration);
+extern void hlt();
+extern void clear(uint32_t color);
 #endif

@@ -2,10 +2,18 @@
 #include "keyboard.h"
 #include <video.h>
 
+
 // starting position
 static uint64_t x = 0;
 static uint64_t y = 16;
 
+void clear(uint32_t hex) {
+    clear_screen(hex);
+    x = 0;
+    y = 16;
+}
+
+// 8 x 16 pixels
 uint64_t printf(const char * str, ...) {
     return printf_color(str, 0xFFFFFF, 0x000000);
 }

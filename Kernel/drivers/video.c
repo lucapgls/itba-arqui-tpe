@@ -116,3 +116,11 @@ void put_pixel(uint32_t hexColor, uint64_t x, uint64_t y)
   frameBuffer[offset + 1] = (hexColor >> 8) & 0xFF;
   frameBuffer[offset + 2] = (hexColor >> 16) & 0xFF;
 }
+
+void clear_screen(uint32_t hexColor) {
+  for (int i = 0; i < vbe_mode_info->width; i++) {
+    for (int j = 0; j < vbe_mode_info->height; j++) {
+      put_pixel(hexColor, i, j);
+    }
+  }
+}

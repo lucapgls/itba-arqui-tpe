@@ -1,4 +1,4 @@
-GLOBAL read, write, random, read_char, draw, sleep,time,sound
+GLOBAL read, write, random, read_char, draw, sleep,time,sound, hlt, clear
 
 
 
@@ -40,5 +40,15 @@ time:
 
 sound:
     mov rax,11
+    int 0x80
+    ret
+
+hlt:
+    mov rax,12
+    int 0x80
+    ret
+
+clear:
+    mov rax, 13
     int 0x80
     ret
