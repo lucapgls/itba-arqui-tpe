@@ -6,6 +6,7 @@
 #include <string.h>
 #include <draw.h>
 #include <amongus.h>
+#include <snake.h>
 
 #define EOF (-1)
 #define MAX_BUFFER_SIZE 1024
@@ -67,6 +68,10 @@ void buffer_command(const char *buff)
 	else if (strcmp(buff, "clear") == 0) {
 		// @FIX: needs to start printing from 0, 0
 		clear(COLOR_BLACK);
+	}
+	else if (strcmp(buff, "snake") == 0) {
+		clear(COLOR_BLACK);
+		snake();
 	}
 	// else if (strcmp(buff, "date") == 0) {
 	// 	printf("Date: d/d/d\n", get_day(), get_month(), get_year());

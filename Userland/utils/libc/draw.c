@@ -10,6 +10,14 @@ static int abs(int n) {
 }
 
 
+void draw_pixel(color_t color, uint16_t size, uint64_t x, uint64_t y) {
+    // each pixel from draw is 8x8
+    for (int i = 0; i < size; i += PIXEL) {
+        for (int j = 0; j < size; j += PIXEL) {
+            draw(color, x + i, y + j);
+        }
+    }
+}
 
 void draw_line(color_t color, uint64_t startx, uint64_t starty, uint64_t endx, uint64_t endy)
 {
