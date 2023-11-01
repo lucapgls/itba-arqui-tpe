@@ -12,11 +12,8 @@
 
 void shell() {
 
-<<<<<<< HEAD
-	sleep(1000);
-=======
 	/*
->>>>>>> cf5d39fd5690deb936c6ca7165fa030de41f49d9
+	sleep(1000);
 	amongus(0,0);
 	sleep(3000);
 	for(int i = 0; i<300; i += 2){
@@ -30,7 +27,7 @@ void shell() {
 	printf("To see the list of available commands, type 'help'\n");
 	putchar('\n');
 	putchar('\n');
-	//sound(800,500);
+	//sound((uint8_t)0x0888,1	);
 	
 
 	char buff[MAX_BUFFER_SIZE];

@@ -10,6 +10,7 @@
 #define RELEASE_LSHIFT LSHIFT + 128
 #define RELEASE_RSHIFT RSHIFT + 128
 #define CAPSLOCK 0x3A
+#define DELETE 0x0E
 #define ESC 0x01
 #define CTRL 0x1D
 #define ALT 0x38
@@ -87,5 +88,6 @@ void add_to_buffer(uint8_t key);
 uint8_t get_last_input();
 uint64_t get_buffer(char *buff, uint64_t count);
 uint8_t get_first_input();
+uint32_t kbd_count();
 
 #endif

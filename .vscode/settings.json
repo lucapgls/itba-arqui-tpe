@@ -22,7 +22,8 @@
     "stdint.h": "c",
     "font.h": "c",
     "string.h": "c",
-    "time.h": "c"
+    "time.h": "c",
+    "sound.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled",
   "C_Cpp_Runner.msvcBatchPath": "",

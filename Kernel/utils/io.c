@@ -1,4 +1,5 @@
 #include "io.h"
+#include "keyboard.h"
 #include <video.h>
 
 // starting position
@@ -14,9 +15,8 @@ uint64_t printf_color(const char * str, uint64_t fgcolor, uint64_t bgcolor) {
   uint64_t tempx, tempy;
   while (str[i])
   {
-
+ 
     putchar_color(str[i++], fgcolor, bgcolor);
-
     // // tempx = x + i * 8;
     // put_char_at(str[i], &x, &y, fgcolor, bgcolor);
     // i++;
@@ -32,8 +32,9 @@ void putchar_color(char c, uint64_t fgcolor, uint64_t bgcolor)
             x = 0;
             y += 16;
             break;
-        case '\b':
-            delete_char(&x, &y, fgcolor, bgcolor);
+        case 127: // del char
+            if (kbd_count() > 1)
+                delete_char(&x, &y, fgcolor, bgcolor);
             break;
         default:
             put_char_at(c, &x, &y, fgcolor, bgcolor);

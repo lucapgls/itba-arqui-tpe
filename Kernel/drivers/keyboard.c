@@ -9,6 +9,7 @@ static uint8_t shift = 0;
 static char buffer[BUFFER_SIZE] = {0};
 static int8_t first_ptr = 0; // Points to the front of the buffer.
 static int8_t last_ptr = 0;  // Points to the last element added.
+static uint8_t count = 0;
 
 static uint8_t key_pressed = 0;
 
@@ -33,29 +34,37 @@ uint8_t get_key()
             shift = 0;
         }
 
+
+        // "delete key"
+        if (key == DELETE || key == DELETE + 128) {
+            add_to_buffer(127); // ascii of del
+            return '0';
+        }
+
         key = kbd_codes[key][shift];
-        add_to_buffer(key);
-
-        // Print character (temp, to be displayed in shell) 
-        //  putchar(key);
-
-
+        add_to_buffer(key); 
         return key;
     }
 
-    return 'A';
+    return 0;
 }
-
 
 
 void add_to_buffer(uint8_t key)
 {
-        // for circular buffer
+    // for circular buffer
     buffer[last_ptr++] = key;
     last_ptr %= BUFFER_SIZE;
-    // if (key == '\n') {
-    //     first_ptr = last_ptr;
-    // }
+    
+    count++;
+    if (key == 127 && count > 1) {
+        count  -= 2;
+    }
+    
+    
+    if (key == '\n')
+        count = 0;
+
 }
 
 uint64_t get_buffer(char *buff, uint64_t count)
@@ -83,4 +92,8 @@ uint8_t get_last_input()
         return 0;
     }
 
+}
+
+uint32_t kbd_count() {
+    return count;
 }

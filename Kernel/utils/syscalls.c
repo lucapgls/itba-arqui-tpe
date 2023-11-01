@@ -5,6 +5,7 @@
 #include "io.h"
 #include "video.h"
 #include <lib.h>
+#include "sound.h"
 
 // temp
 #include <naiveConsole.h>
@@ -142,11 +143,6 @@ void sys_sleep(uint64_t millis)
     sleep(millis);
 }
 
-void sys_sound(uint64_t freq, uint64_t duration){
-        if(freq != 0)
-            asm_sound(1193180 / freq);
-        if(duration != 0)
-            sleep(duration);
-        if(!((freq == 0)^(duration == 0)))
-        asm_nosound();
+void sys_sound(uint8_t freq, uint64_t duration){
+     sound(freq,duration);
 }
