@@ -39,7 +39,7 @@ void game(){
     init_player();
     draw_board();
     // food_t food = init_food();
-    while(player.alive){
+    do{
         draw_player();
         // draw_food(food);
         move_player();
@@ -47,7 +47,7 @@ void game(){
         //     food = init_food();
         // }
         // sleep(100);
-    }    
+    } while(player.alive == 1);   
 }
 
 void init_player() {
@@ -80,6 +80,9 @@ void draw_player(){
             if (player.collision_board[i][j] == 1){
                 draw_pixel(COLOR_RED, PIXEL, i*PIXEL, j*PIXEL);
             }
+            else{
+                draw_pixel(COLOR_BLACK,PIXEL, i*PIXEL, j*PIXEL);
+            }
         }
     }
 }
@@ -107,14 +110,17 @@ void move_player() {
         player.collision_board[player.head.x][player.head.y] = 0;
         player.head.x--;
     }
+
+
     // check collision
     if (player.head.x < 0 || player.head.x >= BOARD_SIZE || player.head.y < 0 || player.head.y >= BOARD_SIZE) {
         player.alive = 0;
     }
     else if (player.collision_board[player.head.x][player.head.y] == 1) {
-        // player.alive = 0;
+     //player.alive = 0;
     }
     else {
         player.collision_board[player.head.x][player.head.y] = 1;
     }
+
 }
