@@ -2,8 +2,10 @@
 #define SNAKE_H
 
 #include <stdint.h>
+#include <colors.h>
 
 #define BOARD_SIZE 32
+
 
 void snake();
 void game();
@@ -14,7 +16,7 @@ typedef struct snake_body snake_body_t;
 typedef struct snake snake_t;
 typedef struct food food_t;
 
-player_t init_player(char* name, controller_t controller);
+void init_player(player_t player, char* name, color_t color, controller_t controller);
 void draw_player(player_t player);
 void move_player(player_t player);
 void draw_board();

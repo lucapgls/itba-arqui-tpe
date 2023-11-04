@@ -1,4 +1,4 @@
-GLOBAL read, write, random, read_char, draw, sleep,time,sound, hlt, clear
+GLOBAL read, write, random, read_char, draw, sleep, time, sound, hlt, clear
 
 
 
