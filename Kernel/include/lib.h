@@ -24,7 +24,7 @@ extern uint64_t test_write(uint8_t fd, const char *buffer, uint64_t count);
 
 
 //Random
-uint64_t get_random_number();
+uint64_t get_random_number(int seed);
 
 
 #endif

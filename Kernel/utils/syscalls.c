@@ -97,9 +97,9 @@ uint64_t sys_seconds()
     return seconds_elapsed();
 }
 
-uint64_t sys_random_number()
+uint64_t sys_random_number(int seed)
 {
-    return get_random_number();
+    return get_random_number(seed);
 }
 
 void draw(uint32_t color, uint64_t posx, uint64_t posy) 

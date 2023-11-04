@@ -86,6 +86,11 @@ void itoa(char* str, int num, int width) {
     str[width] = '\0';
 }
 
-uint64_t get_random_number(){
-	return ticks_elapsed() * getSeconds() * ('u'+ 'w' + 'u');  
+uint64_t get_random_number(int seed){
+
+	unsigned int m = 2147483648; // Modulus
+	unsigned int a = 1664525;    // Multiplier
+	unsigned int c = 1013904223; // Increment
+	return ((a * seed * (ticks_elapsed() % a) + c) % m) % UINT32_MAX;
+	// //return (seed * (rtcTime(0x00) + rtcTime(0x02) / rtcTime(0x00) % seed) / ticks_elapsed()) % UINT32_MAX;
 }

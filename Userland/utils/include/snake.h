@@ -17,8 +17,8 @@ typedef struct snake snake_t;
 typedef struct food food_t;
 
 void init_player(player_t player, char* name, color_t color, controller_t controller);
-void draw_player(player_t player);
+void draw_game(player_t player);
 void move_player(player_t player);
 void draw_board();
-food_t init_food(int16_t collision_board[BOARD_SIZE][BOARD_SIZE]);
+void food();
 #endif

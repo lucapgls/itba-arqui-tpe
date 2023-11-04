@@ -3,5 +3,5 @@
 
 #include <stdint.h>
 
-uint64_t rand(uint64_t max);
+uint64_t rand(int seed, uint64_t max);
 #endif

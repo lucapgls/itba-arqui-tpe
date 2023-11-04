@@ -8,6 +8,7 @@
 
 #define PIXEL 16
 #define BOARD_SIZE 32
+#define FRUIT -1
 
 
 struct controller {
@@ -46,7 +47,7 @@ struct player {
 };
 
 static int collision_board[BOARD_SIZE][BOARD_SIZE];
-static int player_count = 0;
+static uint8_t player_count = 0;
 
 // 0 negro , 1 pyr1, 2 pyr2 
 
@@ -59,13 +60,14 @@ void game(){
     player_t player1;
     init_player(player1 ,"felidown", COLOR_RED, (controller_t){'w','s','a','d'});
     draw_board();
+    food();
     //food_t food = init_food(collision_board);
     do {
         // if (move_player(player..) || spawn_fruit()) {
         //     draw();
         // }
 
-        draw_player(player1);
+        draw_game(player1);
         move_player(player1);
         // if (check_collision(food)){
         //     food = init_food();
@@ -105,17 +107,25 @@ void draw_board() {
     draw_line(COLOR_WHITE, BOARD_SIZE*PIXEL, 0, BOARD_SIZE*PIXEL, BOARD_SIZE*PIXEL);
 }
 
-void draw_player(player_t player){
+
+void draw_game(player_t player){
     for (int i = 0; i < BOARD_SIZE; i++){
         for (int j = 0; j < BOARD_SIZE; j++){
-            // make switch, change name to "draw_logic"
-            if (collision_board[i][j] > 0) {
-                draw_pixel(COLOR_RED, PIXEL, i*PIXEL, j*PIXEL);
+            switch(collision_board[i][j]) {
+                // fruit
+                case FRUIT: 
+                    draw_pixel(COLOR_MAGENTA, PIXEL/2, i*PIXEL, j * PIXEL);
+                    break;
+                // nothing
+                case 0: 
+                    draw_pixel(COLOR_BLACK, PIXEL, i*PIXEL, j*PIXEL);
+                    break;
+                // player
+                default:
+                    draw_pixel(player->color, PIXEL, i*PIXEL, j*PIXEL);
+                    break;
             }
-            // temp
-            else {
-                draw_pixel(COLOR_BLACK,PIXEL, i*PIXEL, j*PIXEL);
-            }
+           
         }
     }
     
@@ -128,23 +138,34 @@ void move_player(player_t player) {
         c = player->snake.head.dir;
     }    
 
+    // temp 
+    if (collision_board[player->snake.head.x][player->snake.head.y] == FRUIT) {
+        printf("comio");
+        food();
+    }
+
+    // @TODO: Make switch statement
     int uid = player->uid;
     if (c == player->controller.up) {
+        collision_board[player->snake.head.x][player->snake.head.y] = 0;
         player->snake.head.y--;
         player->snake.head.dir = player->controller.up;
         collision_board[player->snake.head.x][player->snake.head.y] = uid;
     }
     else if (c == player->controller.right) {
+        collision_board[player->snake.head.x][player->snake.head.y] = 0;
         player->snake.head.x++;
         player->snake.head.dir = player->controller.right;
         collision_board[player->snake.head.x][player->snake.head.y] = uid;
     }
     else if (c == player->controller.down) {
+        collision_board[player->snake.head.x][player->snake.head.y] = 0;
         player->snake.head.y++;
         player->snake.head.dir = player->controller.down;
         collision_board[player->snake.head.x][player->snake.head.y] = uid;
     }
     else if (c == player->controller.left) {
+        collision_board[player->snake.head.x][player->snake.head.y] = 0;
         player->snake.head.x--;
         player->snake.head.dir = player->controller.left;
         collision_board[player->snake.head.x][player->snake.head.y] = uid;
@@ -154,6 +175,7 @@ void move_player(player_t player) {
     if (player->snake.head.x < 0 || player->snake.head.x >= BOARD_SIZE || player->snake.head.y < 0 || player->snake.head.y >= BOARD_SIZE) {
         player->alive = 0;
     }
+    // if (player->)
     else if (collision_board[player->snake.head.x][player->snake.head.y] > 0) {
         //player.alive = 0;
     }
@@ -163,11 +185,13 @@ void move_player(player_t player) {
 
 }
 
-food_t init_food(int16_t collision_board[BOARD_SIZE][BOARD_SIZE]) {
-    food_t fruit;
-      do {
-        fruit.x = rand(BOARD_SIZE);
-        fruit.y = rand(BOARD_SIZE);
-    } while (collision_board[fruit.x][fruit.y] > 0);
-    return fruit;
+void food() {
+
+    int x, y;
+    do {
+        x = rand(21304, BOARD_SIZE);
+        y = rand(21304, BOARD_SIZE);
+    } while (collision_board[x][y] != 0 && x > 0 && x < BOARD_SIZE && y > 0 && y < BOARD_SIZE);
+
+    collision_board[x][y] = FRUIT;
 }

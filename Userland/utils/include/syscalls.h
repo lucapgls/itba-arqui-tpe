@@ -7,7 +7,7 @@ extern uint64_t write(uint8_t fd, const char *buffer, uint64_t count, uint64_t f
 extern uint8_t * read(uint8_t fd, char *buffer, uint64_t count);
 extern uint8_t read_char();
 
-extern uint64_t random();
+extern uint64_t random(int seed);
 
 extern void draw(uint32_t color, uint64_t posx, uint64_t posy);
 extern char *time();

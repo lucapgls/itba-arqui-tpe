@@ -12,7 +12,7 @@ void sys_exec();
 uint64_t sys_ticks();
 char sys_read_char();
 uint64_t sys_seconds();
-uint64_t sys_random_number();
+uint64_t sys_random_number(int seed);
 void draw(uint32_t color, uint64_t posx, uint64_t posy);
 void sys_sleep(uint64_t millis);
 char* sys_time();

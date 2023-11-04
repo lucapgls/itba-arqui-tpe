@@ -33,6 +33,12 @@ void shell() {
 
 	char buff[MAX_BUFFER_SIZE];
 
+	// for (int i =0; i< 10 ; i++ ) {
+	// 	printf("Random number: %d\n", random(i)); 
+		
+	// }
+		
+	
 
 	// SHELL LOOP
 	while (1) {
@@ -72,6 +78,9 @@ void buffer_command(const char *buff)
 	else if (strcmp(buff, "snake") == 0) {
 		clear(COLOR_BLACK);
 		snake();
+	}
+	else if (strcmp(buff, "random") == 0) {
+		printf("\n%d\n", random(1203929));
 	}
 	// else if (strcmp(buff, "date") == 0) {
 	// 	printf("Date: d/d/d\n", get_day(), get_month(), get_year());
