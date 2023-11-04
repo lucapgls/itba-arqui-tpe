@@ -6,30 +6,41 @@
 #include <draw.h>
 #include <random.h>
 
-#define BOARD_SIZE 16
 #define PIXEL 16
 
 
+struct controller {
+    uint8_t up;
+    uint8_t down;
+    uint8_t left;
+    uint8_t right;
+} ;
 
-struct snake_head {
+struct snake_body {
     uint64_t x;
     uint64_t y;
     char dir;
 };
 
-typedef struct {
-    struct snake_head head;
+struct snake {
+    struct snake_body head;
+    struct snake_body tail;
     uint64_t len;
-    uint8_t collision_board[BOARD_SIZE][BOARD_SIZE];
-    uint8_t alive;
-} snake_t;
+    int collision_board[BOARD_SIZE][BOARD_SIZE];
+};
 
-typedef struct food {
+struct food {
     uint64_t x;
     uint64_t y;
-} food_t;
+};
 
 //static snake_t player;
+struct player {
+    char* name;
+    snake_t snake;
+    controller_t controller;
+    uint8_t alive;
+};
 
 void snake(){
     game();
@@ -37,39 +48,41 @@ void snake(){
 
 void game(){
 
-    snake_t player;
-    init_player(&player);
-    draw_board(&player);
-    //food_t food = init_food();
-    do{
-        draw_player(&player);
-        spawn_fruit();
-        move_player(&player);
-        // if (check_collision(food)){
-        //     food = init_food();
-        // }
-        sleep(500);
-       
-    } while(player.alive == 1);   
+    player_t player1 = init_player("felidown", (controller_t){'w','s','a','d'});
+    draw_board();
+    // food_t food = init_food(player1->snake.collision_board);
+    // do{
+    //     draw_player(player1);
+    //     move_player(player1);
+    //     // if (check_collision(food)){
+    //     //     food = init_food();
+    //     // }
+    //     sleep(500);
+
+    //   // temp  
+    // } while (1);
 }
 
-void init_player(snake_t *player) {
-    player->len = 1;
-    player->head.x = 4;
-    player->head.y = BOARD_SIZE/2;
-    player->head.dir = 'd';
+player_t init_player(char* name, controller_t controller) {
+    player_t player;
+    player->name = "test";
+    player->controller = controller;
+    player->snake.len = 1;
+    player->snake.head.x = 4;
+    player->snake.head.y = BOARD_SIZE/2;
+    player->snake.head.dir = 'd';
     player->alive = 1;
-    // setup board
+    // // setup board
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
-            player->collision_board[i][j] = 0;
+            player->snake.collision_board[i][j] = 0;
         }
     }
-    player->collision_board[player->head.x][player->head.y] = 1;
-    return;
+    // player->snake.collision_board[player->snake.head.x][player->snake.head.y] = 1;
+    return player;
 }
 
-void draw_board(snake_t *player) {
+void draw_board() {
     // top margin
     draw_line(COLOR_WHITE, 0, PIXEL+8, BOARD_SIZE*PIXEL, PIXEL+8);
     // bottom margin
@@ -78,13 +91,14 @@ void draw_board(snake_t *player) {
     draw_line(COLOR_WHITE, BOARD_SIZE*PIXEL, 0, BOARD_SIZE*PIXEL, BOARD_SIZE*PIXEL);
 }
 
-void draw_player(snake_t *player){
+void draw_player(player_t player){
     for (int i = 0; i < BOARD_SIZE; i++){
         for (int j = 0; j < BOARD_SIZE; j++){
-            if (player->collision_board[i][j] == 1){
+            if (player->snake.collision_board[i][j] > 0) {
                 draw_pixel(COLOR_RED, PIXEL, i*PIXEL, j*PIXEL);
             }
-            else{
+            // temp
+            else {
                 draw_pixel(COLOR_BLACK,PIXEL, i*PIXEL, j*PIXEL);
             }
         }
@@ -93,56 +107,52 @@ void draw_player(snake_t *player){
     
 }
 
-void move_player(snake_t *player) {
+void move_player(player_t player) {
     char c = getchar();
-
     // if (c == 0) {
     //     c = player.head.dir;
     // }    
+    snake_t snake = player->snake;
+    if (c == player->controller.up) {
+        snake.head.dir = player->controller.up;
+        snake.collision_board[snake.head.x][snake.head.y] = 0;
+        snake.head.y--;
+    }
+    else if (c == player->controller.right) {
+        snake.head.dir = player->controller.right;
+        snake.collision_board[snake.head.x][snake.head.y] = 0;
+        snake.head.x++;
 
-    if (c == 'w') {
-        player->head.dir = 'w';
-        player->collision_board[player->head.x][player->head.y] = 0;
-        player->head.y--;
     }
-    else if (c == 'd') {
-        player->head.dir = 'd';
-        player->collision_board[player->head.x][player->head.y] = 0;
-        player->head.x++;
-
+    else if (c == player->controller.down) {
+        snake.head.dir = player->controller.down;
+        snake.collision_board[snake.head.x][snake.head.y] = 0;
+        snake.head.y++;
     }
-    else if (c == 's') {
-        player->head.dir = 's';
-        player->collision_board[player->head.x][player->head.y] = 0;
-        player->head.y++;
+    else if (c == player->controller.left) {
+        snake.head.dir = player->controller.left;
+        snake.collision_board[snake.head.x][snake.head.y] = 0;
+        snake.head.x--;
     }
-    else if (c == 'a') {
-        player->head.dir = 'a';
-        player->collision_board[player->head.x][player->head.y] = 0;
-        player->head.x--;
-    }
-
-    
-    
 
     // check collision
-    if (player->head.x < 0 || player->head.x >= BOARD_SIZE || player->head.y < 0 || player->head.y >= BOARD_SIZE) {
-        player->alive = 0;
+    if (snake.head.x < 0 || snake.head.x >= BOARD_SIZE || snake.head.y < 0 || snake.head.y >= BOARD_SIZE) {
+        // player->alive = 0;
     }
-    else if (player->collision_board[player->head.x][player->head.y] == 1) {
+    else if (snake.collision_board[snake.head.x][snake.head.y] > 0) {
      //player.alive = 0;
     }
     else {
-        player->collision_board[player->head.x][player->head.y] = 1;
+        snake.collision_board[snake.head.x][snake.head.y] = 1;
     }
 
 }
 
-
-void spawn_fruit(){
-    uint32_t spawn_point_x = random(16);
-    uint32_t spawn_point_y = random(16);
-
-    draw_pixel(COLOR_GREEN, PIXEL, spawn_point_x * PIXEL, spawn_point_y * PIXEL);
-   //player.collision_board[spawn_point_x][spawn_point_y] = 2;
+food_t init_food(int16_t collision_board[BOARD_SIZE][BOARD_SIZE]) {
+    food_t fruit;
+      do {
+        fruit.x = rand(BOARD_SIZE);
+        fruit.y = rand(BOARD_SIZE);
+    } while (collision_board[fruit.x][fruit.y] > 0);
+    return fruit;
 }
