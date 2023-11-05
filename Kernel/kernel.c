@@ -58,13 +58,14 @@ int main()
 
 	idt_loader();
 
-	for (int i = 100; i < 10000; i += 100) {
-		sys_sound(i, 1);
-	}
-	for (int i = 0; i < 100; i++)
-		beep();
+	// test the sound (not working)
+	// for (int i = 100; i < 10000; i += 100) {
+	// 	sys_sound(i, 1);
+	// }
+	// for (int i = 0; i < 100; i++)
+	// 	beep();
+
 	// shell in userspace
-	// deberiamos tener un "run_process"
 
 	// start userland
 	// run_process("userland"); // o algo asi

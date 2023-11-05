@@ -22,4 +22,5 @@ void move_player(player_t player);
 void draw_board(color_t color, uint16_t size, uint64_t x, uint64_t y);
 void food();
 void check_collision(player_t player);
+void increment_length(player_t player);
 #endif
