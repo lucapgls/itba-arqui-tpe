@@ -19,6 +19,16 @@ void draw_pixel(color_t color, uint16_t size, uint64_t x, uint64_t y) {
     }
 }
 
+void draw_rectangle(color_t color, uint16_t size, uint64_t x, uint64_t y) {
+// draw a rectangle of size size with starting position x and y for only the borders
+    // top margin
+    draw_line(color, x, y, x + size, y);
+    // bottom margin
+    draw_line(color, x, y + size, x + size, y + size);
+    draw_line(color, x, y, x, y + size);
+    draw_line(color, x + size, y, x + size, y + size);
+}
+
 void draw_line(color_t color, uint64_t startx, uint64_t starty, uint64_t endx, uint64_t endy)
 {
     int dx = endx - startx;

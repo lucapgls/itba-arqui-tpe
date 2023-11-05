@@ -10,6 +10,7 @@
 #include <video.h>
 #include <io.h>
 #include <userland.h>
+#include <sound.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -57,6 +58,11 @@ int main()
 
 	idt_loader();
 
+	// for (int i = 100; i < 10000; i += 100) {
+	// 	sys_sound(i, 1);
+	// }
+	for (int i = 0; i < 100; i++)
+		beep();
 	// shell in userspace
 	// deberiamos tener un "run_process"
 

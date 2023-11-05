@@ -19,6 +19,7 @@ typedef struct food food_t;
 void init_player(player_t player, char* name, color_t color, controller_t controller);
 void draw_game(player_t player);
 void move_player(player_t player);
-void draw_board();
+void draw_board(color_t color, uint16_t size, uint64_t x, uint64_t y);
 void food();
+void check_collision(player_t player);
 #endif

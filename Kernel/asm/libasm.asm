@@ -7,6 +7,8 @@ GLOBAL test_write
 
 GLOBAL asm_start_sound, asm_end_sound
 
+global outb, inb
+
 section .text
 	
 cpuVendor:
@@ -96,5 +98,17 @@ asm_end_sound:
 
 	leave
 	ret
+
+
+outb:
+    mov al, [rdi]   ; Load the value from the "val" parameter into AL
+    mov dx, [rsi]   ; Load the value from the "port" parameter into DX
+    out dx, al      ; Perform the outb operation
+    ret
+
+inb:
+    mov dx, [rdi]    ; Load the port number from the "port" parameter into DX
+    in al, dx         ; Read a byte from the I/O port specified in DX and store it in AL
+    ret
 
 
