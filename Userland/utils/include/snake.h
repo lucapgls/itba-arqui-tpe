@@ -15,6 +15,7 @@ typedef struct controller controller_t;
 typedef struct snake_body snake_body_t;
 typedef struct snake snake_t;
 typedef struct food food_t;
+typedef struct block block_t;
 
 void init_player(player_t player, char* name, color_t color, controller_t controller);
 void draw_game(player_t player);

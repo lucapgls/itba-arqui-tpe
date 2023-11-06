@@ -26,13 +26,13 @@ struct snake_body {
     uint64_t x;
     uint64_t y;
     uint8_t dir;
+    
 };
+
 
 struct snake {
     struct snake_body head;
-    struct snake_body tail;
     uint64_t len;
-    // int collision_board[BOARD_SIZE][BOARD_SIZE];
 };
 
 struct food {
@@ -40,7 +40,7 @@ struct food {
     uint64_t y;
 };
 
-//static snake_t player;
+
 struct player {
     int uid;
     char* name;
@@ -50,10 +50,15 @@ struct player {
     uint8_t alive;
 };
 
-static int collision_board[BOARD_SIZE][BOARD_SIZE];
+struct block {
+    int uid;
+    int count;
+};
+
+static block_t collision_board[BOARD_SIZE][BOARD_SIZE];
 static uint8_t player_count = 0;
 
-// 0 negro , 1 pyr1, 2 pyr2, -1 fruit 
+
 
 void snake(){
     game();
@@ -64,7 +69,8 @@ void game(){
     // initialize collision board 
     for(int i = 0; i < BOARD_SIZE; i++){
         for(int j = 0; j < BOARD_SIZE; j++){
-            collision_board[i][j] = 0; 
+            collision_board[i][j].uid = 0;
+            collision_board[i][j].count = 0; 
         }
     }
     draw_board(COLOR_WHITE, BOARD_SIZE * PIXEL, DRAW_START_X, DRAW_START_Y);
@@ -80,7 +86,6 @@ void game(){
 
         draw_game(player1);
         move_player(player1);
-        check_collision(player1);
 
         sleep(200);
 
@@ -92,19 +97,18 @@ void init_player(player_t player, char* name, color_t color, controller_t contro
     player->name = "test";
     player->color = color;
     player->controller = controller;
-    player->snake.len = 1;
+    player->snake.len = 5;
 
     player->snake.head.x = 4;
     player->snake.head.y = BOARD_SIZE / 2;
     player->snake.head.dir = controller.right;
 
-    player->snake.tail = player->snake.head;
 
     player->alive = 1;
     player->uid = ++player_count;
     
 
-    collision_board[player->snake.head.x][player->snake.head.y] = player->uid;
+    collision_board[player->snake.head.x][player->snake.head.y].uid = player->uid;
 }
 
 void draw_board(color_t color, uint16_t size, uint64_t x, uint64_t y) {
@@ -114,7 +118,15 @@ void draw_board(color_t color, uint16_t size, uint64_t x, uint64_t y) {
 void draw_game(player_t player){
     for (int i = 0; i < BOARD_SIZE; i++){
         for (int j = 0; j < BOARD_SIZE; j++){
-            switch (collision_board[i][j]) {
+
+            if (collision_board[i][j].count > 0) {
+                collision_board[i][j].count--;
+                collision_board[i][j].uid = player->uid;
+            } else if (collision_board[i][j].uid != FRUIT){
+                collision_board[i][j].uid = 0;
+            }
+
+            switch (collision_board[i][j].uid) {
                 // fruit
                 case FRUIT: 
                     draw_pixel(COLOR_MAGENTA, PIXEL/2, DRAW_START_X + i*PIXEL, DRAW_START_Y + j * PIXEL);
@@ -137,41 +149,24 @@ void draw_game(player_t player){
 
 void move_player(player_t player) {
 
-    
-    // First, we set the last tail position to 0
-    collision_board[player->snake.tail.x][player->snake.tail.y] = FRUIT;
-
-    // Now we move the tail to the new position (based on the direction of the previous tail) and add a new tail
-    uint8_t dir = player->snake.tail.dir;
-    if (dir == player->controller.up) {
-        player->snake.tail = (snake_body_t){player->snake.tail.x, player->snake.tail.y - 1, 
-                                            player->snake.tail.dir};
-    } else if (dir == player->controller.right) { 
-        player->snake.tail = (snake_body_t){player->snake.tail.x + 1, player->snake.tail.y, 
-                                            player->snake.tail.dir};
-    } else if (dir == player->controller.down) {
-        player->snake.tail = (snake_body_t){player->snake.tail.x, player->snake.tail.y + 1, 
-                                            player->snake.tail.dir};
-    } else if (dir == player->controller.left) {
-        player->snake.tail = (snake_body_t){player->snake.tail.x - 1, player->snake.tail.y, 
-                                            player->snake.tail.dir};
-    }
-    // collision_board[player->snake.tail.x][player->snake.tail.y] = player->uid;
-
     // Now we move the head to the new position (based on the direction of the previous head or the new input)
-    dir = getchar();
+    uint8_t dir = getchar();
     // If there is no input, we move the head in the same direction as the previous head
     if (dir == 0) {
         dir = player->snake.head.dir;
-    } else {
-        // Handle direction change and check for opposite direction
-        if ((dir == player->controller.up && player->snake.head.dir != player->controller.down) ||
-            (dir == player->controller.down && player->snake.head.dir != player->controller.up) ||
-            (dir == player->controller.left && player->snake.head.dir != player->controller.right) ||
-            (dir == player->controller.right && player->snake.head.dir != player->controller.left)) {
-            player->snake.head.dir = dir;
-        }
+    } else if ((dir == player->controller.up && player->snake.head.dir == player->controller.down) || 
+                (dir == player->controller.down && player->snake.head.dir == player->controller.up) ||
+                (dir == player->controller.left && player->snake.head.dir == player->controller.right) ||
+                (dir == player->controller.right && player->snake.head.dir == player->controller.left)) {
+
+        // If the input is the opposite direction of the previous head, we move the head in the same direction as the previous head
+        dir = player->snake.head.dir;
+               
+    } else { 
+        player->snake.head.dir = dir;
     }
+
+
 
     // Now we move the head to the new position (based on the direction of the previous head or the new input)
     if (dir == player->controller.up) {
@@ -189,74 +184,13 @@ void move_player(player_t player) {
     }
 
     // Finally, we set the new head position to the player id
-    collision_board[player->snake.head.x][player->snake.head.y] = player->uid;
 
+    check_collision(player);
+    collision_board[player->snake.head.x][player->snake.head.y].count = player->snake.len;
 
 }
 
 
-// void move_player(player_t player) {
-
-        
-
-//     uint8_t dir = player->snake.tail.dir;
-//     if (dir == player->controller.up) {
-//         player->snake.tail.y--;
-//     } else if (dir == player->controller.right) { 
-//         player->snake.tail.x++;
-//     } else if (dir == player->controller.down) {
-//         player->snake.tail.y++;
-//     } else if (dir == player->controller.left) {
-//         player->snake.tail.x--;
-//     }
-    
-//     // if(player->snake.len != 1)
-//         collision_board[player->snake.tail.x][player->snake.tail.y] = 0;
-
-//     char c = getchar();
-//     if (c == 0) {
-//         c = player->snake.head.dir;
-//     }    
-
-//     // Handle direction change and check for opposite direction
-//     if ((c == player->controller.up && player->snake.head.dir != player->controller.down) ||
-//         (c == player->controller.down && player->snake.head.dir != player->controller.up) ||
-//         (c == player->controller.left && player->snake.head.dir != player->controller.right) ||
-//         (c == player->controller.right && player->snake.head.dir != player->controller.left)) {
-//         player->snake.head.dir = c;
-//     }
-
-//     // @TODO: Make switch statement
-//     int uid = player->uid;
-//     // if (player->snake.len == 1) {
-//     //     player->snake.tail = player->snake.head; 
-//     //     collision_board[player->snake.tail.x][player->snake.tail.y] = uid;
-//     // }
-
-
-//     if (c == player->controller.up) {
-//         player->snake.head.y--;
-//         player->snake.head.dir = player->controller.up;
-//     }
-//     else if (c == player->controller.right) {
-//         player->snake.head.x++;
-//         player->snake.head.dir = player->controller.right;
-//     }
-//     else if (c == player->controller.down ) {
-//         player->snake.head.y++;
-//         player->snake.head.dir = player->controller.down;
-//     }
-//     else if (c == player->controller.left ) {
-//         player->snake.head.x--;
-//         player->snake.head.dir = player->controller.left;
-//     }
-
-//     collision_board[player->snake.head.x][player->snake.head.y] = uid;
-//     // collision_board[player->snake.head.x][player->snake.head.y] = uid;
-//     // collision_board[player->snake.tail.x][player->snake.tail.y] = 0;
-
-
-// }
 
 void food() {
 
@@ -264,12 +198,10 @@ void food() {
     do {
         x = rand(21304, BOARD_SIZE);
         y = rand(21304, BOARD_SIZE);
-    } while (collision_board[x][y] != 0);
+    } while (collision_board[x][y].uid != 0);
 
-    // collision_board[x][y] = FRUIT;
+     collision_board[x][y].uid = FRUIT;
     
-    // temp
-    collision_board[10][5] = FRUIT;
 }
 
 void check_collision(player_t player) {
@@ -280,11 +212,11 @@ void check_collision(player_t player) {
             player->alive = 0;
     }
 
-    switch (collision_board[player->snake.head.x][player->snake.head.y]) {
+    switch (collision_board[player->snake.head.x][player->snake.head.y].uid) {
         case 0:
             break;
         case FRUIT:
-            collision_board[player->snake.head.x][player->snake.head.y] = player->uid;
+            collision_board[player->snake.head.x][player->snake.head.y].uid = player->uid;
             // increment_length(); has to add another bodypart to tail.
             increment_length(player);
             food();
@@ -308,22 +240,6 @@ void check_collision(player_t player) {
 void increment_length(player_t player) {
     player->snake.len++;
     printf("%d", player->snake.len);
-    // we move the tail to the new position and add a new tail
-    uint8_t dir = player->snake.tail.dir;
-    if (dir == player->controller.up) {
-        player->snake.tail = (snake_body_t){player->snake.tail.x, player->snake.tail.y + 1, 
-                                            player->snake.tail.dir};
-    } else if (dir == player->controller.right) { 
-        player->snake.tail = (snake_body_t){player->snake.tail.x - 1, player->snake.tail.y, 
-                                            player->snake.tail.dir};
-    } else if (dir == player->controller.down) {
-        player->snake.tail = (snake_body_t){player->snake.tail.x, player->snake.tail.y - 1, 
-                                            player->snake.tail.dir};
-    } else if (dir == player->controller.left) {
-        player->snake.tail = (snake_body_t){player->snake.tail.x + 1, player->snake.tail.y, 
-                                            player->snake.tail.dir};
-    }
 
-   collision_board[player->snake.tail.x][player->snake.tail.y] = player->uid;
    
 }
