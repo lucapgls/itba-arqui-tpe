@@ -61,10 +61,24 @@ static uint8_t player_count = 0;
 
 
 void snake(){
-    game();
+    main_menu();
 }
 
-void game(){
+void main_menu() {
+    player_t player1;
+    player_t player2;
+    clear(COLOR_BLACK);
+    writing_pos(20 * PIXEL, 8 * PIXEL);
+    printf_color("SNAKE: The last impostor.", COLOR_WHITE, COLOR_BLACK);
+
+    putchar('\n');
+    writing_pos(20 * PIXEL, 10 * PIXEL);
+    int plcount = 0;
+    scanf("Player count (1-2): %d", &plcount);
+    // printf("%d", plcount);
+
+    putchar('\n');
+    writing_pos(20 * PIXEL, 10 * PIXEL);
 
     // initialize collision board 
     for(int i = 0; i < BOARD_SIZE; i++){
@@ -73,11 +87,43 @@ void game(){
             collision_board[i][j].count = 0; 
         }
     }
+    // fix scanf is not changing the value from ascii to number
+    switch (plcount) {
+        case '2':
+            scanf("\nPlease enter P2 name: %s\n", player2->name);
+            putchar('\n');
+            writing_pos(20 * PIXEL, 10 * PIXEL);
+            init_player(player2, player2->name, COLOR_RED, (controller_t){'i','k','j','l'});
+        case '1':
+            scanf("\nPlease enter P1 name: %s\n", player1->name);
+            init_player(player1 , player1->name, COLOR_GREEN, (controller_t){'w','s','a','d'});
+            break;
+        default:
+            clear(COLOR_BLACK);
+            printf_color("Invalid player count, aborting...\n", COLOR_WHITE, COLOR_BLACK);
+            sleep(2000);
+            clear(COLOR_BLACK);
+            return;
+            // exit(); @TODO
+            break;
+    }
+
+
+    writing_pos(20 * PIXEL, 10 * PIXEL);
+    scanf("\nPress any key to start %d", 0);
+
+    
+    game(player1, player2, plcount - '0');
+
+}
+
+void game(player_t player1, player_t player2, int count) {
+    // clear(COLOR_BLACK);
+
+
     draw_board(COLOR_WHITE, BOARD_SIZE * PIXEL, DRAW_START_X, DRAW_START_Y);
 
     // initialize player
-    player_t player1;
-    init_player(player1 ,"felidown", COLOR_RED, (controller_t){'w','s','a','d'});
 
     // spawn a starting fruit.
     food();
@@ -87,26 +133,38 @@ void game(){
         draw_game(player1);
         move_player(player1);
 
+        // fix: if theres two players, inputs are not read correctly. (also, collision board is not setup correctly for 2 players)
+        if (count == 2) {
+            draw_game(player2);
+            move_player(player2);
+        }
+
         sleep(200);
 
       // temp  
-    } while (player1->alive);
+    } while (player1->alive || player2->alive);
+
+    // clear(COLOR_BLACK);
+    writing_pos(20 * PIXEL, 10 * PIXEL);
+    printf_color("GAME OVER", COLOR_WHITE, COLOR_BLACK);
+    sleep(2000);
+    return;
+    // exit(0);
 }
 
 void init_player(player_t player, char* name, color_t color, controller_t controller) {
-    player->name = "test";
+    player->name = name;
     player->color = color;
     player->controller = controller;
     player->snake.len = 5;
 
-    player->snake.head.x = 4;
-    player->snake.head.y = BOARD_SIZE / 2;
-    player->snake.head.dir = controller.right;
-
-
     player->alive = 1;
-    player->uid = ++player_count;
     
+    player->snake.head.x = 4 + player_count * 10;
+    player->snake.head.y = BOARD_SIZE / 2;
+    player->snake.head.dir = player_count == 0 ? controller.right : controller.left;
+
+    player->uid = ++player_count;
 
     collision_board[player->snake.head.x][player->snake.head.y].uid = player->uid;
 }
@@ -149,9 +207,9 @@ void draw_game(player_t player){
 
 void move_player(player_t player) {
 
-    // Now we move the head to the new position (based on the direction of the previous head or the new input)
+    // Move the head to the new position (based on the direction of the previous head or the new input)
     uint8_t dir = getchar();
-    // If there is no input, we move the head in the same direction as the previous head
+    // If there is no input, move the head in the same direction as the previous head
     if (dir == 0) {
         dir = player->snake.head.dir;
     } else if ((dir == player->controller.up && player->snake.head.dir == player->controller.down) || 
@@ -159,7 +217,6 @@ void move_player(player_t player) {
                 (dir == player->controller.left && player->snake.head.dir == player->controller.right) ||
                 (dir == player->controller.right && player->snake.head.dir == player->controller.left)) {
 
-        // If the input is the opposite direction of the previous head, we move the head in the same direction as the previous head
         dir = player->snake.head.dir;
                
     } else { 
@@ -168,7 +225,7 @@ void move_player(player_t player) {
 
 
 
-    // Now we move the head to the new position (based on the direction of the previous head or the new input)
+    // Move the head to the new position (based on the direction of the previous head or the new input)
     if (dir == player->controller.up) {
         player->snake.head = (snake_body_t){player->snake.head.x, player->snake.head.y - 1, 
                                             player->snake.head.dir};
@@ -183,8 +240,7 @@ void move_player(player_t player) {
                                             player->snake.head.dir};
     }
 
-    // Finally, we set the new head position to the player id
-
+    // Set the new head position to the player id
     check_collision(player);
     collision_board[player->snake.head.x][player->snake.head.y].count = player->snake.len;
 
@@ -206,23 +262,25 @@ void food() {
 
 void check_collision(player_t player) {
     
-    // check player in bound
+    // check player in bound of playing area
     if (player->snake.head.x < 0 || player->snake.head.x >= BOARD_SIZE 
         || player->snake.head.y < 0 || player->snake.head.y >= BOARD_SIZE) {
             player->alive = 0;
     }
 
     switch (collision_board[player->snake.head.x][player->snake.head.y].uid) {
+        // empty space, do nothing
         case 0:
             break;
+        
         case FRUIT:
             collision_board[player->snake.head.x][player->snake.head.y].uid = player->uid;
-            // increment_length(); has to add another bodypart to tail.
             increment_length(player);
             food();
             break;
+        
+        // collided with a player or themselves
         default:
-            // collided with a player or themselves
 
 
             // if player len is 1 (head only) ignore collision
@@ -232,14 +290,8 @@ void check_collision(player_t player) {
             player->alive = 0;
             break;
     }
-    // else if (collision_board[player->snake.head.x][player->snake.head.y] > 0) {
-    //     //player.alive = 0;
-    // }
 }
 
 void increment_length(player_t player) {
-    player->snake.len++;
-    printf("%d", player->snake.len);
-
-   
+    player->snake.len++; 
 }

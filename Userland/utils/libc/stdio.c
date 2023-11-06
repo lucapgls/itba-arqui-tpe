@@ -7,30 +7,34 @@
 
 void scanf(const char *fmt, ...) 
 {
+
+
     va_list args;
     va_start(args, fmt);
 
     for (uint64_t i = 0; fmt[i]; i++) {
-
         if (fmt[i] == '%') {
             switch (fmt[++i]) {
                 case 'd':
                     ; 
                     // max length of int to be read is 24 (arbitrary)
-                    gets(va_arg(args, int*), 24);
+                    char* num = gets(va_arg(args, int*), 24);
 
                     // need tovalidate if val is nan
                     // -- here --
                     // 
                     // parse to int
+
+
                     break;
-                // case 's':
-                //     char *str = va_arg(args, char*);
-                //     gets(str, 100);
-                //     break;
+                case 's':
+                    gets(va_arg(args, char*), 100);
+                    break;
                 default:
                     break;
             }
+        } else {
+            putchar(fmt[i]);
         }
     }
     va_end(args);

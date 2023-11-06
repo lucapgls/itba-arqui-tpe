@@ -15,4 +15,5 @@ extern uint64_t sleep(uint64_t millis);
 extern void sound(uint64_t freq, uint64_t duration);
 extern void hlt();
 extern void clear(uint32_t color);
+extern void writing_pos(uint64_t x, uint64_t y);
 #endif

@@ -25,7 +25,8 @@
     "time.h": "c",
     "sound.h": "c",
     "draw.h": "c",
-    "random.h": "c"
+    "random.h": "c",
+    "random": "c"
   },
   "C_Cpp.errorSquiggles": "disabled",
   "C_Cpp_Runner.msvcBatchPath": "",

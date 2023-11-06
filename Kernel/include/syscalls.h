@@ -19,4 +19,6 @@ char* sys_time();
 void sys_sound(uint8_t freq, uint64_t duration);
 void sys_hlt();
 void sys_clear(uint32_t color);
+
+void sys_writing_position(uint64_t x, uint64_t y);
 #endif

@@ -3,6 +3,7 @@
 
 #define TIMEZONE -3 // argentina
 
+static unsigned int randSeed = 12345; // Initial seed for the random number generator
 
 void * memset(void * destination, int32_t c, uint64_t length)
 {
@@ -88,9 +89,6 @@ void itoa(char* str, int num, int width) {
 
 uint64_t get_random_number(int seed){
 
-	unsigned int m = 2147483648; // Modulus
-	unsigned int a = 1664525;    // Multiplier
-	unsigned int c = 1013904223; // Increment
-	return ((a * seed * (ticks_elapsed() % a) + c) % m) % UINT32_MAX;
-	// //return (seed * (rtcTime(0x00) + rtcTime(0x02) / rtcTime(0x00) % seed) / ticks_elapsed()) % UINT32_MAX;
+	randSeed = randSeed * 1103515245 + 12345;
+    return (unsigned int)(randSeed / 65536) % 32768;
 }

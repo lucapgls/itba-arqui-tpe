@@ -28,6 +28,12 @@ void shell() {
 	printf("To see the list of available commands, type 'help'\n");
 	putchar('\n');
 	putchar('\n');
+
+	for (int i = 0; i < 10; ++i) {
+        int randomNumber = rand(21304, BOARD_SIZE);
+        // Do something with the random number, for example, print it
+        printf("%d\n", randomNumber);
+    }
 	//sound((uint8_t)0x0888,1	);
 	
 

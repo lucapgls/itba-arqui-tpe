@@ -13,6 +13,11 @@ void clear(uint32_t hex) {
     y = 16;
 }
 
+void set_position(uint64_t new_x, uint64_t new_y) {
+    x = new_x;
+    y = new_y;
+}
+
 // 8 x 16 pixels
 uint64_t printf(const char * str, ...) {
     return printf_color(str, 0xFFFFFF, 0x000000);

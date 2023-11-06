@@ -28,7 +28,8 @@ static syscall_t syscalls[] = {
     (syscall_t)&sys_time,             //sys_id 10
     (syscall_t)&sys_sound,              //sys_id 11
     (syscall_t)&sys_hlt,                 //sys_id 12
-    (syscall_t)&sys_clear          // sys_id 13
+    (syscall_t)&sys_clear,          // sys_id 13
+    (syscall_t)&sys_writing_position // sys_id 14
 };
 
 uint64_t syscall_dispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint64_t r9) {
@@ -155,4 +156,9 @@ void sys_hlt() {
 
 void sys_clear(uint32_t color) {
     clear(color);
+}
+
+
+void sys_writing_position(uint64_t x, uint64_t y) {
+    set_position(x, y);
 }
