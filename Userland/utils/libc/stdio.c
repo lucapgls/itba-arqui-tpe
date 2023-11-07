@@ -16,11 +16,17 @@ void scanf(const char *fmt, ...)
                 case 'd':
                     ; 
                     // max length of int to be read is 24 (arbitrary)
+                    char buffer[24];
+                    gets(buffer, 24);
+                    int val = atoi(buffer);
                     int* aux = va_arg(args, int*);
-                    aux = atoi(gets(aux, 24));
+                    *aux = val;
                     break;
                 case 's':
                     gets(va_arg(args, char*), 100);
+                    break;
+                case 'c':
+                    gets(va_arg(args, char), 1);
                     break;
                 default:
                     break;

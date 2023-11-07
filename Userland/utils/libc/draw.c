@@ -12,8 +12,8 @@ static int abs(int n) {
 
 void draw_pixel(color_t color, uint16_t size, uint64_t x, uint64_t y) {
     // each pixel from draw is 8x8
-    for (int i = 0; i < size; i += PIXEL) {
-        for (int j = 0; j < size; j += PIXEL) {
+    for (int i = 0; i < size; i += PIXELSIZE) {
+        for (int j = 0; j < size; j += PIXELSIZE) {
             draw(color, x + i, y + j);
         }
     }
@@ -63,9 +63,9 @@ void draw_bitmap(color_t color, char *bitmap[], uint16_t rows, uint16_t cols, ui
             if (bitmap[i][j] == 'X') {
                 draw(color, x, y);
             }
-            x += PIXEL;
+            x += PIXELSIZE;
         }
         x = startx;
-        y += PIXEL;
+        y += PIXELSIZE;
     }
 }

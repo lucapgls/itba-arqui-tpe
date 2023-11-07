@@ -11,11 +11,10 @@ static int8_t first_ptr = 0; // Points to the front of the buffer.
 static int8_t last_ptr = 0;  // Points to the last element added.
 static uint8_t count = 0;
 
-static uint8_t key_pressed = 0;
 
 void keyboard_handler()
 {
-    uint8_t key = get_key();
+    get_key();
 }
 
 // Get the ascii value of the key pressed and detect if the shift was also pressed.

@@ -81,7 +81,7 @@ void put_char_at(unsigned char c, uint64_t *x, uint64_t *y, uint64_t fgcolor, ui
 
   if (posy_out_screen(*y)) {
       // scroll the screen up
-      clear(0x000000);
+      clear_screen(0x000000);
       *y = FONT_HEIGHT * size;
   }
 

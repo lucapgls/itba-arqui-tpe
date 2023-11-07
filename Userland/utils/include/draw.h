@@ -3,7 +3,7 @@
 
 #include <colors.h>
 
-#define PIXEL 8
+#define PIXELSIZE 8
 
 void draw_pixel(color_t color, uint16_t size, uint64_t x, uint64_t y);
 void draw_rectangle(color_t color, uint16_t size, uint64_t x, uint64_t y);

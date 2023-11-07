@@ -73,10 +73,10 @@ void main_menu()
 {
     uint64_t width, height;
     screen_info(&width, &height);
-    player_t player1;
-    player_t player2;
+    player_t player1 = NULL;
+    player_t player2 = NULL;
     clear(COLOR_BLACK);
-    amongus(0, height/2+140);
+    amongus(0, height/2+160);
     font_size(2);
     writing_pos(width / 2 - 12 * PIXEL, 90);
     printf_color("SNAKE: ", COLOR_RED, COLOR_BLACK);
@@ -101,11 +101,11 @@ void main_menu()
     scanf("Press any key to start %d", 0);
     clear(COLOR_BLACK);
 
-    if (plcount == '1')
+    if (plcount == 1)
     {
         init_player(player1, COLOR_RED, (controller_t){'w', 's', 'a', 'd'});
     }
-    else if (plcount == '2')
+    else if (plcount == 2)
     {
         init_player(player1, COLOR_RED, (controller_t){'w', 's', 'a', 'd'});
         init_player(player2, COLOR_GREEN, (controller_t){'i', 'k', 'j', 'l'});
@@ -161,12 +161,13 @@ void gameover_menu() {
     printf_color("SNAKE: ", COLOR_RED, COLOR_BLACK);
     printf_color("The last impostor", COLOR_WHITE, COLOR_BLACK);
     font_size(1);
-    writing_pos(width / 2 - 5 * PIXEL , height / 2 - 8 * PIXEL);
+    writing_pos(width / 2 - 9 * PIXEL , height / 2 - 9 * PIXEL);
+    printf("The game is over, good luck next time!");
+    writing_pos(width / 2 - 5 * PIXEL + 8 , height / 2 - 6 * PIXEL);
     printf("Press 'Q' to quit");
-    writing_pos(width / 2 - 5 * PIXEL, height / 2 - 6 *PIXEL);
+    writing_pos(width / 2 - 5 * PIXEL + 8, height / 2 - 4 *PIXEL);
     printf("Press 'R' to restart");
     uint8_t ch;
-    // scanf("%s", &ch);
     // ask for a character until it is 'q' or 'r' with getchar
     do {
         ch = getchar();
@@ -251,7 +252,7 @@ void draw_game(player_t player1, player_t player2)
     }
 }
 
-static test_input_dir(uint8_t ch, player_t player)
+static int test_input_dir(uint8_t ch, player_t player)
 {
     return ch == player->controller.up || ch == player->controller.down ||
            ch == player->controller.left || ch == player->controller.right;
