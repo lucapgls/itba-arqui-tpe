@@ -35,7 +35,7 @@ uint8_t get_key()
             add_to_buffer(127); // ascii of del
             return '0';
     }
-
+    
     if (key >= 0 && key <= KBD_LENGTH)
     {
         key = kbd_codes[key][shift];

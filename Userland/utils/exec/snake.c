@@ -97,9 +97,6 @@ void main_menu()
         }
     }
 
-    writing_pos(width / 2 - 5 * PIXEL , height / 2 - 6 * PIXEL);
-    scanf("Press any key to start %d", 0);
-    clear(COLOR_BLACK);
 
     if (plcount == 1)
     {
@@ -118,6 +115,10 @@ void main_menu()
         clear(COLOR_BLACK);
         return;
     }
+    
+    writing_pos(width / 2 - 5 * PIXEL , height / 2 - 6 * PIXEL);
+    scanf("Press any key to start %d", 0);
+    clear(COLOR_BLACK);
 
     game(player1, player2);
 }
@@ -139,10 +140,11 @@ void game(player_t player1, player_t player2)
 
         draw_game(player1, player2);
         move_player(player1, player2);
-        
 
+        // temp 
+        // if (player_count == 2) sleep(400);
+        // else sleep(200);
         sleep(200);
-        // temp
     } while ((player_count == 1 && player1->alive) ||
              (player_count == 2 && (player1->alive || player2->alive)));
 

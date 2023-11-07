@@ -65,7 +65,7 @@ int main()
 
 	// not working
 	// for (int i = 0; i < 100; i++)
-	// 	beep();
+	beep();
 
 
 	printf_color("Welcome to the AmongOS kernel!\n", 0x00FF00, 0x00);

@@ -27,6 +27,10 @@ void idt_loader() {
     setup_idt_entry(0x20,(uint64_t) &asm_irq00_handler);
     setup_idt_entry(0x21,(uint64_t) &asm_irq01_handler);
 
+    // Exceptions
+    setup_idt_entry(0x00, (uint64_t)&asm_exception00_handler);
+    setup_idt_entry(0x06, (uint64_t)&asm_exception06_handler);
+
     // Software
     setup_idt_entry(0x80,(uint64_t) &asm_syscall80_handler);
     

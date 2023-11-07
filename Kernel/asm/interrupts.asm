@@ -6,9 +6,9 @@ global asm_syscall80_handler
 
 global asm_irq00_handler, asm_irq01_handler
 
+global asm_exception00_handler, asm_exception06_handler
 
-
-extern irq_dispatcher, syscall_dispatcher
+extern irq_dispatcher, syscall_dispatcher, exception_dispatcher
 
 SECTION .text
 
@@ -61,6 +61,17 @@ SECTION .text
 
     pop_state
     iretq
+%endmacro
+
+%macro exception_handler 1
+	push_state
+
+	mov rdi,%1
+	mov rsi,rsp
+	call exception_dispatcher
+	
+	pop_state
+	iretq
 %endmacro
 
 ; sys_id is stored in rax (hardcoded)
@@ -144,6 +155,14 @@ asm_irq00_handler:
 ;Keyboard interrupt
 asm_irq01_handler:
     irq_handler 1
+
+; Zero Division Exception
+asm_exception00_handler:
+	exception_handler 0
+
+; Invalid Opcode Exception
+asm_exception06_handler:
+	exception_handler 6
 
 ; Syscall (id) interrupt
 asm_syscall80_handler:
