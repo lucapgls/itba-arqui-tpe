@@ -1,16 +1,16 @@
-#include <stdint.h>
-#include <string.h>
+#include <idtLoader.h>
+#include <io.h>
+#include <keyboard.h>
 #include <lib.h>
 #include <moduleLoader.h>
 #include <naiveConsole.h>
-#include <keyboard.h>
-#include <time.h>
-#include <idtLoader.h>
-#include <syscalls.h>
-#include <video.h>
-#include <io.h>
-#include <userland.h>
 #include <sound.h>
+#include <stdint.h>
+#include <string.h>
+#include <syscalls.h>
+#include <time.h>
+#include <userland.h>
+#include <video.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -21,65 +21,39 @@ extern uint8_t endOfKernel;
 
 static const uint64_t PageSize = 0x1000;
 
-
-
-void clearBSS(void * bssAddress, uint64_t bssSize)
-{
-	memset(bssAddress, 0, bssSize);
+void clearBSS(void *bssAddress, uint64_t bssSize) {
+    memset(bssAddress, 0, bssSize);
 }
 
-void * getStackBase()
-{
-	return (void*)(
-		(uint64_t)&endOfKernel
-		+ PageSize * 8				//The size of the stack itself, 32KiB
-		- sizeof(uint64_t)			//Begin at the top of the stack
-	);
+void *getStackBase() {
+    return (void *)((uint64_t)&endOfKernel + PageSize * 8 // The size of the stack itself, 32KiB
+                    - sizeof(uint64_t) // Begin at the top of the stack
+    );
 }
 
-void * initializeKernelBinary()
-{
+void *initializeKernelBinary() {
 
-	void * moduleAddresses[] = {
-		userlandCodeModuleAddress,
-		sampleDataModuleAddress
-	};
+    void *moduleAddresses[] = {
+        userlandCodeModuleAddress,
+        sampleDataModuleAddress};
 
-	loadModules(&endOfKernelBinary, moduleAddresses);
+    loadModules(&endOfKernelBinary, moduleAddresses);
 
-	clearBSS(&bss, &endOfKernel - &bss);
+    clearBSS(&bss, &endOfKernel - &bss);
 
-
-	return getStackBase();
+    return getStackBase();
 }
 
-int main()
-{	
+int main() {
 
-	idt_loader();
+    idt_loader();
 
-	// test the sound (not working)
-	// for (int i = 100; i < 10000; i += 100) {
-	// 	sys_sound(i, 1);
-	// }
+    printf_color("Welcome to the AmongOS kernel!\n", 0x00FF00, 0x00);
 
-	// not working
-	// for (int i = 0; i < 100; i++)
-	//beep();
-	//beep();
-	//beep();
-	//beep();
+    ((EntryPoint)userlandCodeModuleAddress)();
 
+    while (1)
+        ;
 
-
-	printf_color("Welcome to the AmongOS kernel!\n", 0x00FF00, 0x00);
-	
-	// start userland
-	// run_process("userland"); // o algo asi
-	((EntryPoint)userlandCodeModuleAddress)();
-
-
-	while(1);
-
-	return 0;
+    return 0;
 }

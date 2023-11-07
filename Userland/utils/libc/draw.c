@@ -1,14 +1,12 @@
 #include <draw.h>
 #include <syscalls.h>
 
-// temp
 static int abs(int n) {
     if (n < 0) {
         return -n;
     }
     return n;
 }
-
 
 void draw_pixel(color_t color, uint16_t size, uint64_t x, uint64_t y) {
     // each pixel from draw is 8x8
@@ -20,7 +18,7 @@ void draw_pixel(color_t color, uint16_t size, uint64_t x, uint64_t y) {
 }
 
 void draw_rectangle(color_t color, uint16_t size, uint64_t x, uint64_t y) {
-// draw a rectangle of size size with starting position x and y for only the borders
+    // draw a rectangle of size size with starting position x and y for only the borders
     // top margin
     draw_line(color, x, y, x + size, y);
     // bottom margin
@@ -29,8 +27,7 @@ void draw_rectangle(color_t color, uint16_t size, uint64_t x, uint64_t y) {
     draw_line(color, x + size, y, x + size, y + size);
 }
 
-void draw_line(color_t color, uint64_t startx, uint64_t starty, uint64_t endx, uint64_t endy)
-{
+void draw_line(color_t color, uint64_t startx, uint64_t starty, uint64_t endx, uint64_t endy) {
     int dx = endx - startx;
     int dy = endy - starty;
     int sx = (dx >= 0) ? 1 : -1;
@@ -53,7 +50,6 @@ void draw_line(color_t color, uint64_t startx, uint64_t starty, uint64_t endx, u
     }
     draw(color, endx, endy);
 }
-
 
 void draw_bitmap(color_t color, char *bitmap[], uint16_t rows, uint16_t cols, uint64_t startx, uint64_t starty) {
     uint64_t x = startx;

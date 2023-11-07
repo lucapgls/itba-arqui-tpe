@@ -1,27 +1,21 @@
-#include <stdlib.h>
 #include <stdint.h>
-#include <syscalls.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <syscalls.h>
 
-
-
-void putchar(char c)
-{
-     putchar_color(c, 0xFFFFFF, 0x000000);
+void putchar(char c) {
+    putchar_color(c, 0xFFFFFF, 0x000000);
 }
 
-void putchar_color(char c, uint64_t fgcolor, uint64_t bgcolor) 
-{
-   write(1, &c, 1, fgcolor, bgcolor);
+void putchar_color(char c, uint64_t fgcolor, uint64_t bgcolor) {
+    write(1, &c, 1, fgcolor, bgcolor);
 }
 
-uint8_t getchar() 
-{
+uint8_t getchar() {
     return read_char();
 }
 
-int64_t gets(char *buff, uint64_t length) 
-{
+int64_t gets(char *buff, uint64_t length) {
     uint64_t i = 0;
     char c;
     do {
@@ -40,13 +34,9 @@ int64_t gets(char *buff, uint64_t length)
                 putchar('\b');
             }
         }
-    }
-    while (i < length && c != '\n');
+    } while (i < length && c != '\n');
 
-    
-    // read(0, buff, length);
     return i;
-    // return read(1, buff, length);
 }
 
 static void reverse_str(char str[], int length) {
@@ -61,10 +51,9 @@ static void reverse_str(char str[], int length) {
     }
 }
 
-uint64_t atoi(char* str) 
-{
+uint64_t atoi(char *str) {
     uint64_t ans = 0;
-    
+
     int i = 0;
     uint8_t sign = 1;
 
@@ -80,8 +69,7 @@ uint64_t atoi(char* str)
     return ans * sign;
 }
 
-void itoa(uint64_t number, char* buff) 
-{
+void itoa(uint64_t number, char *buff) {
     int i = 0;
     int is_neg = 0;
 
@@ -93,7 +81,7 @@ void itoa(uint64_t number, char* buff)
 
     // Handle negative numbers
     if (number < 0) {
-        is_neg= 1;
+        is_neg = 1;
         number = -number;
     }
 
@@ -110,6 +98,4 @@ void itoa(uint64_t number, char* buff)
     buff[i] = '\0';
 
     reverse_str(buff, i);
-    
 }
-
