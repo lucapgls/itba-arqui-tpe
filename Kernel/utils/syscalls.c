@@ -6,9 +6,15 @@
 #include "video.h"
 #include <lib.h>
 #include "sound.h"
+#include <exceptions.h>
 
 // temp
 #include <naiveConsole.h>
+
+#define REGS_SIZE 19
+
+static uint8_t regs_flag = 0;
+static uint64_t regs[REGS_SIZE];
 
 // Cast to a function pointer
 typedef uint64_t (*syscall_t)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t);
@@ -31,7 +37,8 @@ static syscall_t syscalls[] = {
     (syscall_t)&sys_clear,          // sys_id 13
     (syscall_t)&sys_writing_position, // sys_id 14
     (syscall_t)&screen_info,        // sys_id 15
-    (syscall_t)&font_size      // sys_id 16
+    (syscall_t)&font_size,      // sys_id 16
+    (syscall_t)&sys_registers   //sys_id 17
 };
 
 uint64_t syscall_dispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint64_t r9) {
@@ -172,4 +179,15 @@ void screen_info(uint64_t *width, uint64_t *height) {
 
 void font_size(int size) {
     video_fontsize(size); 
+}
+
+//Si no se llamo a save_registers antes, no puede imprimir nada
+void sys_registers(){
+    print_regs(regs_flag ? regs : (uint64_t*)0);
+}
+
+void save_registers(uint64_t * stack){
+    regs_flag = 1;
+    for(int i = 0; i< REGS_SIZE; i++)
+            regs[i] = stack[i];
 }

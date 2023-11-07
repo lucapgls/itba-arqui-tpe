@@ -1,4 +1,4 @@
-GLOBAL read, write, random, read_char, draw, sleep, time, sound, hlt, clear, writing_pos, screen_info,font_size
+GLOBAL read, write, random, read_char, draw, sleep, time, sound, hlt, clear, writing_pos, screen_info,font_size,sys_registers
 
 
 
@@ -65,5 +65,10 @@ screen_info:
 
 font_size:
     mov rax,16
+    int 0x80
+    ret
+
+sys_registers:
+    mov rax,17
     int 0x80
     ret

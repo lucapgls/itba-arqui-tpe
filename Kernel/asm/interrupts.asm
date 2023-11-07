@@ -8,10 +8,11 @@ global asm_irq00_handler, asm_irq01_handler
 
 global asm_exception00_handler, asm_exception06_handler
 
-extern irq_dispatcher, syscall_dispatcher, exception_dispatcher
+extern irq_dispatcher, syscall_dispatcher, exception_dispatcher, save_registers
 
 SECTION .text
 
+REGISTER_CAPTURE equ '0'
 
 %macro push_state 0
 	push rax
@@ -51,15 +52,26 @@ SECTION .text
 
 ;handler de las interrupcion Hardware
 %macro irq_handler 1
+	push rax
     push_state
+
     mov rdi,%1
     call irq_dispatcher
 
+	push rax
     ;signal pic EOI (End of Interrupt)
     mov al,0x20
     out 0x20, al
+	pop rax
 
-    pop_state
+	cmp rax,REGISTER_CAPTURE 
+	jne .end
+	mov rdi,rsp
+	call save_registers
+
+.end:
+	pop_state
+	pop rax
     iretq
 %endmacro
 

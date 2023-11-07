@@ -23,4 +23,8 @@ void sys_clear(uint32_t color);
 void sys_writing_position(uint64_t x, uint64_t y);
 void screen_info(uint64_t *width, uint64_t *height);
 void font_size(int size);
+
+void sys_registers();
+void save_registers(uint64_t *stack);
+
 #endif

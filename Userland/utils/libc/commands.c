@@ -17,6 +17,7 @@ static command_t commands[] = {
 	{"exit", "Exits the shell", NULL},
 	{"amongus", "Prints Among Us", print_amongus},
 	{"snake", "Starts the snake game", snake},
+	{"regs","printea los registros",print_regs},
 };
 
 void execute_command(char* cmdname) {
@@ -75,4 +76,8 @@ void print_time() {
 
 void print_clear() {
     clear(COLOR_BLACK);
+}
+
+void print_regs(){
+	sys_registers();
 }

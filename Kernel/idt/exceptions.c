@@ -1,13 +1,11 @@
 #include <exceptions.h>
 #include <io.h>
+#include <naiveConsole.h>
 
 #define ERROR_FGCOLOR 0xFF0000
 #define ERROR_BGCOLOR 0x000000
 #define ZERO_DIVISION 0
 #define INVALID_OPCODE  6
-#define BUFF_SIZE 30
-
-static char buff[BUFF_SIZE];
 
 static char * regs[] = {
         "R15 = 0x", "R14 = 0x", "R13 = 0x", "R12 = 0x", "R11 = 0x", "R10 = 0x", "R9 = 0x", "R8 = 0x", "RSI = 0x",
@@ -26,19 +24,25 @@ void exception_dispatcher(uint32_t exception, uint64_t* stack){
                 printf_color("Invadid Opcode Exception\n", ERROR_FGCOLOR,ERROR_BGCOLOR);
         break;
     }
-    printregs(stack);
+    print_regs(stack);
+
 }
 
 
-void printregs(uint64_t * stack){
-    /*
+
+
+void print_regs(uint64_t * stack){
+    
     if(stack == 0){
+        printf("\nError. Before print registers, press the key '0'");
         return;
     }
-    */
-    for(int i = 0; i < registers_len - 1; i++){
-       //uint32_t len = 
-       printf("%s", regs[i]);
-        
+    
+    for(int i = 0; i < registers_len - 1; i++){    
+       printf(regs[i]);
+        char buff[30];
+        uintToBase(stack[i],buff,16);
+        printf(buff);
+       putchar('\n');
     }
 }

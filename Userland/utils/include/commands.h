@@ -15,5 +15,6 @@ void print_amongus();
 void print_random();
 void print_time();
 void print_clear();
+void print_regs();
 
 #endif
