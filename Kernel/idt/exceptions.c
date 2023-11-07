@@ -38,7 +38,8 @@ void print_regs(uint64_t * stack){
         return;
     }
     
-    for(int i = 0; i < registers_len - 1; i++){    
+    for(int i = 0; i < registers_len - 1; i++){ 
+        putchar('\n');   
        printf(regs[i]);
         char buff[30];
         uintToBase(stack[i],buff,16);

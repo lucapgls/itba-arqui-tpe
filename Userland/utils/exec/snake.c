@@ -192,7 +192,7 @@ void gameover_menu() {
         clear(COLOR_BLACK);
         snake();
     }
-
+    clear(COLOR_BLACK);
 }
 
 void init_player(player_t player, color_t color, controller_t controller)
