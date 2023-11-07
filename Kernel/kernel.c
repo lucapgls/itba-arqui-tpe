@@ -62,6 +62,8 @@ int main()
 	// for (int i = 100; i < 10000; i += 100) {
 	// 	sys_sound(i, 1);
 	// }
+
+	// not working
 	// for (int i = 0; i < 100; i++)
 	// 	beep();
 

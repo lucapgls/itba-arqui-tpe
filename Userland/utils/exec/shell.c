@@ -13,14 +13,6 @@
 
 void shell() {
 
-	/*
-	sleep(1000);
-	amongus(0,0);
-	sleep(3000);
-	for(int i = 0; i<300; i += 2){
-		draw_line(0x000000,0,i,1100,i);
-	}
-	*/
 	// SHELL HEADER
 	putchar('\n');
     printf_color("Welcome to AmongOS Shell (SUShell) \n", COLOR_MAGENTA, COLOR_BLACK);   
@@ -29,17 +21,7 @@ void shell() {
 	putchar('\n');
 	putchar('\n');
 
-	//sound((uint8_t)0x0888,1	);
-	
-
 	char buff[MAX_BUFFER_SIZE];
-
-	// for (int i =0; i< 10 ; i++ ) {
-	// 	printf("Random number: %d\n", random(i)); 
-		
-	// }
-		
-	
 
 	// SHELL LOOP
 	while (1) {
@@ -60,16 +42,13 @@ void buffer_command(const char *buff)
 		printf("time: Shows the current time\n");
 		printf("date: Shows the current date\n");
 		printf("random: Shows a random number\n");
-		printf("font: Change font size (1-5)\n");
+		printf("screen: Shows the screen size\n");
+		printf("font: Change font size (1-6)\n");
 		printf("exit: Exits the shell\n");
 	}
 	else if (strcmp(buff, "amongus") == 0) {
 		print_amongus();
 	}
-//
-	// else if (strcmp(buff, "clear") == 0) {
-	// 	clear_screen();
-	// }
 	else if (strcmp(buff, "time") == 0) {
 		printf("\n%s\n", time());
 	}
@@ -91,24 +70,13 @@ void buffer_command(const char *buff)
 	} else if (strcmp(buff, "font") == 0) {
 		int num;
 		scanf("\nNew size: %d", &num);
-		num -= '0';
 		if (num <= 0 || num >= 6) {
 			printf("\nInvalid size\n");
 		} else {
 			font_size(num);
 			clear(COLOR_BLACK);
 		}
-	}
-		
-	// else if (strcmp(buff, "date") == 0) {
-	// 	printf("Date: d/d/d\n", get_day(), get_month(), get_year());
-	// }
-	// else if (strcmp(buff, "random") == 0) {
-	// 	printf("Random: d\n", random());
-	// }
-	// else if (strcmp(buff, "exit") == 0) {
-	// 	exit(0);
-	// }
+	}	
 	else if (strcmp(buff, "") != 0) {
 		printf("\nSUShell: '%s' command not found\n", buff);
 	}	

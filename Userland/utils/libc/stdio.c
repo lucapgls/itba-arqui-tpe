@@ -7,8 +7,6 @@
 
 void scanf(const char *fmt, ...) 
 {
-
-
     va_list args;
     va_start(args, fmt);
 
@@ -18,14 +16,8 @@ void scanf(const char *fmt, ...)
                 case 'd':
                     ; 
                     // max length of int to be read is 24 (arbitrary)
-                    char* num = gets(va_arg(args, int*), 24);
-
-                    // need tovalidate if val is nan
-                    // -- here --
-                    // 
-                    // parse to int
-
-
+                    int* aux = va_arg(args, int*);
+                    aux = atoi(gets(aux, 24));
                     break;
                 case 's':
                     gets(va_arg(args, char*), 100);

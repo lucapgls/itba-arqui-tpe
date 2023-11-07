@@ -100,15 +100,27 @@ asm_end_sound:
 	ret
 
 
-outb:
-    mov al, [rdi]   ; Load the value from the "val" parameter into AL
-    mov dx, [rsi]   ; Load the value from the "port" parameter into DX
-    out dx, al      ; Perform the outb operation
-    ret
+inb:				; Funciones para el correcto funcionamiento del soundDriver
+	push rbp
+	mov rbp, rsp
 
-inb:
-    mov dx, [rdi]    ; Load the port number from the "port" parameter into DX
-    in al, dx         ; Read a byte from the I/O port specified in DX and store it in AL
-    ret
+    mov rdx,rdi
+    in al,dx		; pasaje en 8 bits
+
+	mov rsp, rbp
+	pop rbp
+	ret
+
+outb:
+	push rbp
+	mov rbp, rsp
+
+    mov rax, rsi    
+    mov rdx, rdi
+	out dx, al		; pasaje en 8 bits
+
+	mov rsp, rbp
+	pop rbp
+	ret
 
 
