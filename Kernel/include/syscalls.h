@@ -21,4 +21,6 @@ void sys_hlt();
 void sys_clear(uint32_t color);
 
 void sys_writing_position(uint64_t x, uint64_t y);
+void screen_info(uint64_t *width, uint64_t *height);
+void font_size(int size);
 #endif

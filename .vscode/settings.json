@@ -26,7 +26,9 @@
     "sound.h": "c",
     "draw.h": "c",
     "random.h": "c",
-    "random": "c"
+    "random": "c",
+    "video.h": "c",
+    "moduleloader.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled",
   "C_Cpp_Runner.msvcBatchPath": "",

@@ -12,4 +12,7 @@ void delete_char(uint64_t *x, uint64_t *y, uint64_t fgcolor, uint64_t bgcolor);
 void clear_screen(uint32_t hexColor);
 void put_pixel(uint32_t hexColor, uint64_t x, uint64_t y);
 
+void video_fontsize(int newsize);
+int get_width();
+int get_height();
 #endif

@@ -41,7 +41,7 @@ void * initializeKernelBinary()
 {
 
 	void * moduleAddresses[] = {
-		sampleCodeModuleAddress,
+		userlandCodeModuleAddress,
 		sampleDataModuleAddress
 	};
 
@@ -65,15 +65,13 @@ int main()
 	// for (int i = 0; i < 100; i++)
 	// 	beep();
 
-	// shell in userspace
 
+	printf_color("Welcome to the AmongOS kernel!\n", 0x00FF00, 0x00);
+	
 	// start userland
 	// run_process("userland"); // o algo asi
-	printf_color("Welcome to the AmongOS kernel!\n", 0x00FF00, 0x00);
+	((EntryPoint)userlandCodeModuleAddress)();
 
-	((EntryPoint)sampleCodeModuleAddress)();
-
-	// test_write(1, "Hello world!\n", 13);
 
 	while(1);
 

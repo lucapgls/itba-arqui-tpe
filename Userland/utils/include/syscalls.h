@@ -16,4 +16,6 @@ extern void sound(uint64_t freq, uint64_t duration);
 extern void hlt();
 extern void clear(uint32_t color);
 extern void writing_pos(uint64_t x, uint64_t y);
+extern void screen_info(uint64_t *width, uint64_t *height);
+extern void font_size(int size);
 #endif

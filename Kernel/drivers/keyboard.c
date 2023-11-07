@@ -21,26 +21,24 @@ void keyboard_handler()
 // Get the ascii value of the key pressed and detect if the shift was also pressed.
 uint8_t get_key()
 {
-    char key = asm_get_key();
-    if (key >= 0 && key <= KBD_LENGTH)
+    uint8_t key = asm_get_key();
+    if (key == LSHIFT || key == RSHIFT)
     {
-        if (key == LSHIFT || key == RSHIFT)
-        {
-            shift = 1;
-        }
+        shift = 1;
+    }
+    else if (key == RELEASE_LSHIFT || key == RELEASE_RSHIFT)
+    {
+        shift = 0;
+    }
 
-        else if (key == RELEASE_LSHIFT || key == RELEASE_RSHIFT)
-        {
-            shift = 0;
-        }
-
-
-        // "delete key"
-        if (key == DELETE || key == DELETE + 128) {
+        // "delete key" @FIX
+    if (key == DELETE || key == DELETE + 128) {
             add_to_buffer(127); // ascii of del
             return '0';
-        }
+    }
 
+    if (key >= 0 && key <= KBD_LENGTH)
+    {
         key = kbd_codes[key][shift];
         add_to_buffer(key); 
         return key;
@@ -58,7 +56,7 @@ void add_to_buffer(uint8_t key)
     
     count++;
     if (key == 127 && count > 1) {
-        count  -= 2;
+        count -= 2;
     }
     
     

@@ -14,8 +14,10 @@ void clear(uint32_t hex) {
 }
 
 void set_position(uint64_t new_x, uint64_t new_y) {
-    x = new_x;
-    y = new_y;
+    if (new_x >= 0)
+        x = new_x;
+    if (new_y >= 0)
+        y = new_y;
 }
 
 // 8 x 16 pixels

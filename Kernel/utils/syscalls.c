@@ -29,7 +29,9 @@ static syscall_t syscalls[] = {
     (syscall_t)&sys_sound,              //sys_id 11
     (syscall_t)&sys_hlt,                 //sys_id 12
     (syscall_t)&sys_clear,          // sys_id 13
-    (syscall_t)&sys_writing_position // sys_id 14
+    (syscall_t)&sys_writing_position, // sys_id 14
+    (syscall_t)&screen_info,        // sys_id 15
+    (syscall_t)&font_size      // sys_id 16
 };
 
 uint64_t syscall_dispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint64_t r9) {
@@ -161,4 +163,13 @@ void sys_clear(uint32_t color) {
 
 void sys_writing_position(uint64_t x, uint64_t y) {
     set_position(x, y);
+}
+
+void screen_info(uint64_t *width, uint64_t *height) {
+    *width = get_width();
+    *height = get_height();
+}
+
+void font_size(int size) {
+    video_fontsize(size); 
 }

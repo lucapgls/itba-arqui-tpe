@@ -1,6 +1,7 @@
 include ../Makefile.inc
 
-MODULE=0000-sampleCodeModule.bin
+# MODULE=0000-sampleCodeModule.bin
+MODULE=0000-userlandCodeModule.bin
 SOURCES=$(wildcard *.c)
 SOURCES_EXEC=$(wildcard exec/*.c)
 SOURCES_LIBC=$(wildcard libc/*.c)
@@ -16,8 +17,8 @@ ALL_OBJECTS= $(OBJECTS) $(OBJECTS_ASM) $(OBJECTS_EXEC) $(OBJECTS_LIBC)
 all: $(MODULE)
 
 $(MODULE): $(ALL_OBJECTS)
-	$(LD) $(LDFLAGS) -T sampleCodeModule.ld $(ALL_OBJECTS) -o ../$(MODULE)
-	$(LD) $(LDFLAGS) -T sampleCodeModule.ld --oformat=elf64-x86-64 -o ../0000-sampleCodeModule.elf $^
+	$(LD) $(LDFLAGS) -T userlandCodeModule.ld $(ALL_OBJECTS) -o ../$(MODULE)
+	$(LD) $(LDFLAGS) -T userlandCodeModule.ld --oformat=elf64-x86-64 -o ../0000-userlandCodeModule.elf $^
 
 %.o: %.c
 	$(GCC) $(GCCFLAGS) -I./include -c $< -o $@

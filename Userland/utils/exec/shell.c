@@ -29,11 +29,6 @@ void shell() {
 	putchar('\n');
 	putchar('\n');
 
-	for (int i = 0; i < 10; ++i) {
-        int randomNumber = rand(21304, BOARD_SIZE);
-        // Do something with the random number, for example, print it
-        printf("%d\n", randomNumber);
-    }
 	//sound((uint8_t)0x0888,1	);
 	
 
@@ -65,12 +60,13 @@ void buffer_command(const char *buff)
 		printf("time: Shows the current time\n");
 		printf("date: Shows the current date\n");
 		printf("random: Shows a random number\n");
+		printf("font: Change font size (1-5)\n");
 		printf("exit: Exits the shell\n");
 	}
 	else if (strcmp(buff, "amongus") == 0) {
 		print_amongus();
 	}
-
+//
 	// else if (strcmp(buff, "clear") == 0) {
 	// 	clear_screen();
 	// }
@@ -88,6 +84,22 @@ void buffer_command(const char *buff)
 	else if (strcmp(buff, "random") == 0) {
 		printf("\n%d\n", random(1203929));
 	}
+	else if (strcmp(buff, "screen") == 0) {
+		uint64_t width, height;
+		screen_info(&width, &height);
+		printf("\nW:%d, H:%d\n", width, height);
+	} else if (strcmp(buff, "font") == 0) {
+		int num;
+		scanf("\nNew size: %d", &num);
+		num -= '0';
+		if (num <= 0 || num >= 6) {
+			printf("\nInvalid size\n");
+		} else {
+			font_size(num);
+			clear(COLOR_BLACK);
+		}
+	}
+		
 	// else if (strcmp(buff, "date") == 0) {
 	// 	printf("Date: d/d/d\n", get_day(), get_month(), get_year());
 	// }

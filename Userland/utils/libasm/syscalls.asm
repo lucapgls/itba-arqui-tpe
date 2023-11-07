@@ -1,4 +1,4 @@
-GLOBAL read, write, random, read_char, draw, sleep, time, sound, hlt, clear, writing_pos
+GLOBAL read, write, random, read_char, draw, sleep, time, sound, hlt, clear, writing_pos, screen_info,font_size
 
 
 
@@ -55,5 +55,15 @@ clear:
 
 writing_pos:
     mov rax, 14
+    int 0x80
+    ret
+
+screen_info:
+    mov rax, 15
+    int 0x80
+    ret
+
+font_size:
+    mov rax,16
     int 0x80
     ret

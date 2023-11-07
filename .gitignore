@@ -2,6 +2,7 @@
 *.bin
 *.sys
 *.elf
+0000-*.{elf,bin}
 
 # Images
 *.img
