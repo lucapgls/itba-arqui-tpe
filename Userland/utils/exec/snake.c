@@ -59,7 +59,7 @@ struct block
 };
 
 static block_t collision_board[BOARD_SIZE][BOARD_SIZE];
-static uint8_t player_count = 0;
+static uint8_t player_count;
 
 
 void snake()
@@ -73,8 +73,9 @@ void main_menu()
 {
     uint64_t width, height;
     screen_info(&width, &height);
-    player_t player1 = NULL;
-    player_t player2 = NULL;
+    player_t player1;
+    player_t player2;
+
     clear(COLOR_BLACK);
     amongus(0, height/2+160);
     font_size(2);
@@ -116,8 +117,12 @@ void main_menu()
         return;
     }
     
-    writing_pos(width / 2 - 5 * PIXEL , height / 2 - 6 * PIXEL);
-    scanf("Press any key to start %d", 0);
+    for (int i = 3; i > 0; i--) {
+        writing_pos(width / 2 - 5 * PIXEL , height / 2 - 6 * PIXEL);
+        printf("Game starting in: %d", i);
+        sleep(500);
+    }
+
     clear(COLOR_BLACK);
 
     game(player1, player2);
@@ -199,7 +204,7 @@ void init_player(player_t player, color_t color, controller_t controller)
     player->alive = 1;
 
     player->snake.head.x = 4 + player_count * 15;
-    player->snake.head.y = BOARD_SIZE / 2;
+    player->snake.head.y = 6;
 
     player->uid = ++player_count;
     player->snake.head.dir = player_count == 1 ? controller.right : controller.left;
@@ -220,7 +225,6 @@ void draw_game(player_t player1, player_t player2)
     {
         for (int j = 0; j < BOARD_SIZE; j++)
         {
-
             switch (collision_board[i][j].uid)
             {
             // fruit
@@ -242,14 +246,16 @@ void draw_game(player_t player1, player_t player2)
                 break;
             }
 
+
             if (collision_board[i][j].count > 0)
             {
                 collision_board[i][j].count--;
-            }
+            } 
             else if (collision_board[i][j].uid != FRUIT)
             {
                 collision_board[i][j].uid = 0;
             }
+
         }
     }
 }
@@ -290,6 +296,7 @@ void move_player(player_t player1, player_t player2)
 void update_position(player_t player, uint8_t dir)
 {
 
+
     // If no input or oposite direction, move in the same direction as the previous head
     if ((dir == 0) || (dir == player->controller.up && player->snake.head.dir == player->controller.down) ||
         (dir == player->controller.down && player->snake.head.dir == player->controller.up) ||
@@ -325,10 +332,14 @@ void update_position(player_t player, uint8_t dir)
                                             player->snake.head.dir};
     }
 
+    writing_pos(0, 30);
+    printf("X: %d, Y: %d\n", player->snake.head.x, player->snake.head.y);
+
+
     check_collision(player);
-    // Set the new head position to the player id
     collision_board[player->snake.head.x][player->snake.head.y].count = player->snake.len;
     collision_board[player->snake.head.x][player->snake.head.y].uid = player->uid;
+    // Set the new head position to the player id
 }
 
 void food()
@@ -350,9 +361,8 @@ void check_collision(player_t player)
     // check player in bound of playing area
     if (player->snake.head.x < 0 || player->snake.head.x >= BOARD_SIZE || player->snake.head.y < 0 || player->snake.head.y >= BOARD_SIZE)
     {
-        writing_pos(0, 20);
-        printf("Player %d out of bounds\n", player->uid);
         player->alive = 0;
+        delete_snake(player);
         kill_snake(player);
         return;
     }
