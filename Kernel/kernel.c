@@ -65,10 +65,10 @@ int main()
 
 	// not working
 	// for (int i = 0; i < 100; i++)
-	beep();
-	beep();
-	beep();
-	beep();
+	//beep();
+	//beep();
+	//beep();
+	//beep();
 
 
 

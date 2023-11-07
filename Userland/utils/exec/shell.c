@@ -13,7 +13,7 @@
 void shell() {
 
 	// SHELL HEADER
-	putchar('\n');
+	putchar('\n');	
     printf_color("Welcome to AmongOS Shell (SUShell) \n", COLOR_MAGENTA, COLOR_BLACK);   
 	putchar('\n');
 	printf("To see the list of available commands, type 'help'\n");

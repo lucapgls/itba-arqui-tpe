@@ -13,7 +13,7 @@ static command_t commands[] = {
 	{"time", "Shows the current time", print_time},
 	{"random", "Shows a random number", print_random},
 	{"screen", "Shows the screen size", screen},
-	{"font", "Change font size (1-6)", font},
+	{"font", "Change font size (1-5)", font},
 	{"exit", "Exits the shell", NULL},
 	{"amongus", "Prints Among Us", print_amongus},
 	{"snake", "Starts the snake game", snake},

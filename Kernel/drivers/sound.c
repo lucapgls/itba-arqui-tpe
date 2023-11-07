@@ -3,15 +3,6 @@
 #include "lib.h"
 #include <stdint.h>
 
-void sound(uint8_t freq, uint64_t duration){
-        uint64_t duration_s = duration * 1000;
-       if(freq != 0)
-          asm_start_sound(freq); // asm_start_sound(1193180 / freq);
-        if(duration_s != 0)
-            sleep(duration_s);
-        if(!((freq == 0) && (duration_s == 0)))
-        asm_end_sound();
-}
 
 //Play sound using built in speaker
  static void play_sound(uint32_t nFrequence) {
@@ -45,3 +36,11 @@ void sound(uint8_t freq, uint64_t duration){
  	 nosound();
           //set_PIT_2(old_frequency);
  }
+
+void start_sound(uint32_t nFrequence,uint32_t time){
+	if(time != 0){
+	play_sound(nFrequence);
+	sleep(time);
+	}
+	nosound();
+}

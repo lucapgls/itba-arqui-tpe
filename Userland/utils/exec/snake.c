@@ -378,6 +378,7 @@ void check_collision(player_t player)
         increment_length(player);
         food();
         update_points(player);
+        sound(1000,100);
         break;
 
     // collided with a player or themselves

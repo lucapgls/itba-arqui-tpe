@@ -156,7 +156,7 @@ void sys_sleep(uint64_t millis)
 }
 
 void sys_sound(uint8_t freq, uint64_t duration){
-     sound(freq,duration);
+     start_sound(freq,duration);
 }
 
 void sys_hlt() {
