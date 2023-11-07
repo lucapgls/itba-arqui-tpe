@@ -2,7 +2,7 @@
 #include <io.h>
 #include <font.h>
 
-#define BUFFER_SIZE 10
+#define BUFFER_SIZE 1024
 
 static uint8_t shift = 0;
 
@@ -49,18 +49,23 @@ uint8_t get_key()
 
 void add_to_buffer(uint8_t key)
 {
-    // for circular buffer
-    buffer[last_ptr++] = key;
-    last_ptr %= BUFFER_SIZE;
-    
-    count++;
+
     if (key == 127 && count > 1) {
         count -= 2;
+        buffer[--last_ptr % BUFFER_SIZE] = key;
+    } else {
+        buffer[last_ptr++] = key;
+        last_ptr %= BUFFER_SIZE;
+        count++;
+
     }
-    
+
+    // for circular buffer
+  
     
     if (key == '\n')
         count = 0;
+
 
 }
 

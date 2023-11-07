@@ -104,9 +104,10 @@ void draw_cursor(uint64_t x, uint64_t y, uint64_t fgcolor, uint64_t bgcolor)
 void delete_char(uint64_t *x, uint64_t *y, uint64_t fgcolor, uint64_t bgcolor)
 {
   
-  *x -= FONT_WIDTH;
+  *x -= FONT_WIDTH * size;
   put_char_at(' ', x, y, fgcolor, bgcolor);
-  *x -= FONT_WIDTH;
+  *x -= FONT_WIDTH * size;
+  
 }
 
 void put_pixel(uint32_t hexColor, uint64_t x, uint64_t y)
@@ -133,4 +134,9 @@ int get_width() {
 
 int get_height() {
   return vbe_mode_info->height;
+}
+
+void new_line(uint64_t *x, uint64_t *y) {
+   *x = 0;
+   *y += FONT_HEIGHT * size;
 }

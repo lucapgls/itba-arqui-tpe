@@ -44,12 +44,16 @@ void putchar_color(char c, uint64_t fgcolor, uint64_t bgcolor)
 {
     switch(c) {
         case '\n':
-            x = 0;
-            y += 16;
+            new_line(&x, &y);
             break;
         case 127: // del char
-            if (kbd_count() > 1)
+            if (kbd_count() > 1) {
+                //printf("count: %d", kbd_count());
+
                 delete_char(&x, &y, fgcolor, bgcolor);
+            }
+
+                
             break;
         default:
             put_char_at(c, &x, &y, fgcolor, bgcolor);
