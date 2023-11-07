@@ -36,15 +36,14 @@ void print_regs(uint64_t * stack){
         return;
     }
     
+    putchar('\n');   
     for(int i = 0; i < registers_len - 1; i++){ 
-        putchar('\n');   
-       printf(regs[i]);
+        printf(regs[i]);
         char buff[16];
         uintToBase(stack[i],buff,16);
         printf(buff);
-       putchar('\n');
+        putchar('\n');
     }
-    putchar('\n');
     printf(regs[registers_len - 1]);
     char buff[16];
     uintToBase(stack[registers_len + 1], buff, 16); 

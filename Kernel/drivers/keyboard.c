@@ -2,15 +2,18 @@
 #include <io.h>
 #include <font.h>
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 128
 
 static uint8_t shift = 0;
+
+static uint8_t last_key = 0;
 
 static char buffer[BUFFER_SIZE] = {0};
 static int8_t first_ptr = 0; // Points to the front of the buffer.
 static int8_t last_ptr = 0;  // Points to the last element added.
 static uint8_t count = 0;
 
+static clear_buffer();
 
 void keyboard_handler()
 {
@@ -30,16 +33,12 @@ uint8_t get_key()
         shift = 0;
     }
 
-        // "delete key" @FIX
-    if (key == DELETE || key == DELETE + 128) {
-            add_to_buffer(127); // ascii of del
-            return '0';
-    }
-    
+
     if (key >= 0 && key <= KBD_LENGTH)
     {
         key = kbd_codes[key][shift];
         add_to_buffer(key); 
+        last_key = key;
         return key;
     }
 
@@ -49,31 +48,24 @@ uint8_t get_key()
 
 void add_to_buffer(uint8_t key)
 {
+ 
+    count++;
 
-    if (key == 127 && count > 1) {
+    if (key == '\b') 
         count -= 2;
-        buffer[--last_ptr % BUFFER_SIZE] = key;
-    } else {
-        buffer[last_ptr++] = key;
-        last_ptr %= BUFFER_SIZE;
-        count++;
 
-    }
-
-    // for circular buffer
-  
-    
     if (key == '\n')
-        count = 0;
+        clear_buffer();
 
-
+    buffer[last_ptr++ % BUFFER_SIZE] = key;
 }
 
 uint64_t get_buffer(char *buff, uint64_t count)
 {
     uint64_t i = 0;
-    while (i < count) {
-        buff[i++] = buffer[first_ptr++ % BUFFER_SIZE];
+    while (i < count && buff[i] != '\n') {
+        if (buffer[first_ptr++ % BUFFER_SIZE] != '\b')
+            buff[i++] = buffer[first_ptr % BUFFER_SIZE];
     }
 
     // "Limpio el buffer"
@@ -86,16 +78,24 @@ uint64_t get_buffer(char *buff, uint64_t count)
 // Get the last input from the buffer and remove it from the buffer.
 uint8_t get_last_input()
 {
-    if (last_ptr != 0) {
-        uint8_t key = buffer[--last_ptr];
 
-        return key;
-    } else {
-        return 0;
+    if (last_key != 0)
+    {
+        last_ptr = (last_ptr-1) % BUFFER_SIZE;
+        uint8_t to_ret = last_key;
+        last_key = 0;
+        return to_ret;
     }
-
+    return last_key;
+    
 }
 
-uint32_t kbd_count() {
-    return count;
+static clear_buffer()
+{
+    for (int i = 0; i < BUFFER_SIZE; i++)
+    {
+        buffer[i] = 0;
+    }
+    count = 0;
+    last_key = 0;
 }

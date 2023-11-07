@@ -87,8 +87,8 @@ char *sys_read(uint8_t fd, char *buffer, uint64_t count)
 }
 
 char sys_read_char(){
-    char c = get_last_input();
-    return c; 
+    hlt();
+    return get_last_input();
 }
 
 uint64_t pid() {

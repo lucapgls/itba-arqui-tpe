@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <syscalls.h>
+#include <stdio.h>
+
 
 
 void putchar(char c)
@@ -32,9 +34,17 @@ int64_t gets(char *buff, uint64_t length)
         if (c == '\n') {
             buff[i] = '\0';
         }
+        if (c == '\b') {
+            if (i > 0) {
+                i--;
+                putchar('\b');
+            }
+        }
     }
     while (i < length && c != '\n');
 
+    
+    // read(0, buff, length);
     return i;
     // return read(1, buff, length);
 }
