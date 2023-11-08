@@ -13,7 +13,7 @@ static int8_t first_ptr = 0; // Points to the front of the buffer.
 static int8_t last_ptr = 0; // Points to the last element added.
 static uint8_t count = 0;
 
-static clear_buffer();
+static void clear_buffer();
 
 void keyboard_handler() {
     get_key();
@@ -75,7 +75,7 @@ uint8_t get_last_input() {
     return last_key;
 }
 
-static clear_buffer() {
+static void clear_buffer() {
     for (int i = 0; i < BUFFER_SIZE; i++) {
         buffer[i] = 0;
     }

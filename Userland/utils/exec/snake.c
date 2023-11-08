@@ -60,10 +60,11 @@ void snake() {
     main_menu();
 }
 
+
 void main_menu() {
     uint64_t width, height;
     screen_info(&width, &height);
-    player_t player1;
+    player_t player1; 
     player_t player2;
 
     clear(COLOR_BLACK);
@@ -277,8 +278,9 @@ void update_position(player_t player, uint8_t dir) {
             player->snake.head.dir};
     }
 
-    writing_pos(0, 30);
-    printf("X: %d, Y: %d\n", player->snake.head.x, player->snake.head.y);
+    // debug player position
+    // writing_pos(0, 30);
+    // printf("X: %d, Y: %d\n", player->snake.head.x, player->snake.head.y);
 
     check_collision(player);
     collision_board[player->snake.head.x][player->snake.head.y].count = player->snake.len;

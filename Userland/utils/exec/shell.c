@@ -1,10 +1,8 @@
-#include <draw.h>
-#include <random.h>
 #include <shell.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <syscalls.h>
+#include <commands.h>
 
 #define EOF (-1)
 #define MAX_BUFFER_SIZE 1024
