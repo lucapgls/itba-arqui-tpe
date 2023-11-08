@@ -166,10 +166,5 @@ void save_registers(uint64_t *stack) {
     regs_flag = 1;
     for (int i = 0; i < REGS_SIZE; i++){
         regs[i] = stack[i];
-        char * buff[15];
-        itoa(buff,stack[i], 15);
-        uintToBase(stack[i], buff,16);
-        printf(buff);
-        putchar('\n');
     }
 }

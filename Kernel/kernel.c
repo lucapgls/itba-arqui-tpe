@@ -11,6 +11,7 @@
 #include <time.h>
 #include <userland.h>
 #include <video.h>
+#include <exceptions.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -53,7 +54,7 @@ int main() {
 
     printf_color("Welcome to the AmongOS kernel!\n", 0x00FF00, 0x00);
 
-    //set_restore_point((uint64_t) userlandCodeModuleAddress, asm_getsp(),asm_getbp());
+    set_restore_point((uint64_t) userlandCodeModuleAddress, asm_getsp(),asm_getbp());
 
     ((EntryPoint)userlandCodeModuleAddress)();
 

@@ -14,6 +14,8 @@
 
 #include <stdint.h>
 
+extern uint64_t asm_getsp();
+extern uint64_t asm_getbp();
 
 /*
  * @name exceptions_dispatcher
@@ -21,7 +23,7 @@
  */
 void exceptions_dispatcher(uint32_t exception, uint64_t* stack);
 
-/* 
+/*
  * @name print_regs
  * @brief Prints the registers.
  */
