@@ -31,10 +31,10 @@ static uint32_t registers_len = sizeof(regs)/sizeof(regs[0]);
 void exception_dispatcher(uint32_t exception, uint64_t* stack){
     switch(exception){
         case ZERO_DIVISION:
-                printf_color("Zero Division Error Exception\n",ERROR_FGCOLOR, ERROR_BGCOLOR);
+                printf_color("\nZero Division Error Exception\n",ERROR_FGCOLOR, ERROR_BGCOLOR);
         break;
         case INVALID_OPCODE:
-                printf_color("Invadid Opcode Exception\n", ERROR_FGCOLOR,ERROR_BGCOLOR);
+                printf_color("\nInvadid Opcode Exception\n", ERROR_FGCOLOR,ERROR_BGCOLOR);
         break;
     }
     print_regs(stack);
