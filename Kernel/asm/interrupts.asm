@@ -12,7 +12,7 @@ extern irq_dispatcher, syscall_dispatcher, exception_dispatcher, save_registers
 
 SECTION .text
 
-REGISTER_CAPTURE equ '9'
+REGISTER_CAPTURE equ '0'
 
 %macro push_state 0
 	push rax

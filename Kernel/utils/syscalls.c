@@ -158,7 +158,7 @@ void font_size(int size) {
 }
 
 void sys_registers() {
-    print_regs(regs_flag ? regs : (uint64_t *)0);
+    print_regs(regs_flag ? regs : 0);
     regs_flag = 0;
 }
 

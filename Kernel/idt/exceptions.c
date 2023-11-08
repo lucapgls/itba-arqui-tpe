@@ -45,7 +45,7 @@ void exception_dispatcher(uint32_t exception, uint64_t* stack){
 
 void print_regs(uint64_t * stack){
     
-    if(stack == 0){
+    if (stack == 0){
         printf("\nError. Before print registers, press the key '0'\n");
         return;
     }
