@@ -75,8 +75,16 @@ uint64_t sys_seconds();
 
 
 
+/*
+ * @name sys_random_number
+ * @brief Returns a random number based of the seed passed as parameter.
+ */
 uint64_t sys_random_number(int seed);
 
+/*
+ * @name draw
+ * @brief Draws a pixel (8x8) in the position passed as parameter.
+ */
 void draw(uint32_t color, uint64_t posx, uint64_t posy);
 
 void sys_sleep(uint64_t millis);
