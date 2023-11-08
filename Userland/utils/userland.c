@@ -1,7 +1,5 @@
 /* sampleCodeModule.c */
 #include <stdint.h>
-// #include "include/syscalls.h"
-// #include "include/shell.h"
 #include <shell.h>
 
 char *v = (char *)0xB8000 + 79 * 2;

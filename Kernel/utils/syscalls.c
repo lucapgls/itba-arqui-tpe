@@ -159,10 +159,18 @@ void font_size(int size) {
 
 void sys_registers() {
     print_regs(regs_flag ? regs : (uint64_t *)0);
+    regs_flag = 0;
 }
 
 void save_registers(uint64_t *stack) {
+    printf("llamanda a save_regs\n");
     regs_flag = 1;
-    for (int i = 0; i < REGS_SIZE; i++)
+    for (int i = 0; i < REGS_SIZE; i++){
         regs[i] = stack[i];
+        char * buff[15];
+        itoa(buff,stack[i], 15);
+        uintToBase(stack[i], buff,16);
+        printf(buff);
+        putchar('\n');
+    }
 }

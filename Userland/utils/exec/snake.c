@@ -159,6 +159,9 @@ void gameover_menu() {
         clear(COLOR_BLACK);
         writing_pos(width / 2 - 5 * PIXEL, height / 2 - PIXEL);
         printf_color("Thanks for playing! <3\n", COLOR_GREEN, COLOR_BLACK);
+         for(int i = 1000; i > 850; i-=10){
+            sound(i, 100);
+    }
         sleep(500);
         clear(COLOR_BLACK);
         return;
