@@ -1,3 +1,14 @@
+/******************************************************************************
+ *
+ * @file    userland.h
+ *
+ * @brief   Memor addresses for userland code and sample data.
+ *
+ * @author  Luca Pugliese                           <lpugliese@itba.edu.ar>
+ * @author  Felipes Venturino                        <fventurino@itba.edu.ar>
+ * @author  Uriel Sosa Vazquez                      <usosavazquez@itba.edu.ar>
+ *
+ ******************************************************************************/
 #ifndef USERLAND_H
 #define USERLAND_H
 

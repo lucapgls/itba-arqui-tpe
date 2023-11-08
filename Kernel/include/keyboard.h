@@ -1,3 +1,14 @@
+/******************************************************************************
+ *
+ * @file    keyboard.h
+ *
+ * @brief   Keyboard functions to read from the keyboard.
+ *
+ * @author  Luca Pugliese                           <lpugliese@itba.edu.ar>
+ * @author  Felipes Venturino                        <fventurino@itba.edu.ar>
+ * @author  Uriel Sosa Vazquez                      <usosavazquez@itba.edu.ar>
+ *
+ ******************************************************************************/
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
@@ -19,6 +30,7 @@
 #define F3 0x3D
 
 #define KBD_LENGTH 57
+
 // Keyboard codes
 static const uint8_t kbd_codes[][2] = {
     {0, 0},
@@ -81,13 +93,27 @@ static const uint8_t kbd_codes[][2] = {
     {' ', ' '},
 };
 
+// Get the key value pressed (or released)
 extern uint8_t asm_get_key();
+// Get the last input and manage the buffer
 uint8_t get_key();
+
+// Wrapper function to get keyboard input (as interrupt)
 void keyboard_handler();
+
+// Add a key to the buffer
 void add_to_buffer(uint8_t key);
+
+// Get the last input from the buffer
 uint8_t get_last_input();
+
+// Get the buffer
 uint64_t get_buffer(char *buff, uint64_t count);
+
+// Get the first input from the buffer @deprecated
 uint8_t get_first_input();
+
+// Get the buffer size, used for removing keys until the buffer is empty
 uint32_t kbd_count();
 
 #endif
