@@ -8,7 +8,7 @@
 #define INVALID_OPCODE  6
 #define BUFF_SIZE 30
 
-
+static flag = 0;
 static void restore_state(uint64_t* stack);
 
 typedef struct{
@@ -37,6 +37,7 @@ void exception_dispatcher(uint32_t exception, uint64_t* stack){
                 printf_color("\nInvadid Opcode Exception\n", ERROR_FGCOLOR,ERROR_BGCOLOR);
         break;
     }
+    flag = 1;
     print_regs(stack);
     restore_state(stack);
 
@@ -59,15 +60,32 @@ void print_regs(uint64_t * stack){
         printf(buff);
         putchar('\n');
     }
-    printf(regs[registers_len -2]);
-    char buff1[16];
-    uintToBase(stack[16], buff1,16);
-    printf(buff1);
-    putchar('\n');
+    if(flag == 0){
+        printf(regs[registers_len -2]);
+        char buff1[16];
+        uintToBase(stack[16], buff1,16);
+        printf(buff1);
+        putchar('\n');
+
+        // test rp value
+        // char buff2[16];
+        // uintToBase(rp.sp, buff2, 16);
+        // printf(buff2);
+        // putchar('\n');
+    }else if(flag == 1){
+        printf(regs[registers_len -2]);
+        char buff1[16];
+        uintToBase(rp.ip, buff1,16);
+        printf(buff1);
+        putchar('\n');
+
+        flag = 0;
+    }
     printf(regs[registers_len - 1]);
-    char buff2[16];
-    uintToBase(stack[registers_len + 1], buff2, 16); 
-    printf(buff2);
+    
+    char buff2[16]; 
+    uintToBase(stack[registers_len + 1], buff2, 16);  
+    printf(buff2); 
     putchar('\n');
 
 }
@@ -87,7 +105,7 @@ restore_state(uint64_t* stack)
     
 	printf("Restoring state from: IP=0x");
     char buffer[30];
-	uintToBase(rp.ip, buffer, 16);
+	uintToBase(stack[registers_len - 2], buffer, 16);
 	printf(buffer);
 	printf("  SP=0x");
 	uintToBase(rp.sp, buffer, 16);
