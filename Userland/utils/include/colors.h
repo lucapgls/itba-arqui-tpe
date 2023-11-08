@@ -1,3 +1,14 @@
+/******************************************************************************
+ *
+ * @file    colors.h
+ *
+ * @brief   Colors!!
+ *
+ * @author  Luca Pugliese                           <lpugliese@itba.edu.ar>
+ * @author  Felipes Venturino                        <fventurino@itba.edu.ar>
+ * @author  Uriel Sosa Vazquez                      <usosavazquez@itba.edu.ar>
+ *
+ ******************************************************************************/
 #ifndef COLORS_H
 #define COLORS_H
 
@@ -20,6 +31,7 @@ typedef uint32_t color_t;
 #define COLOR_CYAN color(0, 255, 255)
 #define COLOR_MAGENTA color(255, 0, 255)
 
+// Pass from r,g,b value to a color_t (hex value)
 uint32_t color(uint32_t r, uint32_t g, uint32_t b);
 
 #endif

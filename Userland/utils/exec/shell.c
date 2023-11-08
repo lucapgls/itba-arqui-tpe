@@ -11,13 +11,7 @@
 
 void shell() {
 
-    // SHELL HEADER
-    putchar('\n');
-    printf_color("Welcome to AmongOS Shell (SUShell) \n", COLOR_MAGENTA, COLOR_BLACK);
-    putchar('\n');
-    printf("To see the list of available commands, type 'help'\n");
-    putchar('\n');
-    putchar('\n');
+    print_header();
 
     char buff[MAX_BUFFER_SIZE];
 
@@ -28,6 +22,16 @@ void shell() {
         execute_command(buff);
         hlt();
     }
+}
+
+
+void print_header() {
+
+    printf_color("Welcome to AmongOS Shell (SUShell) \n", COLOR_MAGENTA, COLOR_BLACK);
+    putchar('\n');
+    printf("To see the list of available commands, type 'help'\n");
+    putchar('\n');
+    putchar('\n');
 }
 
 void print_ps1(char *user, char *pwd) {

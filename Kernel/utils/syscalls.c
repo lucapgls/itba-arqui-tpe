@@ -163,7 +163,6 @@ void sys_registers() {
 }
 
 void save_registers(uint64_t *stack) {
-    printf("llamanda a save_regs\n");
     regs_flag = 1;
     for (int i = 0; i < REGS_SIZE; i++){
         regs[i] = stack[i];

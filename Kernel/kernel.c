@@ -19,6 +19,9 @@ extern uint8_t bss;
 extern uint8_t endOfKernelBinary;
 extern uint8_t endOfKernel;
 
+//extern void asm_getsp();
+//extern void asm_getbp();
+
 static const uint64_t PageSize = 0x1000;
 
 void clearBSS(void *bssAddress, uint64_t bssSize) {
@@ -49,6 +52,8 @@ int main() {
     idt_loader();
 
     printf_color("Welcome to the AmongOS kernel!\n", 0x00FF00, 0x00);
+
+    //set_restore_point((uint64_t) userlandCodeModuleAddress, asm_getsp(),asm_getbp());
 
     ((EntryPoint)userlandCodeModuleAddress)();
 

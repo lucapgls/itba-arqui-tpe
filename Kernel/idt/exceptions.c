@@ -8,11 +8,14 @@
 #define INVALID_OPCODE  6
 #define BUFF_SIZE 30
 
-/*
+
+static void restore_state(uint64_t* stack);
+
 typedef struct{
     uint64_t ip, sp, bp;
 } restore_point;
-*/
+
+static restore_point rp;
 
 // Length of the registers array is 17
 static char * regs[] = {
@@ -35,32 +38,10 @@ void exception_dispatcher(uint32_t exception, uint64_t* stack){
         break;
     }
     print_regs(stack);
+    restore_state(stack);
 
 }
 
-// void print_regs(uint64_t * stack){
-    
-//     if(stack == 0){
-//         printf("\nError. Before print registers, press the key '0'\n");
-//         return;
-//     }
-    
-//     putchar('\n'); 
- 
-//     for(int i = 0; i < registers_len - 1; i++){ 
-//         printf(regs[i]);
-//         char buff[16];
-//         uintToBase(stack[i],buff,16);
-//         printf(buff);
-//         putchar('\n');
-//     }
-//     printf(regs[registers_len - 1]);
-//     char buff[16];
-//     uintToBase(stack[registers_len - 2], buff, 16); // Get IP value from the correct location on the stack
-//     printf(buff);
-//     putchar('\n');
-
-// }
 
 void print_regs(uint64_t * stack){
     
@@ -90,25 +71,26 @@ void print_regs(uint64_t * stack){
     putchar('\n');
 
 }
-/*
+
 void
-exc_set_restore_point(uint64_t ip, uint64_t sp, uint64_t bp)
+set_restore_point(uint64_t ip, uint64_t sp, uint64_t bp)
 {
 	rp.ip = ip;
 	rp.sp = sp;
 	rp.bp = bp;
 }
-*/
-/*
+
+
 static void
 restore_state(uint64_t* stack)
 {
     
 	printf("Restoring state from: IP=0x");
-	uint_to_base(rp.ip, buffer, 16);
+    char buffer[30];
+	uintToBase(rp.ip, buffer, 16);
 	printf(buffer);
 	printf("  SP=0x");
-	uint_to_base(rp.sp, buffer, 16);
+	uintToBase(rp.sp, buffer, 16);
 	printf(buffer);
 	printf("\n\n");
     
@@ -117,4 +99,3 @@ restore_state(uint64_t* stack)
 	stack[registers_len + 1] = rp.sp;  // RSP
 	stack[registers_len - 7] = rp.bp;  // RSP
 }
-*/

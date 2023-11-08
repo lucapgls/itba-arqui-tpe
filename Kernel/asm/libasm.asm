@@ -2,6 +2,8 @@ GLOBAL cpuVendor
 GLOBAL rtcTime
 GLOBAL asm_get_key
 GLOBAL scanf
+GLOBAL asm_getsp
+GLOBAL asm_getbp
 
 GLOBAL test_write
 
@@ -92,4 +94,12 @@ outb:
 	pop rbp
 	ret
 
+; devuelve el valor del stack-pointer
+asm_getsp:
+    mov rax,rsp
+    ret
 
+; devuelve el valor del base-pointer
+asm_getbp:
+    mov rax,rbp
+    ret

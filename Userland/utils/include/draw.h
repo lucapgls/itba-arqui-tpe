@@ -1,3 +1,14 @@
+/******************************************************************************
+ *
+ * @file    draw.h
+ *
+ * @brief   Draw functions.
+ *
+ * @author  Luca Pugliese                           <lpugliese@itba.edu.ar>
+ * @author  Felipes Venturino                        <fventurino@itba.edu.ar>
+ * @author  Uriel Sosa Vazquez                      <usosavazquez@itba.edu.ar>
+ *
+ ******************************************************************************/
 #ifndef DRAW_H
 #define DRAW_H
 
