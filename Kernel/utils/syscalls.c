@@ -35,7 +35,9 @@ static syscall_t syscalls[] = {
     (syscall_t)&sys_writing_position, // sys_id 14
     (syscall_t)&screen_info, // sys_id 15
     (syscall_t)&font_size, // sys_id 16
-    (syscall_t)&sys_registers // sys_id 17
+    (syscall_t)&sys_registers, // sys_id 17
+    (syscall_t)&test_exc_zero, // sys_id 18
+    (syscall_t)&test_exc_invalid_opcode // sys_id 19
 };
 
 uint64_t syscall_dispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint64_t r9) {
@@ -167,4 +169,13 @@ void save_registers(uint64_t *stack) {
     for (int i = 0; i < REGS_SIZE; i++){
         regs[i] = stack[i];
     }
+}
+
+void test_exc_zero() {
+    int a = 0;
+    int b = 1 / a;
+}
+
+void test_exc_invalid_opcode() {
+    __asm__("ud2");
 }

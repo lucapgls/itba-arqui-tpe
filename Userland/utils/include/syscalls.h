@@ -124,4 +124,9 @@ extern void font_size(int size);
  * 
  */
 extern void sys_registers();
+
+
+extern void test_exc_zero();
+
+extern void test_exc_invalid_opcode();
 #endif

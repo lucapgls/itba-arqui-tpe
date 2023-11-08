@@ -17,6 +17,8 @@ static command_t commands[] = {
     {"amongus", "Prints Among Us", print_amongus},
     {"snake", "Starts the snake game", snake},
     {"regs", "printea los registros", print_regs},
+    {"zero", "testea la excepcion de division por cero", testzero},
+    {"opcode", "testea la excepcion de opcode invalido", opcode},	
 };
 
 void execute_command(char *cmdname) {
@@ -78,4 +80,12 @@ void print_clear() {
 
 void print_regs() {
     sys_registers();
+}
+
+void testzero(){
+    test_exc_zero();
+}
+
+void opcode(){
+    test_exc_invalid_opcode();
 }

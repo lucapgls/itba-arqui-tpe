@@ -1,4 +1,4 @@
-GLOBAL read, write, random, read_char, draw, sleep, time, sound, hlt, clear, writing_pos, screen_info,font_size,sys_registers
+GLOBAL read, write, random, read_char, draw, sleep, time, sound, hlt, clear, writing_pos, screen_info,font_size,sys_registers,test_exc_zero,test_exc_invalid_opcode
 
 
 
@@ -70,5 +70,15 @@ font_size:
 
 sys_registers:
     mov rax,17
+    int 0x80
+    ret
+
+test_exc_zero:
+    mov rax,18
+    int 0x80
+    ret
+
+test_exc_invalid_opcode:
+    mov rax,19
     int 0x80
     ret

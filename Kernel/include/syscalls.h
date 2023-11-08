@@ -169,4 +169,14 @@ void sys_registers();
  */
 void save_registers(uint64_t *stack);
 
+/*
+ * @name test_exc_zero
+ *
+ * @brief Test exception zero.
+ */
+
+void test_exc_zero();
+
+void test_exc_invalid_opcode();
+
 #endif
