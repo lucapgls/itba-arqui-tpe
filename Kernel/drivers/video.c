@@ -98,7 +98,7 @@ void delete_char(uint64_t *x, uint64_t *y, uint64_t fgcolor, uint64_t bgcolor) {
 }
 
 void put_pixel(uint32_t hexColor, uint64_t x, uint64_t y) {
-    uint8_t *frameBuffer = (uint8_t *)vbe_mode_info->framebuffer;
+    uint8_t *frameBuffer = (uint8_t *) ((uint64_t)vbe_mode_info->framebuffer);
     uint64_t offset =
         (x * ((vbe_mode_info->bpp) / 8)) + (y * (vbe_mode_info->pitch));
     frameBuffer[offset] = (hexColor) & 0xFF;
